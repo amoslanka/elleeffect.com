@@ -1,3 +1,4 @@
+<div id="footer">
 <?php
 /**
  * The template for displaying the footer.
@@ -18,7 +19,7 @@
 	get_sidebar( 'footer' );
 ?>
 
-			<a href="<?php echo home_url( '/' ) ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
+			<!-- <a href="<?php echo home_url( '/' ) ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a> -->
 
 <?php
 	/* Always have wp_footer() just before the closing </body>
@@ -28,5 +29,6 @@
 
 	wp_footer();
 ?>
+</div>
 </body>
 </html>

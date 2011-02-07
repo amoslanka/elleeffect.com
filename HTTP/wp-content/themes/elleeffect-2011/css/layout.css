@@ -12,3 +12,41 @@
 /* div, ul, li { position:relative } This will save you having to declare each div / ul / li's position as 'relative' and allows you to absolutely position elements inside them */
 br.clear { clear:both; display:block; height:1px; margin:-1px 0 0 0 } /* Use this br class to clear your floated columns */
 li#theme-switcher { background:#fff; border:10px solid red; padding:20px; position:fixed; top:0; right:0 } /* Use this if you have the Theme Switcher Reloaded plugin (http://themebot.com/webmaster-tools/1-wordpress-theme-switcher-reloaded) installed and want to make it nice and obvious */
+
+/* Stretch bg. */
+/* ----------------------------------------- */
+body { background: url(../images/bl-bg.jpg) no-repeat -9999px; margin:0; padding:0; }
+
+
+html, body { height:100%; width:100%; }
+
+#header {
+	position:absolute; bottom:0;
+}
+
+#body {
+/*	width:100%; height:100%;*/
+}
+
+
+
+/* The info-page. Centered content h&v, large bg image of Lauren's face. */
+/* ----------------------------------------- */
+
+body.info-page { background: url(../images/bl-info-bg.jpg); }
+
+body.info-page .post { 
+	padding-top: 45px; 
+	padding-left:5px;
+	background: url(../images/lauren-stonestreet-small.png) no-repeat; 
+	margin: auto; 
+	margin-bottom: -45px;
+}
+body.info-page .post h1, body.info-page .post h2 { 
+	display:none;
+}
+
+
+
+/*just for now..*/
+#header { display:none; }

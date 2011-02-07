@@ -38,8 +38,11 @@
  * @since Starkers 3.0
  */
 
-wp_register_script('application', get_bloginfo('template_directory') . '/javascripts/application.js', 'jquery');
-
+wp_register_script( 'modernizr', '/wp-includes/js/jquery/modernizr-1.6.min.js', false, '1.6');
+wp_register_script( 'jquery_1_5', '/wp-includes/js/jquery/jquery-1.5.min.js', false, '1.5');
+wp_register_script('backstretch', get_bloginfo('template_directory') . '/javascripts/jquery.backstretch.min.js', 'jquery_1_5');
+$application_js_deps = array('modernizr', 'jquery_1_5', 'backstretch');
+wp_register_script('application', get_bloginfo('template_directory') . '/javascripts/application.js', $application_js_deps);
 
 /**
  * Set the content width based on the theme's design and stylesheet.
