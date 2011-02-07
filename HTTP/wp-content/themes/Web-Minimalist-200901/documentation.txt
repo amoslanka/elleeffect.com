@@ -1,0 +1,50 @@
+Web Minimalist 200901 (Version: 1.0)
+Source: http://www.webminimalist.com/web-minimalist-200901-wordpress-theme.htm
+Author: Effi (http://www.EffiHaryanti.com/)
+==============================================================================
+
+
+Web Minimalist 200901 is a minimalist, imageless Wordpress Theme from WebMinimalist.com. 
+
+
+DEMO
+====
+This theme in only tested in Wordpress 2.5.1 and Wordpress 2.7. 
+For Wordpress 2.7, demo: 
+http://demo27.webminimalist.com/index.php?wptheme=Web+Minimalist+200901
+
+
+FEATURES
+========
+* Minimalist, clean, and imageless theme style.
+* Custom image header, allows you to upload a custom header image to be shown at the top of your blog instead of the default one. On the next screen you will be able to crop the image. Images of exactly 340 x 200 pixels will be used as-is.
+* Supporting threaded comments for Wordpress 2.7
+* Widget ready.
+* The comment section is supporting Gravatars (http://gravatar.com/)
+* Supporting WP-PageNavi plugins from http://lesterchan.net/portfolio/programming/php/
+
+
+INSTALLATION
+============
+* Upload the theme folder to wp-content/themes
+* Log into your Wordpress dashboard, click on Appearance -- Themes, and activate the theme
+
+
+USAGE
+=====
+* This theme is very easy to use. Just install the theme and you are ready to blog.
+* If you need to change the size of header image height, please go to functions.php, and edit "200" in this code:
+define('HEADER_IMAGE_HEIGHT', 200);
+* This theme is supporting threaded comments for Wordpress 2.7. To activate the threaded comments, go to your Wordpress dashboard, click on Settings -- Discussion, and activate the  "Enable threaded (nested) comments".
+
+
+LISENCES
+========
+* Web Minimalist 200901 is released under the GNU General Public License, version 3, as published by the Free Software Foundation. This theme has a link back to WebMinimalist.com to credit me as the creator of this theme. Please leave the credit in tact.
+
+
+For suggestions or help with improvements, please leave your comments here: http://www.webminimalist.com/web-minimalist-200901-wordpress-theme.htm.
+
+
+Thanks for using this theme.
+Happy blogging!

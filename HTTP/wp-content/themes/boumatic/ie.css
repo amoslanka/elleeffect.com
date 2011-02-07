@@ -1,0 +1,8 @@
+/* IE FIXES */
+
+.aside {font-family: Verdana, Arial;}
+.entry-utility, .gallery-caption, #comments-list .comment-meta {font-size:10px;font-family: Verdana, Arial;}
+.shadow-div{border:none;}
+.date-day {padding-top:5px;}
+.date-month-year {padding-top:5px;}
+#siteinfo{width:215px;padding:10px;font-size:10px;line-height:12px;font-family: Verdana, Arial;}

@@ -1,0 +1,406 @@
+/*
+THEME NAME: MNML
+THEME URI: http://themeshaper.com/mnml-a-tumblelog-style-wordpress-theme/
+DESCRIPTION: A Tumblelog-style Theme for WordPress based on <a href="http://www.plaintxt.org/themes/sandbox/">The Sandbox</a>
+VERSION: 1.3
+AUTHOR: <a href="http://themeshaper.com/">Ian Stewart</a>
+AUTHOR URI:
+Tags:two column, fixed width, fixed header, seo
+*/
+
+@import url('styles/reset.css');
+@import url('styles/typography.css');
+
+
+/* Structure
+-------------------------------------------------------------- */
+
+#header {
+	position:fixed;
+	bottom:0;
+	left:0;
+	right:0;
+	width:100%;
+}
+#branding {
+    width:950px;
+    margin:0 auto;
+}
+#access {
+    width:950px;
+    margin:0 auto;
+}
+#content-wrap {
+    width:950px;
+    margin:0 auto;
+    overflow:hidden;
+}
+#container {
+    width:590px;
+    float:left;
+}
+#content {
+	margin:0 40px 0 40px;
+}
+#primary {
+	float:left;
+	width:350px;
+	margin:0 0 36px 10px;
+}
+#footer {
+	clear:both;
+    width:950px;
+    margin:0 auto;
+}
+
+/* Global Elements
+-------------------------------------------------------------- */
+
+body {
+	color:#FFF;
+	background:#1B1B1B url(images/body-background.gif) no-repeat top center;
+	background-attachment:fixed;
+}
+a:link, a:visited {
+	color:#6DCFF6;
+	text-decoration:none;
+}
+blockquote {
+    font-family:Georgia,serif;
+    font-size:16px;
+    font-style:italic;
+}
+
+/* Header
+-------------------------------------------------------------- */
+
+#header {
+	background:url(images/mnml-header-trans.png) top;
+	padding:18px 0 0 0;
+	z-index:100;
+}
+#branding {
+	padding:18px 0;
+}
+#blog-title {
+	font-size:24px;
+	font-weight:bold;
+	line-height:24px;
+    display:inline;
+	padding:0 5px 0 40px;
+}
+#blog-title a {
+	text-decoration:none;
+	color:#FFF;
+    text-shadow: #040405 0 -1px 5px;
+}
+#blog-title a:hover {
+}
+#blog-description {
+    display:inline;
+    font-size:18px;
+	text-transform:uppercase;
+	letter-spacing:2px;
+	color:#040405;
+	margin-right:70px;
+}
+
+/* Menu
+-------------------------------------------------------------- */
+
+.skip-link {display:none;}
+
+#access {
+    overflow:hidden;
+    border-top:1px solid #232829;
+}	
+#access ul {
+	margin:0 40px 0 0;
+	list-style:none;
+	float:right;
+    border-right:1px solid #232829;
+}
+#access ul ul {
+	display:none;	
+}
+#access li {
+	display:inline;
+	margin:0;
+}
+#access a {
+    display:block;
+    float:left;
+    color:#040405;
+    padding:0 10px;
+    line-height:21px;
+    text-decoration:none;
+    text-transform:uppercase;
+    font-size:10px;
+    letter-spacing:2px;
+    border-left:1px solid #232829;
+}
+#access .current_page_item a {
+    background:#3D4243;
+}
+#access a:hover {
+    background:#323739;
+}
+
+/* Content
+-------------------------------------------------------------- */
+
+#wrapper {
+	padding:0 0 320px 0;
+}
+#postbox {
+    padding:54px 0;
+    position:relative;
+}
+#postbox form {
+    width:870px;
+    margin:0 auto;
+}
+#postbox textarea {
+    width:100%;
+    margin-bottom:9px;
+}
+#postbox label {
+	display: block;
+}
+#postbox input#tags {
+}
+#postbox input#submit {
+}
+#postbox #user-info {
+    position:absolute;
+    bottom:54px;
+    right:40px;
+}
+#container {
+	padding:54px 0 32px 0;
+}
+.hentry {
+	margin:0 0 54px 0;
+	position:relative;
+}
+.entry-title {
+	font-size:27px;
+	font-weight:bold;
+	line-height:28px;
+	margin-bottom:3px;	
+	letter-spacing:-1px;
+}
+.entry-title a {
+	text-decoration:none;
+}
+.entry-content {
+	padding-top:16px;
+}
+.entry-content h1,.entry-content h2,.entry-content h3 {
+	font-size:15px;
+	font-weight:bold;
+	margin:0 0 16px 0;
+}
+.entry-content h4,.entry-content h5,.entry-content h6 {
+	font-weight:bold;
+}
+.entry-content h5 {
+	font-size:12px;
+}
+.entry-content h6 {
+	font-size:11px;
+}
+.entry-content abbr,.entry-content  acronym {
+  border-bottom: 1px dotted #666;
+  cursor: help;
+}
+.caps {
+	font-size:10px;
+	text-transform:uppercase;
+	letter-spacing:2px;
+}
+.important {
+	font-weight:bold;
+}
+.entry-meta {
+	font-size:11px;
+}
+.content-column, .entry-content .linkcat {
+	margin-left:0;
+	list-style:none;
+}
+.entry-content .linkcat {
+	margin-left:-18px;
+}
+.content-column {
+	margin-left:-18px;
+	margin-bottom:18px;
+} 
+
+/* Tumblelog Categories
+-------------------------------------------------------------- */
+
+/* Asides */
+.home .category-asides * {
+    display:inline;
+    position:relative;
+}
+.home .category-asides .entry-title {
+    display:none;
+}
+.home .category-asides .comments-link {
+    margin:0 0 0 .125em;
+}
+.home .category-asides .edit-link {
+    margin:0 0 0 .125em;
+}
+
+/* Comments
+-------------------------------------------------------------- */
+
+#comments {
+    padding-top:36px;
+}
+.comments h3 {
+	font-size:17px;
+	font-weight:bold;
+	margin:0 0 18px 0;
+}
+#comments ol {
+	margin:36px 0 0 0;
+}
+#comments ol li {
+	margin:0 0 36px 0;
+}
+#comments-list .comment-author {
+	font-weight:bold;
+}
+.comment-meta {
+	font-size:11px;
+	margin-bottom:18px;
+}
+#respond h3 {
+	font-size:17px;
+	font-weight:bold;
+	margin:0 0 18px 0;
+}
+#respond input, #respond textarea {
+    width:510px;
+    margin-bottom:9px;
+}
+#respond .form-submit input#submit {
+    width:515px;
+}
+
+/* Primary Sidebar
+-------------------------------------------------------------- */
+
+#primary {
+	width:348px;
+    padding:0 0 18px 0;
+    border-left:1px solid #272727;
+}
+.loggedin #primary {
+    border-top:1px solid #272727;
+}
+#primary ul {
+	margin:0;
+	list-style:none;
+}
+#primary ul ul {
+    padding:0 40px 18px 40px;
+    background:transparent;
+}
+#primary ul ul ul {
+    padding:0;
+}
+#primary h3 {
+    text-transform:uppercase;
+    font-size:12px;
+    line-height:36px;
+	font-weight:bold;
+    padding:0 39px 0 39px;
+    border:1px solid #272727;
+    border-width:1px 0;
+    margin:0 1px 17px 1px;
+}
+#primary a:link, #primary a:visited {
+	color:#FFF;
+}
+#primary:hover a:link, #primary:hover a:visited {
+	color:#6DCFF6;
+}
+.sidebar #search h3 {
+    display:none;
+}
+.sidebar #search form {
+    padding:18px 40px;
+}
+.sidebar #search input#s {
+    width:75%;
+}
+
+/* Footer
+-------------------------------------------------------------- */
+
+#footer p {
+    margin-left:40px;
+}
+/* Navigation
+-------------------------------------------------------------- */
+
+.nav-previous {
+	float:left;
+	width:50%;
+}
+.nav-next {
+	float:right;
+}
+#nav-above,#nav-below {
+	float:right;
+	width: 100%;
+}
+.home #nav-above,.single #nav-above {
+	display:none;
+}
+#nav-above {
+	margin:16px 0;
+}
+#nav-below {
+	margin-top:-16px;
+	margin-bottom:16px;
+}
+
+/* Images
+-------------------------------------------------------------- */
+
+.entry-content img {
+	margin: 0 0 16px 0;
+	max-width:100%;
+}
+img.alignleft,
+img.align-left {
+	float: left;
+	margin-right:1.5em;
+}
+img.alignright,
+img.align-right {
+	display: block;
+	float: right;
+	margin-left:1.5em;
+}
+img.centered,
+img.align-center {
+	margin: 0 auto;
+	display: block;
+	float: none;
+	clear: both;
+}
+.alignright {
+    float: right;
+}
+
+.alignleft {
+    float: left;
+}
+

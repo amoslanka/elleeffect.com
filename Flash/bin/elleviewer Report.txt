@@ -1,0 +1,36 @@
+elleviewer.swf Movie Report
+----------------------------
+
+Frame #    Frame Bytes    Total Bytes    Scene
+-------    -----------    -----------    ----------------
+      1         257974         257974    Scene 1 (AS 3.0 Classes Export Frame)
+
+Scene                        Shape Bytes    Text Bytes    ActionScript Bytes
+-------------------------    -----------    ----------    ------------------
+Scene 1                                0             0                226912
+
+Symbol                       Shape Bytes    Text Bytes    ActionScript Bytes
+-------------------------    -----------    ----------    ------------------
+Preloader                             40            77                     0
+ThumbNav.thumbContainer                0             0                     0
+ThumbNav.shadow                        0             0                     0
+ThumbNav                               0             0                     0
+ThumbNav.pagButton-Right              81             0                     0
+ThumbNav.pagButton-Left               81             0                     0
+
+Font Name                 Bytes        Characters    
+----------------------    ---------    --------------
+HanodedHand                    5336    %.0123456789
+
+ActionScript Bytes    Location
+------------------    --------
+            226912    Scene 1:Frame 1
+
+Bitmap                     Compressed    Compression
+-----------------------    ----------  --------  -----------
+pag-btn.png                      793        2772   Lossless
+thumbsNav.shadow.png           24176      415480   JPEG Quality=80
+
+
+
+

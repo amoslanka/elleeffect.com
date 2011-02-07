@@ -1,0 +1,54 @@
+<div tal:replace="">
+<!--
+
+Australis Media has made the contents of this file
+available under a CC-GNU-GPL license:
+
+ http://creativecommons.org/licenses/GPL/2.0/
+
+ A copy of the full license can be found as part of this
+ distribution in the file LICENSE.TXT
+
+You may use the Vanilla theme software in accordance
+with the terms of that license. You agree that you are
+solely  responsible for your use of the Vanilla theme
+software and you represent and warrant to Australis Media
+that your use of the Vanilla theme software will comply
+with the CC-GNU-GPL.
+
+-->
+</div>
+
+<div metal:define-macro="loader" tal:omit-tag="">
+
+<div metal:fill-slot="head" tal:omit-tag="">
+	<title tal:content="php:hybrid_document_title()">Title</title>
+	<meta http-equiv="Content-Type" content="${vanilla/header/content_type}" />
+	<link rel="stylesheet" type="text/css" media="screen" href="${vanilla/header/stylesheet_url}" />
+	<link rel="stylesheet" type="text/css" media="screen, print, handheld" href="${vanilla/header/template_url}css/typography.css" />
+	${structure vanilla/header/ie_cond_stylesheet}
+	<span metal:define-slot="hybrid_head" />
+	<span metal:define-slot="wp_head" />
+</div>
+
+
+<div metal:fill-slot="hd" tal:omit-tag="">
+		<div id="hd" class="yui-d0">
+			<div class="wrapper">
+				<span metal:define-slot="header_nav" />
+				<span metal:define-slot="header" />
+				<span metal:define-slot="main_menu" />
+			</div><!-- .wrapper -->
+		</div><!-- #hd -->
+</div>
+
+
+<div metal:fill-slot="sub_header" tal:omit-tag="">
+		<div id="sub-header" class="yui-d0">
+			<div class="wrapper">
+				<span metal:define-slot="sub_menu" />
+			</div><!-- .wrapper -->
+		</div><!--#sub-header-->
+</div>
+		
+</div>

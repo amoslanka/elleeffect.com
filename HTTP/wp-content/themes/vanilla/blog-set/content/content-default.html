@@ -1,0 +1,48 @@
+<div tal:replace="">
+<!--
+
+Australis Media has made the contents of this file
+available under a CC-GNU-GPL license:
+
+ http://creativecommons.org/licenses/GPL/2.0/
+
+ A copy of the full license can be found as part of this
+ distribution in the file LICENSE.TXT
+
+You may use the Vanilla theme software in accordance
+with the terms of that license. You agree that you are
+solely  responsible for your use of the Vanilla theme
+software and you represent and warrant to Australis Media
+that your use of the Vanilla theme software will comply
+with the CC-GNU-GPL.
+
+-->
+</div>
+
+<div metal:define-macro="loader" tal:omit-tag="">
+
+<div metal:fill-slot="content" tal:omit-tag="">
+	<div id="post-content-${entry/id}" class="hentry full ${entry/class}">
+		<h1 class="entry-title full-title"><a href="${entry/permalink}" title="Permanent link to ${entry/title_attribute}" rel="bookmark" rev="post-${entry/id}">${entry/title}</a></h1>
+		<div class="entry-content full-content">
+			${structure entry/content}
+			<p class="pages-link" tal:condition="entry/pages_link">Pages: ${structure entry/pages_link}</p>
+		</div><!--/entry-content-->
+		<p class="filed">
+			<span class="categories" tal:condition="entry/categories_list">Posted in ${structure entry/categories_list}</span> 
+			<span class="tags" tal:condition="entry/tags_list">Tagged with ${structure entry/tags_list}</span>
+		</p><!--/filed-->
+		<div class="by-line" tal:condition="entry/author">
+			<address class="author vcard full-author">
+				<span class="by">By</span> <a class="url fn" href="${structure entry/author/link}" title="View all posts by ${entry/author/name_attribute}">${entry/author/name}</a>
+			</address>
+			<span class="date full-date"><abbr class="published" title="${entry/date_time}">${entry/date}</abbr></span>
+		</div><!--/by-line-->
+		<p class="comments-link" tal:condition="entry/comments_link">${structure entry/comments_link}</p>
+		<div class="clear"></div>
+		<div id="post-comments-${entry/id}-target"></div>
+		<div class="entry-editlink" tal:condition="entry/edit_link"><a href="${structure entry/edit_link}">${entry/edit_link_text}</a></div>
+	</div><!-- .post -->
+</div>
+
+</div>

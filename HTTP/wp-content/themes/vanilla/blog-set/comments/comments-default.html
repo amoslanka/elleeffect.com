@@ -1,0 +1,49 @@
+<div tal:replace="">
+<!--
+
+Australis Media has made the contents of this file
+available under a CC-GNU-GPL license:
+
+ http://creativecommons.org/licenses/GPL/2.0/
+
+ A copy of the full license can be found as part of this
+ distribution in the file LICENSE.TXT
+
+You may use the Vanilla theme software in accordance
+with the terms of that license. You agree that you are
+solely  responsible for your use of the Vanilla theme
+software and you represent and warrant to Australis Media
+that your use of the Vanilla theme software will comply
+with the CC-GNU-GPL.
+
+-->
+</div>
+
+<div metal:define-macro="loader" tal:omit-tag="">
+
+<div metal:fill-slot="comments" tal:omit-tag="">
+	<span tal:define="file php:vanilla_get_template('comments/' . vanilla['comments_loop']['tpl_file'])"
+		  metal:use-macro="${file}/loader"
+		  tal:condition="exists: vanilla/comments_list" tal:comment="The comments_loop slot." />
+	<span tal:define="file php:vanilla_get_template('comments/' . vanilla['pings_loop']['tpl_file'])"
+		  metal:use-macro="${file}/loader"
+		  tal:condition="exists: vanilla/pings_list" tal:comment="The pings_loop slot." />
+	<span tal:define="file php:vanilla_get_template('forms/' . vanilla['comment_form']['tpl_file'])"
+		  metal:use-macro="${file}/loader" tal:comment="The comment form slot." />
+	
+	<h2 class="comments">${structure vanilla/comments/comments_title}</h2>
+	<p>${structure vanilla/comments/comments_description}</p>
+
+	<span metal:define-slot="comments_loop" tal:condition="exists: vanilla/comments_list" />
+	
+	<div tal:condition="exists: vanilla/pings_list">
+		<h3 class="pings">${structure vanilla/comments/pings_title}</h3>
+		<span metal:define-slot="pings_loop" />
+	</div>
+	
+	<span metal:define-slot="comment_form" />
+</div>
+
+</div>
+
+

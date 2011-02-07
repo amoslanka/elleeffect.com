@@ -1,0 +1,1082 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Hybrid Theme Framework\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-11-12 23:27+0900\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Justin Tadlock <justin@justintadlock.com>\n"
+"Language-Team:  <justin@justintadlock.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: 404.php:15
+msgid "Not Found"
+msgstr ""
+
+#: 404.php:21
+#, php-format
+msgid "You tried going to %1$s, and it doesn't exist. All is not lost! You can search for what you're looking for."
+msgstr ""
+
+#: 404.php:36
+msgid "Possibly Related"
+msgstr ""
+
+#: application.php:13
+#: attachment.php:13
+#: audio.php:13
+#: blog.php:52
+msgid "Continue reading"
+msgstr ""
+
+#: application.php:17
+#: attachment.php:17
+#: audio.php:17
+#, php-format
+msgid "Download &quot;%1$s&quot;"
+msgstr ""
+
+#: application.php:20
+#: attachment.php:20
+#: audio.php:20
+#: authors.php:49
+#: biography.php:66
+#: blog.php:21
+#: blog.php:53
+#: bookmarks.php:47
+#: categories.php:33
+msgid "Pages:"
+msgstr ""
+
+#: application.php:24
+#: archive.php:27
+#: archives.php:46
+#: attachment.php:24
+#: audio.php:24
+#: author.php:35
+#: authors.php:53
+#: biography.php:70
+#: blog.php:48
+#: bookmarks.php:51
+#: categories.php:37
+#: category.php:25
+#: comments-popup.php:94
+#: date.php:31
+msgid "Edit"
+msgstr ""
+
+#: application.php:39
+msgid "Sorry, no applications matched your criteria."
+msgstr ""
+
+#: archive.php:9
+#: date.php:14
+#, php-format
+msgid "You are browsing the archive for %1$s."
+msgstr ""
+
+#: archive.php:24
+#: author.php:32
+#: blog.php:45
+#: category.php:22
+#: date.php:28
+msgid "By"
+msgstr ""
+
+#: archive.php:25
+#: author.php:33
+#: blog.php:46
+#: category.php:23
+#: date.php:29
+msgid "on"
+msgstr ""
+
+#: archive.php:26
+#: author.php:34
+#: blog.php:47
+#: category.php:24
+#: comments-popup.php:87
+#: date.php:30
+msgid "F jS, Y, g:i a (P - e)"
+msgstr ""
+
+#: archive.php:26
+#: author.php:34
+#: blog.php:47
+#: category.php:24
+#: date.php:30
+msgid "F j, Y"
+msgstr ""
+
+#: archive.php:35
+#: author.php:43
+#: blog.php:57
+#: category.php:33
+#: date.php:39
+msgid "Posted in"
+msgstr ""
+
+#: archive.php:36
+#: author.php:44
+#: blog.php:58
+#: category.php:34
+#: date.php:40
+msgid "Tagged"
+msgstr ""
+
+#: archive.php:37
+#: author.php:45
+#: blog.php:59
+#: category.php:35
+#: date.php:41
+msgid "Leave a comment"
+msgstr ""
+
+#: archive.php:37
+#: author.php:45
+#: blog.php:59
+#: category.php:35
+#: date.php:41
+msgid "1 Comment"
+msgstr ""
+
+#: archive.php:37
+#: author.php:45
+#: blog.php:59
+#: category.php:35
+#: date.php:41
+msgid "% Comments"
+msgstr ""
+
+#: archive.php:45
+msgid "Sorry, there are no posts in this archive."
+msgstr ""
+
+#: archives.php:31
+msgid "Archives by category"
+msgstr ""
+
+#: archives.php:37
+msgid "Archives by month"
+msgstr ""
+
+#: archives.php:58
+#: authors.php:65
+#: biography.php:82
+#: blog.php:70
+#: bookmarks.php:63
+#: categories.php:49
+msgid "Sorry, no page matched your criteria."
+msgstr ""
+
+#: attachment.php:39
+msgid "Sorry, no attachments matched your criteria."
+msgstr ""
+
+#: audio.php:39
+msgid "Sorry, no audio files matched your criteria."
+msgstr ""
+
+#: author.php:17
+#: authors.php:40
+#: biography.php:40
+#, php-format
+msgid "Send an email to %1$s"
+msgstr ""
+
+#: author.php:17
+#: authors.php:40
+#, php-format
+msgid "Email %1$s"
+msgstr ""
+
+#: author.php:54
+#, php-format
+msgid "%1$s hasn't written any posts yet."
+msgstr ""
+
+#: biography.php:36
+msgid "Nickname:"
+msgstr ""
+
+#: biography.php:40
+msgid "Email:"
+msgstr ""
+
+#: biography.php:44
+msgid "Website:"
+msgstr ""
+
+#: biography.php:48
+msgid "AIM:"
+msgstr ""
+
+#: biography.php:48
+#: biography.php:52
+#: biography.php:56
+#, php-format
+msgid "IM with %1$s"
+msgstr ""
+
+#: biography.php:52
+msgid "Jabber:"
+msgstr ""
+
+#: biography.php:56
+msgid "Yahoo:"
+msgstr ""
+
+#: category.php:44
+#, php-format
+msgid "Sorry, there are no posts in the %1$s category."
+msgstr ""
+
+#: comments-popup.php:50
+#: comments.php:3
+msgid "Please do not load this page directly. Thanks!"
+msgstr ""
+
+#: comments-popup.php:69
+#: comments.php:19
+msgid "No Responses"
+msgstr ""
+
+#: comments-popup.php:69
+#: comments.php:19
+msgid "One Response"
+msgstr ""
+
+#: comments-popup.php:69
+#: comments.php:19
+msgid "Responses"
+msgstr ""
+
+#: comments-popup.php:70
+#: comments.php:20
+msgid "to"
+msgstr ""
+
+#: comments-popup.php:88
+#, php-format
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: comments-popup.php:92
+msgid "Permalink to comment"
+msgstr ""
+
+#: comments-popup.php:92
+msgid "Permalink"
+msgstr ""
+
+#: comments-popup.php:97
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: comments-popup.php:121
+#: comments.php:46
+#, php-format
+msgid "Comments are closed, but <a href=\"%1$s\" title=\"Trackback URL for this post\">trackbacks</a> and pingbacks are open."
+msgstr ""
+
+#: comments-popup.php:127
+#: comments.php:52
+msgid "Comments are closed."
+msgstr ""
+
+#: comments-popup.php:139
+#: comments.php:64
+msgid "Leave a Reply"
+msgstr ""
+
+#: comments-popup.php:145
+#: comments.php:74
+#, php-format
+msgid "You must be <a href=\"%1$s\" title=\"Log in\">logged in</a> to post a comment."
+msgstr ""
+
+#: comments-popup.php:155
+#: comments.php:84
+#, php-format
+msgid "Logged in as <a href=\"%1$s\" title=\"%2$s\">%2$s</a>."
+msgstr ""
+
+#: comments-popup.php:155
+#: comments.php:84
+msgid "Log out of this account"
+msgstr ""
+
+#: comments-popup.php:155
+#: comments.php:84
+msgid "Logout &raquo;"
+msgstr ""
+
+#: comments-popup.php:161
+#: comments.php:90
+msgid "Name"
+msgstr ""
+
+#: comments-popup.php:161
+#: comments-popup.php:166
+#: comments.php:90
+#: comments.php:95
+msgid "*"
+msgstr ""
+
+#: comments-popup.php:166
+#: comments.php:95
+msgid "Email"
+msgstr ""
+
+#: comments-popup.php:171
+#: comments.php:100
+msgid "Website"
+msgstr ""
+
+#: comments-popup.php:178
+#: comments.php:107
+msgid "Comment"
+msgstr ""
+
+#: comments-popup.php:183
+#: comments.php:112
+msgid "Submit"
+msgstr ""
+
+#: comments-popup.php:184
+#: comments.php:113
+msgid "Reset"
+msgstr ""
+
+#: comments.php:6
+msgid "Password Protected"
+msgstr ""
+
+#: comments.php:7
+msgid "Enter the password to view comments."
+msgstr ""
+
+#: comments.php:64
+#, php-format
+msgid "Leave a Reply to %s"
+msgstr ""
+
+#: comments.php:68
+msgid "Click here to cancel reply."
+msgstr ""
+
+#: date.php:6
+msgid "F jS, Y"
+msgstr ""
+
+#: date.php:8
+msgid "Y"
+msgstr ""
+
+#: date.php:50
+#, php-format
+msgid "Sorry, there are no posts for %1$s."
+msgstr ""
+
+#: home.php:33
+#: search.php:45
+#: single.php:42
+msgid "Sorry, no posts matched your criteria."
+msgstr ""
+
+#: image.php:40
+msgid "Sorry, no images matched your criteria."
+msgstr ""
+
+#: log-in.php:32
+#, php-format
+msgid "You are currently logged in as <a href=\"%1$s\" title=\"%2$s\">%2$s</a>."
+msgstr ""
+
+#: log-in.php:40
+#, php-format
+msgid "You have successfully logged in as <a href=\"%1$s\" title=\"%2$s\">%2$s</a>."
+msgstr ""
+
+#: log-in.php:53
+msgid "Username"
+msgstr ""
+
+#: log-in.php:58
+msgid "Password"
+msgstr ""
+
+#: log-in.php:63
+msgid "Log in"
+msgstr ""
+
+#: log-in.php:65
+msgid "Remember me"
+msgstr ""
+
+#: logged-in.php:50
+#, php-format
+msgid "You must be <a href=\"%1$s\" title=\"Log in\">logged in</a> to view the content of this page."
+msgstr ""
+
+#: logged-in.php:53
+#, php-format
+msgid "If you're not currently a member, please take a moment to <a href=\"%1$s\" title=\"Register\">register</a>."
+msgstr ""
+
+#: quick-post.php:23
+msgid "You must enter a post title."
+msgstr ""
+
+#: quick-post.php:27
+msgid "You must write something."
+msgstr ""
+
+#: quick-post.php:58
+msgid "Title"
+msgstr ""
+
+#: quick-post.php:63
+msgid "Write"
+msgstr ""
+
+#: quick-post.php:68
+msgid "Tags"
+msgstr ""
+
+#: quick-post.php:73
+msgid "Publish"
+msgstr ""
+
+#: quick-post.php:87
+#, php-format
+msgid "You must be <a href=\"%1$s\" title=\"Log in\">logged in</a> with appropriate user capabilities to publish posts."
+msgstr ""
+
+#: register.php:28
+msgid "A username is required for registration."
+msgstr ""
+
+#: register.php:30
+msgid "You must enter an email address."
+msgstr ""
+
+#: register.php:32
+msgid "You must enter a password."
+msgstr ""
+
+#: register.php:34
+msgid "You must enter your password twice."
+msgstr ""
+
+#: register.php:36
+msgid "You must enter the same password twice."
+msgstr ""
+
+#: register.php:38
+msgid "User registration failed.  Please try again."
+msgstr ""
+
+#: register.php:58
+#, php-format
+msgid "You are logged in as <a href=\"%1$s\" title=\"%2$s\">%2$s</a>.  You don't need another account."
+msgstr ""
+
+#: register.php:66
+#, php-format
+msgid "A user account for %1$s has been created."
+msgstr ""
+
+#: register.php:68
+#, php-format
+msgid "Thank you for registering, %1$s."
+msgstr ""
+
+#: register.php:82
+msgid "Users can register themselves or you can manually create users here."
+msgstr ""
+
+#: register.php:84
+msgid "Users cannot currently register themselves, but you can manually create users here."
+msgstr ""
+
+#: register.php:92
+msgid "Required fields are marked <span class=\"required\">*</span>"
+msgstr ""
+
+#: register.php:95
+msgid "Username *"
+msgstr ""
+
+#: register.php:99
+msgid "First Name"
+msgstr ""
+
+#: register.php:103
+msgid "Last Name"
+msgstr ""
+
+#: register.php:107
+msgid "E-mail *"
+msgstr ""
+
+#: register.php:117
+msgid "Password *"
+msgstr ""
+
+#: register.php:121
+msgid "Repeat Password *"
+msgstr ""
+
+#: register.php:127
+msgid "Biographical Information"
+msgstr ""
+
+#: register.php:133
+msgid "Add User"
+msgstr ""
+
+#: register.php:133
+msgid "Register"
+msgstr ""
+
+#: search.php:8
+#, php-format
+msgid "You are browsing the search results for &quot;%1$s.&quot"
+msgstr ""
+
+#: search.php:45
+msgid "Maybe you'd like to try inputting different search terms."
+msgstr ""
+
+#: tag.php:8
+#, php-format
+msgid "You are browsing the %1$s tag archive."
+msgstr ""
+
+#: tag.php:44
+#, php-format
+msgid "Sorry, there are no posts tagged %1$s."
+msgstr ""
+
+#: text.php:39
+msgid "Sorry, no documents matched your criteria."
+msgstr ""
+
+#: video.php:39
+msgid "Sorry, no videos matched your criteria."
+msgstr ""
+
+#: widgets.php:11
+msgid "Widget Template"
+msgstr ""
+
+#: library/admin/about.php:2
+msgid "About This Theme"
+msgstr ""
+
+#: library/admin/about.php:8
+msgid "Theme Description:"
+msgstr ""
+
+#: library/admin/about.php:12
+msgid "Theme Version:"
+msgstr ""
+
+#: library/admin/about.php:16
+msgid "Theme Documentation:"
+msgstr ""
+
+#: library/admin/about.php:17
+msgid "Theme Documentation"
+msgstr ""
+
+#: library/admin/about.php:20
+msgid "Theme Support:"
+msgstr ""
+
+#: library/admin/about.php:21
+msgid "Get support for this theme"
+msgstr ""
+
+#: library/admin/about.php:21
+msgid "Visit the support forums."
+msgstr ""
+
+#: library/admin/general.php:3
+#: library/admin/navigation.php:3
+msgid "Select your theme settings"
+msgstr ""
+
+#: library/admin/general.php:11
+msgid "Widget Inserts:"
+msgstr ""
+
+#: library/admin/general.php:16
+msgid "Select this if you want your primary widget inserts to default to the home insert when nothing else is selected."
+msgstr ""
+
+#: library/admin/general.php:21
+msgid "Select this if you want your secondary widget inserts to default to the home insert when nothing else is selected."
+msgstr ""
+
+#: library/admin/general.php:28
+msgid "Stylesheets:"
+msgstr ""
+
+#: library/admin/general.php:33
+msgid "Select this to have the theme automatically include a print stylesheet."
+msgstr ""
+
+#: library/admin/general.php:40
+msgid "JavaScript:"
+msgstr ""
+
+#: library/admin/general.php:45
+msgid "Include the pull quote JavaScript."
+msgstr ""
+
+#: library/admin/general.php:52
+msgid "Feeds:"
+msgstr ""
+
+#: library/admin/general.php:57
+msgid "If you have a an alternate feed address, such as one from <a href=\"http://feedburner.com\" title=\"Feedburner\">Feedburner</a>, you can enter it here to have the theme set your feed URL link.  If blank, the theme will default to your WordPress RSS feed."
+msgstr ""
+
+#: library/admin/general.php:63
+msgid "Title &amp; Meta:"
+msgstr ""
+
+#: library/admin/general.php:68
+msgid "Use category slugs on single posts for your meta keywords?"
+msgstr ""
+
+#: library/admin/general.php:73
+msgid "Use tag slugs on single posts for your meta keywords?"
+msgstr ""
+
+#: library/admin/general.php:78
+msgid "Use the excerpt on single posts for your meta description?"
+msgstr ""
+
+#: library/admin/general.php:83
+msgid "Use the author bio on author archives for your meta description?"
+msgstr ""
+
+#: library/admin/general.php:88
+msgid "Use the category description on category archives for your meta description?"
+msgstr ""
+
+#: library/admin/general.php:93
+msgid "Append site title to the end of the page name?"
+msgstr ""
+
+#: library/admin/general.php:96
+msgid "You can change these settings in the box labeled <em>Hybrid Settings</em> when writing a post or page."
+msgstr ""
+
+#: library/admin/general.php:96
+#, php-format
+msgid "The <a href=\"%1$s\" title=\"All-In-One SEO Pack\">All-In-One SEO Pack</a> and <a href=\"%2$s\" title=\"Headspace2\">Headspace2</a> plugins will override these settings and the Indexing settings."
+msgstr ""
+
+#: library/admin/general.php:103
+msgid "Indexing:"
+msgstr ""
+
+#: library/admin/general.php:106
+msgid "Choose which pages of your blog get indexed by the search engines. Only selected pages will be indexed.  If not selected, those pages will be blocked."
+msgstr ""
+
+#: library/admin/general.php:106
+msgid "Note: Some of these settings will render the Title &amp; Meta settings moot.  Also, setting your site to privacy mode will override these controls."
+msgstr ""
+
+#: library/admin/general.php:109
+msgid "Home page"
+msgstr ""
+
+#: library/admin/general.php:112
+msgid "Single posts"
+msgstr ""
+
+#: library/admin/general.php:115
+msgid "Attachments"
+msgstr ""
+
+#: library/admin/general.php:118
+msgid "Pages"
+msgstr ""
+
+#: library/admin/general.php:122
+msgid "Date-based archives"
+msgstr ""
+
+#: library/admin/general.php:125
+msgid "Category archives"
+msgstr ""
+
+#: library/admin/general.php:128
+msgid "Tag archives"
+msgstr ""
+
+#: library/admin/general.php:131
+msgid "Author archives"
+msgstr ""
+
+#: library/admin/general.php:135
+#: library/functions/filters.php:251
+msgid "Search"
+msgstr ""
+
+#: library/admin/general.php:138
+msgid "404"
+msgstr ""
+
+#: library/admin/general.php:145
+msgid "Avatars:"
+msgstr ""
+
+#: library/admin/general.php:150
+msgid "You can set a default avatar for users without one if you don't like the choices WordPress offers you. Simply add the full path to the image file."
+msgstr ""
+
+#: library/admin/general.php:156
+msgid "Comments:"
+msgstr ""
+
+#: library/admin/general.php:161
+msgid "Check to use the comments popup window instead of regular comments."
+msgstr ""
+
+#: library/admin/general.php:161
+msgid "WP 2.7+ only."
+msgstr ""
+
+#: library/admin/general.php:168
+msgid "Footer Insert:"
+msgstr ""
+
+#: library/admin/general.php:173
+msgid "You can place XHTML and JavaScript here to have it inserted automatically into your theme.  If you have a script, such as one from Google Analytics, this could be useful."
+msgstr ""
+
+#: library/admin/general.php:179
+msgid "Footer Settings:"
+msgstr ""
+
+#: library/admin/general.php:184
+msgid "Check this if you want the theme to auto-generate your site's copyright and title in the footer."
+msgstr ""
+
+#: library/admin/general.php:189
+msgid "Want to show your love of WordPress?  Check this and a link will be added to your footer back to WordPress.org."
+msgstr ""
+
+#: library/admin/general.php:194
+msgid "Check this to have a link back to Theme Hybrid automatically appended to your footer.  This is totally optional.  Really."
+msgstr ""
+
+#: library/admin/general.php:199
+msgid "For testing purposes, this will append a database query counter and page load timer to your footer."
+msgstr ""
+
+#: library/admin/general.php:207
+#: library/admin/navigation.php:30
+msgid "Save Changes"
+msgstr ""
+
+#: library/admin/meta-box.php:18
+#: library/admin/meta-box.php:19
+#: library/admin/theme-settings.php:17
+msgid "Hybrid Settings"
+msgstr ""
+
+#: library/admin/meta-box.php:38
+#: library/admin/meta-box.php:85
+#: library/admin/meta-box.php:93
+#: library/admin/meta-box.php:101
+msgid "Add a title that will be seen by search engines."
+msgstr ""
+
+#: library/admin/meta-box.php:43
+#: library/admin/meta-box.php:90
+msgid "Description"
+msgstr ""
+
+#: library/admin/meta-box.php:46
+msgid "Add a description that will be seen by search engines."
+msgstr ""
+
+#: library/admin/meta-box.php:51
+#: library/admin/meta-box.php:98
+msgid "Keywords:"
+msgstr ""
+
+#: library/admin/meta-box.php:54
+msgid "Add keywords that will be seen by search engines."
+msgstr ""
+
+#: library/admin/meta-box.php:59
+msgid "Thumbnail:"
+msgstr ""
+
+#: library/admin/meta-box.php:62
+msgid "Add an image URL here."
+msgstr ""
+
+#: library/admin/navigation.php:16
+msgid "Page Navigation:"
+msgstr ""
+
+#: library/admin/theme-settings-admin.php:12
+#: library/functions/filters.php:318
+msgid "Hybrid"
+msgstr ""
+
+#: library/admin/theme-settings-admin.php:13
+#: library/admin/theme-settings.php:17
+msgid "Hybrid Theme Settings"
+msgstr ""
+
+#: library/admin/theme-settings-admin.php:98
+msgid "Settings saved."
+msgstr ""
+
+#: library/functions/breadcrumbs.php:26
+msgid "Browse:"
+msgstr ""
+
+#: library/functions/breadcrumbs.php:29
+msgid "Home"
+msgstr ""
+
+#: library/functions/breadcrumbs.php:142
+#: library/functions/functions.php:386
+msgid "Search results for"
+msgstr ""
+
+#: library/functions/breadcrumbs.php:154
+#: library/functions/breadcrumbs.php:167
+msgid "F"
+msgstr ""
+
+#: library/functions/breadcrumbs.php:155
+msgid "j"
+msgstr ""
+
+#: library/functions/breadcrumbs.php:182
+#: library/functions/functions.php:396
+msgid "404 Not Found"
+msgstr ""
+
+#: library/functions/comments.php:79
+msgid "Reply"
+msgstr ""
+
+#: library/functions/comments.php:80
+msgid "Log in to reply."
+msgstr ""
+
+#: library/functions/deprecated.php:91
+msgid "This function has been removed or replaced by another function."
+msgstr ""
+
+#: library/functions/filters.php:47
+msgid "You can use these <acronym title=\"Extensible Hypertext Markup Language\">XHTML</acronym> tags&#58;"
+msgstr ""
+
+#: library/functions/filters.php:245
+msgid "Search this site..."
+msgstr ""
+
+#: library/functions/filters.php:288
+msgid "Copyright"
+msgstr ""
+
+#: library/functions/filters.php:312
+msgid "Powered by"
+msgstr ""
+
+#: library/functions/filters.php:314
+msgid "Powered by WordPress, state-of-the-art semantic personal publishing platform"
+msgstr ""
+
+#: library/functions/filters.php:314
+msgid "Wordpress"
+msgstr ""
+
+#: library/functions/filters.php:316
+msgid "and"
+msgstr ""
+
+#: library/functions/filters.php:318
+msgid "Hybrid Theme Framework"
+msgstr ""
+
+#: library/functions/functions.php:134
+msgid "You have encountered an error. This is usually because you've changed something in the core Hybrid theme files. Try undoing your last edit to correct this issue. If this doesn't resolve it, head over to the support forums for help."
+msgstr ""
+
+#: library/functions/functions.php:268
+#, php-format
+msgid "This page loaded in %1$s seconds with %2$s database queries."
+msgstr ""
+
+#: library/functions/functions.php:388
+#: library/functions/functions.php:390
+#: library/functions/functions.php:392
+#, php-format
+msgid "Archive for %1$s"
+msgstr ""
+
+#: library/functions/functions.php:394
+#, php-format
+msgid "Comment on &quot;%1$s&quot;"
+msgstr ""
+
+#: library/functions/primary.php:13
+#: library/functions/primary.php:33
+#: library/functions/primary.php:50
+#: library/functions/primary.php:61
+#: library/functions/template-functions.php:287
+#: library/functions/widgets.php:21
+msgid "Primary Home"
+msgstr ""
+
+#: library/functions/primary.php:15
+#: library/functions/widgets.php:22
+msgid "Primary Author"
+msgstr ""
+
+#: library/functions/primary.php:17
+#: library/functions/widgets.php:23
+msgid "Primary Category"
+msgstr ""
+
+#: library/functions/primary.php:19
+#: library/functions/widgets.php:24
+msgid "Primary Date"
+msgstr ""
+
+#: library/functions/primary.php:23
+#: library/functions/widgets.php:25
+msgid "Primary Page"
+msgstr ""
+
+#: library/functions/primary.php:25
+#: library/functions/widgets.php:27
+msgid "Primary Search"
+msgstr ""
+
+#: library/functions/primary.php:27
+#: library/functions/widgets.php:28
+msgid "Primary Single"
+msgstr ""
+
+#: library/functions/primary.php:29
+#: library/functions/widgets.php:26
+msgid "Primary Tag"
+msgstr ""
+
+#: library/functions/primary.php:31
+#: library/functions/widgets.php:29
+msgid "Primary 404"
+msgstr ""
+
+#: library/functions/secondary.php:13
+#: library/functions/secondary.php:33
+#: library/functions/secondary.php:50
+#: library/functions/secondary.php:61
+#: library/functions/template-functions.php:299
+#: library/functions/widgets.php:44
+msgid "Secondary Home"
+msgstr ""
+
+#: library/functions/secondary.php:15
+#: library/functions/widgets.php:45
+msgid "Secondary Author"
+msgstr ""
+
+#: library/functions/secondary.php:17
+#: library/functions/widgets.php:46
+msgid "Secondary Category"
+msgstr ""
+
+#: library/functions/secondary.php:19
+#: library/functions/widgets.php:47
+msgid "Secondary Date"
+msgstr ""
+
+#: library/functions/secondary.php:23
+#: library/functions/widgets.php:48
+msgid "Secondary Page"
+msgstr ""
+
+#: library/functions/secondary.php:25
+#: library/functions/widgets.php:51
+msgid "Secondary Search"
+msgstr ""
+
+#: library/functions/secondary.php:27
+#: library/functions/widgets.php:49
+msgid "Secondary Single"
+msgstr ""
+
+#: library/functions/secondary.php:29
+#: library/functions/widgets.php:50
+msgid "Secondary Tag"
+msgstr ""
+
+#: library/functions/secondary.php:31
+#: library/functions/widgets.php:52
+msgid "Secondary 404"
+msgstr ""
+
+#: library/functions/template-functions.php:183
+msgid "RSS 2.0"
+msgstr ""
+
+#: library/functions/template-functions.php:184
+msgid "RSS .92"
+msgstr ""
+
+#: library/functions/template-functions.php:185
+msgid "Atom 0.3"
+msgstr ""
+
+#: library/functions/template-functions.php:381
+msgid "Previous Page"
+msgstr ""
+
+#: library/functions/template-functions.php:382
+msgid "Next Page"
+msgstr ""
+
+#: library/functions/template-functions.php:407
+msgid "Related Posts"
+msgstr ""
+
+#: library/legacy/legacy.comments.php:41
+msgid "c"
+msgstr ""
+
+#: library/legacy/legacy.comments.php:42
+msgid "M jS, Y"
+msgstr ""
+
+#: library/legacy/legacy.comments.php:43
+msgid "at"
+msgstr ""
+
+#: library/legacy/legacy.comments.php:106
+msgid "Logout"
+msgstr ""
+

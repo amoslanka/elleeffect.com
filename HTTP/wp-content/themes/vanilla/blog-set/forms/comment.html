@@ -1,0 +1,73 @@
+<div tal:replace="">
+<!--
+
+Australis Media has made the contents of this file
+available under a CC-GNU-GPL license:
+
+ http://creativecommons.org/licenses/GPL/2.0/
+
+ A copy of the full license can be found as part of this
+ distribution in the file LICENSE.TXT
+
+You may use the Vanilla theme software in accordance
+with the terms of that license. You agree that you are
+solely  responsible for your use of the Vanilla theme
+software and you represent and warrant to Australis Media
+that your use of the Vanilla theme software will comply
+with the CC-GNU-GPL.
+
+-->
+</div>
+
+<div metal:define-macro="loader" tal:omit-tag="">
+	
+	<div metal:fill-slot="comment_form" tal:condition="vanilla/comment_form/open" tal:omit-tag="">
+		<!-- slot: comment_form -->
+		<p tal:condition="vanilla/comment_form/must_login" id="you-must-be-logged-in-to-comment">${vanilla/comment_form/logged_in_message}</p>
+		
+		<span tal:condition="php: NOT vanilla.comment_form.registered" tal:comment="Display if registration is not required." tal:omit-tag="">
+			<form action="${vanilla/wpurl}/wp-comments-post.php" method="post" id="comment-form">
+				<div id="comment-form-comment" class="section">
+					<label id="respond" for="comment">${vanilla/comment_form/comment_label}</label>
+					<div>
+						<textarea name="comment" id="comment" rows="8" cols="40" tabindex="1"></textarea>
+						<p id="some-html-is-ok">
+							<abbr title="${vanilla/comment_form/allowed_html_attribute}">${vanilla/comment_form/allowed_html_message}</abbr>
+						</p>
+					</div>
+				</div>
+			
+				<p tal:condition="vanilla/comment_form/logged_in" class="logged-in section" tal:comment="Display if user is logged in.">
+					${structure vanilla/comment_form/logged_in_as}
+					<a href="${vanilla/wpurl}/wp-login.php?action=logout" title="${vanilla/comment_form/log_out_attribute}">${vanilla/comment_form/log_out_message}</a>
+				</p>
+				
+				<span tal:condition="php: vanilla.comment_form.logged_in == '0'" tal:comment="Display if user is not logged in." tal:omit-tag="">
+					<p id="comment-form-name" class="section">
+						<label for="author">${vanilla/comment_form/author_label}</label>
+						<input type="text" name="author" id="author" value="${vanilla/comment_form/author_value}" size="22" tabindex="2" />
+						<span tal:condition="vanilla/comment_form/required" class="note">${vanilla/comment_form/required_message}</span>
+					</p><!--/name-->
+					<p id="comment-form-email" class="section">
+						<label for="email">${vanilla/comment_form/email_label}</label>
+						<input type="text" name="email" id="email" value="${vanilla/comment_form/email_value}" size="22" tabindex="3" />
+						<span tal:condition="vanilla/comment_form/required" class="note">${vanilla/comment_form/required_email_message}</span>
+						<span tal:condition="php: NOT vanilla.comment_form.required" class="note">${vanilla/comment_form/email_message}</span>
+					</p><!--/email-->
+					<p id="comment-form-url" class="section">
+						<label title="${vanilla/comment_form/url_attribute}" for="url">${vanilla/comment_form/url_label}</label>
+						<input type="text" name="url" id="url" value="${vanilla/comment_form/url_value}" size="22" tabindex="4" />
+					</p><!--/url-->
+				</span>
+		
+				<p class="actions">
+					<input name="submit" type="submit" id="submit" value="${vanilla/comment_form/submit_text}" tabindex="5" />
+					<span id="comment-form-trackback">${structure vanilla/comment_form/trackback_message}</span>
+					<input type="hidden" name="comment_post_ID" value="${vanilla/comment_form/post_id}" />
+				</p><!--/controls-->
+			</form>
+		</span>
+		<!-- /slot: comment_form -->
+	</div>
+
+</div>

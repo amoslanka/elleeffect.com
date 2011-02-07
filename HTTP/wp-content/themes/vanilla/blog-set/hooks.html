@@ -1,0 +1,172 @@
+<div tal:replace="">
+<!--
+
+Australis Media has made the contents of this file
+available under a CC-GNU-GPL license:
+
+ http://creativecommons.org/licenses/GPL/2.0/
+
+ A copy of the full license can be found as part of this
+ distribution in the file LICENSE.TXT
+
+You may use the Vanilla theme software in accordance
+with the terms of that license. You agree that you are
+solely responsible for your use of the Vanilla theme
+software and you represent and warrant to Australis Media
+that your use of the Vanilla theme software will comply
+with the CC-GNU-GPL.
+
+-->
+</div>
+
+<metal:block define-macro="loader">
+	<metal:block fill-slot="hybrid_head">
+		<!-- hook: hybrid_head -->
+		${php:hybrid_head()}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="wp_head">
+		<!-- hook: wp_head -->
+		${php:wp_head()}
+	</metal:block>
+
+
+	<metal:block fill-slot="before_page">
+		<!-- hook: before_page -->
+		${php:vanilla_before_page()}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="before_hd">
+		<!-- hook: before_hd -->
+		${php:vanilla_before_hd()}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="before_bd">
+		<!-- hook: before_bd -->
+		${php:vanilla_before_bd()}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="before_ft">
+		<!-- hook: before_ft -->
+		${php:vanilla_before_ft()}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="after_ft">
+		<!-- hook: after_ft -->
+		${php:vanilla_after_ft()}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="after_page">
+		<!-- hook: after_page -->
+		${php:vanilla_after_page()}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="wp_footer">
+		<!-- hook: wp_footer -->
+		${php:wp_footer()}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="header_nav">
+		<!-- hook: header_nav -->
+		${php:vanilla_widget_block('Header Nav')}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="header">
+		<!-- hook: header -->
+		${php:vanilla_widget_block('Header')}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="main_menu">
+		<!-- hook: main_menu -->
+		${php:vanilla_widget_block('Main Menu')}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="sub_menu">
+		<!-- hook: main_menu -->
+		${php:vanilla_widget_block('Sub Menu')}
+	</metal:block>
+
+
+	<metal:block fill-slot="breadcrumbs">
+		<!-- hook: breadcrumbs -->
+		${php:vanilla_widget_block('Breadcrumbs')}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="content_top">
+		<!-- hook: content_top -->
+		${php:vanilla_widget_block('Content Top')}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="content_middle">
+		<!-- hook: content_middle -->
+		${php:vanilla_widget_block('Content Middle')}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="content_bottom">
+		<!-- hook: content_bottom -->
+		${php:vanilla_widget_block('Content Bottom')}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="primary_sidebar">
+		<!-- hook: primary_sidebar -->
+		${php:vanilla_widget_block('Primary Sidebar')}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="secondary_sidebar">
+		<!-- hook: secondary_sidebar -->
+		${php:vanilla_widget_block('Secondary Sidebar')}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="footer_nav">
+		<!-- hook: footer_nav -->
+		${php:vanilla_widget_block('Footer Nav')}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="footer">
+		<!-- hook: footer -->
+		${php:vanilla_widget_block('Footer')}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="utility_1">
+		<!-- hook: utility_1 -->
+		${php:vanilla_widget_block('Utility 1')}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="utility_2">
+		<!-- hook: utility_2 -->
+		${php:vanilla_widget_block('Utility 2')}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="utility_3">
+		<!-- hook: utility_3 -->
+		${php:vanilla_widget_block('Utility 3')}
+	</metal:block>
+	
+	
+	<metal:block fill-slot="utility_4">
+		<!-- hook: utility_4 -->
+		${php:vanilla_widget_block('Utility 4')}
+	</metal:block>
+	
+</metal:block>

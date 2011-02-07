@@ -1,0 +1,735 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: NextGen FlashViewer in italiano\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2008-08-08 00:03+0100\n"
+"Last-Translator: Gianni Diurno (aka gidibao) <gidibao@gmail.com>\n"
+"Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: Italian\n"
+"X-Poedit-Country: ITALY\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: nggFlashSettings.php:29
+msgid "Update successfully"
+msgstr "Aggiornato con successo"
+
+#: nggFlashSettings.php:37
+msgid "Reset all settings to default parameter"
+msgstr "Ripristinare le impostazioni ai valori predefiniti"
+
+#: nggFlashSettings.php:45
+msgid "Uninstall sucessfull ! Now delete the plugin and enjoy your life ! Good luck !"
+msgstr "Disinstallato con successo! Cancella ora il plugin e divertiti! Buona fortuna!"
+
+#: nggFlashSettings.php:66
+#: nggFlashSettings.php:80
+msgid "General Settings"
+msgstr "Impostazioni generali"
+
+#: nggFlashSettings.php:67
+msgid "SimpleViewer"
+msgstr "SimpleViewer"
+
+#: nggFlashSettings.php:68
+msgid "TiltViewer"
+msgstr "TiltViewer"
+
+#: nggFlashSettings.php:69
+msgid "AutoViewer"
+msgstr "AutoViewer"
+
+#: nggFlashSettings.php:70
+msgid "PostcardViewer"
+msgstr "PostcardViewer"
+
+#: nggFlashSettings.php:71
+msgid "Setup"
+msgstr "Ripristino"
+
+#: nggFlashSettings.php:83
+msgid "Effects"
+msgstr "Effetti"
+
+#: nggFlashSettings.php:85
+msgid "Please note that only the Thickbox effect works out of the box. Please have a look at the Highslide documentation or read <a href=\"http://travel-junkie.com/geeky-stuff/highslide-and-nextgen-gallery/\">this article</a> on integrating Highslide with NextGEN Gallery."
+msgstr "Ricordati che solamente l'effetto Thickbox può funzionare fuori dal box. Leggi la documentazione di Highslide oppure <a href=\"http://travel-junkie.com/geeky-stuff/highslide-and-nextgen-gallery/\">questo articolo</a> in merito alla integrazione dello Highslide con la NextGEN Gallery."
+
+#: nggFlashSettings.php:87
+msgid "Thickbox"
+msgstr "Thickbox"
+
+#: nggFlashSettings.php:88
+msgid "Highslide"
+msgstr "Highslide"
+
+#: nggFlashSettings.php:89
+msgid "Different JS-Effects to open Simpleviewer/TiltViewer/Auto/PostcardViewer in."
+msgstr "Effetti JS di apertura per Simpleviewer/TiltViewer/Auto/PostcardViewer"
+
+#: nggFlashSettings.php:92
+msgid "Enable Right Click Open"
+msgstr "Abilita il clic destro per l'apertura"
+
+#: nggFlashSettings.php:95
+#: nggFlashSettings.php:227
+#: nggFlashSettings.php:234
+#: nggFlashSettings.php:241
+#: nggFlashSettings.php:298
+#: nggFlashSettings.php:318
+#: nggFlashSettings.php:325
+msgid "true"
+msgstr "sì"
+
+#: nggFlashSettings.php:96
+#: nggFlashSettings.php:228
+#: nggFlashSettings.php:235
+#: nggFlashSettings.php:242
+#: nggFlashSettings.php:299
+#: nggFlashSettings.php:319
+#: nggFlashSettings.php:326
+msgid "false"
+msgstr "no"
+
+#: nggFlashSettings.php:97
+msgid "Whether to display a *Open In new Window...* dialog when right-clicking on an image."
+msgstr "Se disposto in *Apri in nuova finestra...* il dialogo apparirà cliccando sulla immagine con il tasto destro"
+
+#: nggFlashSettings.php:100
+msgid "Background Color"
+msgstr "Colore sfondo"
+
+#: nggFlashSettings.php:102
+msgid "Color of SWFObject background (hexidecimal color value e.g ff00ff)."
+msgstr "Colore di fondo per il  SWFObject (esempio valore colore esagesimale ff00ff)"
+
+#: nggFlashSettings.php:105
+msgid "About Text"
+msgstr "Testo informativo"
+
+#: nggFlashSettings.php:106
+msgid "The text displayed for the right-click *About* menu option."
+msgstr "Il testo che verrà mostrato con il tasto destro nel menu di opzioni *Info*"
+
+#: nggFlashSettings.php:109
+msgid "Open Image Text"
+msgstr "testo apertura immagine"
+
+#: nggFlashSettings.php:110
+msgid "The text displayed for the right-click *Open Image in New Window* menu option."
+msgstr "Il testo che verrà mostrato cliccando con il tasto destro del mouse il menu delle opzioni *Apri immagine in una nuova finestra*"
+
+#: nggFlashSettings.php:114
+#: nggFlashSettings.php:206
+#: nggFlashSettings.php:393
+#: nggFlashSettings.php:427
+#: nggFlashSettings.php:471
+msgid "Update"
+msgstr "Aggiorna"
+
+#: nggFlashSettings.php:125
+msgid "SimpleViewer Settings"
+msgstr "Impostazioni SimpleViewer"
+
+#: nggFlashSettings.php:126
+msgid "The viewer.swf is not in the nggflashviewer/flash folder. SimpleViewer will not work."
+msgstr "Il viewer.swf non é nella cartella nggflashviewer/flash. Senza questo file il SimpleViewer non funzionerà."
+
+#: nggFlashSettings.php:129
+msgid "Maximum Image Width"
+msgstr "Larghezza massima immagine"
+
+#: nggFlashSettings.php:130
+msgid "Width of your largest image in pixels. Used to determine the best layout for your gallery."
+msgstr "Larghezza della tua immagine più grande espressa in pixel. Questa informazione verrà utilizzata per poter determinare il miglior sfondo per la tua galleria"
+
+#: nggFlashSettings.php:133
+msgid "Maximum Image Height"
+msgstr "Altezza massima immagine"
+
+#: nggFlashSettings.php:134
+msgid "Height of your largest image in pixels. Used to determine the best layout for your gallery."
+msgstr "Altezza della tua immagine più grande espressa in pixel. Questa informazione verrà utilizzata per poter determinare il miglior sfondo per la tua galleria"
+
+#: nggFlashSettings.php:137
+#: nggFlashSettings.php:364
+msgid "Text Color"
+msgstr "Colore testo"
+
+#: nggFlashSettings.php:139
+msgid "Color of title and caption text (hexidecimal color value e.g ff00ff)."
+msgstr "Colore del titolo e del testo descrittivo  (esempio valore colore esagesimale ff00ff)"
+
+#: nggFlashSettings.php:142
+msgid "Preloader Color"
+msgstr "Colore preloader"
+
+#: nggFlashSettings.php:144
+msgid "Color of the loader (hexidecimal color value e.g ff00ff)."
+msgstr "Colore del loader (esempio valore esagesimale del colore: ff00ff)"
+
+#: nggFlashSettings.php:147
+#: nggFlashSettings.php:258
+#: nggFlashSettings.php:408
+#: nggFlashSettings.php:456
+msgid "Frame Color"
+msgstr "Colore cornice"
+
+#: nggFlashSettings.php:149
+msgid "Color of image frame, navigation buttons and thumbnail frame (hexidecimal color value e.g ff00ff)."
+msgstr "Colore della cornice immagine, dei pulsanti di navigazione e della cornice miniature (esempio valore esagesimale del colore: ff00ff)"
+
+#: nggFlashSettings.php:152
+#: nggFlashSettings.php:330
+#: nggFlashSettings.php:413
+#: nggFlashSettings.php:461
+msgid "Frame Width"
+msgstr "Larghezza cornice"
+
+#: nggFlashSettings.php:153
+#: nggFlashSettings.php:414
+#: nggFlashSettings.php:462
+msgid "Width of image frame in pixels."
+msgstr "larghezza della cornice immagine espressa in pixel"
+
+#: nggFlashSettings.php:156
+msgid "Stage Padding"
+msgstr "Stage Padding"
+
+#: nggFlashSettings.php:157
+msgid "Distance between image and thumbnails and around gallery edge."
+msgstr "La distanza tra immagine e miniature ed intorno al bordo della galleria"
+
+#: nggFlashSettings.php:160
+msgid "Nav Padding"
+msgstr "Padding navigazione"
+
+#: nggFlashSettings.php:161
+msgid "Distance between image and thumbnails (pixels)."
+msgstr "La distanza tra una immagine e le miniature (in pixel)"
+
+#: nggFlashSettings.php:165
+msgid "Thumbnail Columns"
+msgstr "Colonne miniature"
+
+#: nggFlashSettings.php:166
+msgid "Number of thumbnail columns. (To disable thumbnails completely set this value to 0.)"
+msgstr "Il numero delle colonne per le miniature. (Per disabilitare completamente le miniature inserisci il valore 0)"
+
+#: nggFlashSettings.php:169
+msgid "Thumbnail Rows"
+msgstr "Righe miniature"
+
+#: nggFlashSettings.php:170
+msgid "Number of thumbnail rows. (To disable thumbnails completely set this value to 0.)"
+msgstr "Il numero delle righe di miniature. (Per disabilitare completamente le miniature inserisci il valore 0)"
+
+#: nggFlashSettings.php:173
+msgid "Navigation Position"
+msgstr "Posizione del navigatore"
+
+#: nggFlashSettings.php:176
+#: nggFlashSettings.php:187
+msgid "top"
+msgstr "in alto"
+
+#: nggFlashSettings.php:177
+#: nggFlashSettings.php:188
+msgid "bottom"
+msgstr "al fondo"
+
+#: nggFlashSettings.php:178
+#: nggFlashSettings.php:196
+msgid "left"
+msgstr "a sinistra"
+
+#: nggFlashSettings.php:179
+#: nggFlashSettings.php:197
+msgid "right"
+msgstr "a destra"
+
+#: nggFlashSettings.php:180
+msgid "Position of thumbnails relative to image."
+msgstr "Posizione delle miniature in relazione alla immagine"
+
+#: nggFlashSettings.php:183
+msgid "Horizontal Align"
+msgstr "Allineamento orizzontale"
+
+#: nggFlashSettings.php:186
+#: nggFlashSettings.php:195
+msgid "center"
+msgstr "centrato"
+
+#: nggFlashSettings.php:189
+msgid "Horizontal placment of the image and thumbnails within the SWF."
+msgstr "Posizionamento orizzontale della immagine e delle miniature all'interno del SWF"
+
+#: nggFlashSettings.php:192
+msgid "Vertical Align"
+msgstr "Allineamento verticale"
+
+#: nggFlashSettings.php:198
+msgid "Vertical placment of the image and thumbnails within the SWF."
+msgstr "Posizionamento verticale della immagine e delle miniature all'interno del SWF"
+
+#: nggFlashSettings.php:201
+msgid "Background Image Path (URL)"
+msgstr "Indirizzo immagine di sfondo (URL)"
+
+#: nggFlashSettings.php:202
+msgid "Relative or absolute path to a JPG or SWF to load as the gallery background."
+msgstr "Percorso relativo od assoluto ad una JPG o SWF caricabile come sfondo per la galleria"
+
+#: nggFlashSettings.php:217
+msgid "TiltViewer Settings"
+msgstr "Impostazioni TiltViewer"
+
+#: nggFlashSettings.php:218
+msgid "The TiltViewer.swf is not in the nggflashviewer/flash folder. TiltViewer will not work."
+msgstr "Il TiltViewer.swf non é nella cartella nggflashviewer/flash. Senza questo file il TiltViewer non funzionerà."
+
+#: nggFlashSettings.php:221
+msgid "Maximum JPG Size"
+msgstr "Dimensione massima JPG"
+
+#: nggFlashSettings.php:222
+msgid "Set this value to the largest dimension (width or height) of your largest image. TiltViewer uses this value to proportionately scale your images to fit."
+msgstr "Imposta questo valore alla massima dimensione (larghezza o altezza) della tua immagine più grande. TiltViewer farà uso di questo valore per poter proporzionare le altre immagini ad esso"
+
+#: nggFlashSettings.php:225
+msgid "Use Reload Button"
+msgstr "Utiliza il pulsante di ricarica"
+
+#: nggFlashSettings.php:229
+msgid "Defines whether to use the circular reload button under the images, or to use next/back arrow buttons for gallery paging."
+msgstr "Definisce l'utilizzo del pulsante arrotondato di navigazione posizionato sotto le immagini oppure l'uso delle frecce per lo scorrimento delle pagine della galleria"
+
+#: nggFlashSettings.php:232
+msgid "Show Flip Button"
+msgstr "Mostra il pulsante di rotazione"
+
+#: nggFlashSettings.php:236
+msgid "Defines whether to display the *flip* button at the bottom-right of a zoomed in image. Affects all images."
+msgstr "Definisce se mostrare il pulsante *ruota* in basso a destra di una immagine zoommata. Verranno condizionate ad esso tute le immagini"
+
+#: nggFlashSettings.php:239
+msgid "Show Link Button"
+msgstr "Mostra il pulsante di collegamento"
+
+#: nggFlashSettings.php:243
+msgid "Defines whether to display the *go to Flickr page* button on the image flipside. Affects all images."
+msgstr "Definisce se mostrare il pulsante *vai alla pagina di Flickr* alla immagine. Verranno condizionate ad esso tute le immagini."
+
+#: nggFlashSettings.php:246
+msgid "Link Label"
+msgstr "Testo del link"
+
+#: nggFlashSettings.php:247
+msgid "Text to display as the flipside link button label."
+msgstr "Testo che verrà mostrato come collegamento nella etichetta del pulsante"
+
+#: nggFlashSettings.php:250
+#: nggFlashSettings.php:444
+msgid "Columns"
+msgstr "Colonne"
+
+#: nggFlashSettings.php:251
+msgid "Number of columns of images to display."
+msgstr "Numero delle colonne di immagini da mostrare"
+
+#: nggFlashSettings.php:254
+msgid "Rows"
+msgstr "Righe"
+
+#: nggFlashSettings.php:255
+msgid "Number of rows of images to display."
+msgstr "Numero delle righe di immagini da mostrare."
+
+#: nggFlashSettings.php:260
+msgid "Hexadecimal color value of the image frame."
+msgstr "Valore esagesimale del colore della cornice della immagine"
+
+#: nggFlashSettings.php:263
+msgid "Backside Color"
+msgstr "Colore retro "
+
+#: nggFlashSettings.php:265
+msgid "Hexadecimal color value of the flipside background."
+msgstr "Valore esagesimale del colore dello sfondo del flipside"
+
+#: nggFlashSettings.php:268
+msgid "Background Inner Color"
+msgstr "Colore interno di sfondo"
+
+#: nggFlashSettings.php:270
+msgid "Hexadecimal color value of the stage background gradient center."
+msgstr "Valore esagesimale del colore utilizzato come gradiente centrale per lo sfondo"
+
+#: nggFlashSettings.php:273
+msgid "Background Outer Color"
+msgstr "Colore esterno dello sfondo"
+
+#: nggFlashSettings.php:275
+msgid "Hexadecimal color value of the stage background gradient edge."
+msgstr "Valore esagesimale del colore utilizzato come gradiente del bordo per lo sfondo"
+
+#: nggFlashSettings.php:278
+msgid "Go Fullscreen Text"
+msgstr "Testo per funzione a schermo intero"
+
+#: nggFlashSettings.php:279
+msgid "The text displayed for the right-click *Go Fullscreen* menu option."
+msgstr "Il testo verrà mostrato con il tasto destro nel menu di opzioni *Schermo intero*"
+
+#: nggFlashSettings.php:282
+msgid "Exit Fullscreen Text"
+msgstr "Testo per uscire dalla funzione a schermo intero"
+
+#: nggFlashSettings.php:283
+msgid "The text displayed for the right-click *Exit Fullscreen* menu option."
+msgstr "Il testo verrà mostrato con il tasto destro nel menu di opzioni *Esci*"
+
+#: nggFlashSettings.php:286
+msgid "Flickr User ID"
+msgstr "ID utente Flickr"
+
+#: nggFlashSettings.php:287
+msgid "User ID of your Flickr account, which you can find <a href=\"http://www.flickr.com/services/api/explore/?method=flickr.people.findByUsername\">here</a>."
+msgstr "Puoi trovare <a href=\"http://www.flickr.com/services/api/explore/?method=flickr.people.findByUsername\">qui</a> il tuo ID utente Flickr"
+
+#: nggFlashSettings.php:289
+msgid "Tag Mode"
+msgstr "Modalità Tag"
+
+#: nggFlashSettings.php:291
+msgid "any"
+msgstr "qualsiaisi"
+
+#: nggFlashSettings.php:292
+msgid "all"
+msgstr "tutti"
+
+#: nggFlashSettings.php:293
+msgid " Use \"any\" for an OR combination of tags (image can have 1 or more tags to be displayed) or \"all\" for an AND combination (image must have all tags to be displayed)."
+msgstr " Utilizzando \"qualsiasi\", l'immagine dovrà avere ad essa attribuita una combinazione di uno o più tag per poter essere mostrata; oppure \"tutti\" qualora si volesse che l'immagine abbia tutti i tag per poter essere mostrata"
+
+#: nggFlashSettings.php:296
+msgid "Show Taken By Text"
+msgstr "Mostra il testo scattata da"
+
+#: nggFlashSettings.php:300
+msgid "Defines whether to display the 'taken by X on Y' text on the image flipside."
+msgstr "Definisce se mostrare il testo 'fatta da X il Y' sul retro della immagine"
+
+#: nggFlashSettings.php:305
+msgid "TiltViewer Pro Settings"
+msgstr "Impostazioni TiltViewer Pro"
+
+#: nggFlashSettings.php:309
+msgid "Are you using TiltViewer Pro?"
+msgstr "Stai utilizzando TiltViewer Pro?"
+
+#: nggFlashSettings.php:311
+msgid "yes"
+msgstr "sì"
+
+#: nggFlashSettings.php:312
+msgid "no"
+msgstr "no"
+
+#: nggFlashSettings.php:313
+msgid "<font color=\"red\">IMPORTANT:</font> The Pro options will only be available to you if you actually have the Pro version and if you answered yes!"
+msgstr "<font color=\"red\">IMPORTANTE:</font> Le opzioni Pro saranno disponibili solamente qualora tu abbia la versione Pro nonché risposto sì!"
+
+#: nggFlashSettings.php:316
+msgid "Transparent Background"
+msgstr "Sfondo trasparente"
+
+#: nggFlashSettings.php:320
+msgid "Defines whether to hide the radial gradient background behind the image grid."
+msgstr "Definisce se nascondere dietro la griglia della immagine il gradiente circolare di sfondo"
+
+#: nggFlashSettings.php:323
+msgid "Show Fullscreen Option"
+msgstr "Opzioni schermo intero"
+
+#: nggFlashSettings.php:327
+msgid "Defines whether to show the *Go Fullscreen* right-click menu option."
+msgstr "Definisce se mostrare il testo *Shermo intero* nel menu di opzioni del tasto destro"
+
+#: nggFlashSettings.php:331
+msgid "Width of the image frames. To remove frames completely set this to -5."
+msgstr "Larghezza della cornice per le immagini. Per rimuovere completamente le cornici impostare questa opzione a -5"
+
+#: nggFlashSettings.php:334
+msgid "Zoomed-in Distance"
+msgstr "Distanza zoom avanti"
+
+#: nggFlashSettings.php:335
+msgid "Camera distance from image when zoomed in to an image. Increasing this value makes the image smaller."
+msgstr "Distanza di ripresa da una immagine quando viene azionato lo zoom avanti. L'aumento di questo valore renderà l'immagine più piccola"
+
+#: nggFlashSettings.php:338
+msgid "Zoomed-out Distance"
+msgstr "Distanza zoom indietro"
+
+#: nggFlashSettings.php:339
+msgid "Camera distance from image-grid when zoomed out. Increasing this value makes the image-grid smaller."
+msgstr "Distanza di ripresa dalla griglia immagine quando viene azionato lo zoom indietro. L'aumento di questo valore renderà più piccola la griglia dell'immagine"
+
+#: nggFlashSettings.php:342
+msgid "Font Name"
+msgstr "Nome del carattere"
+
+#: nggFlashSettings.php:343
+msgid "Font style used by the flipside text. Note: this font is not embedded in the swf, so the user must have the specified font on their machine to view the font. If they don't have the specified font, they will see the default system font (usually 'sans')"
+msgstr "Il tipo di carattere che verrà utilizzato per il testo nel retro della immagine. Nota: questo font non é incorporato nei file swf quindi, sarà necessario che gli utenti abbiano installato in locale il carattere specifico affinché sia possibile per loro visualizzarlo. Qualora il font non fosse presente, l'utente vedrà il tipo di carattere predefinito dal sistema  (in genere 'sans')"
+
+#: nggFlashSettings.php:346
+msgid "Title Font Size"
+msgstr "Dimensione font titolo "
+
+#: nggFlashSettings.php:347
+msgid "The font size of the title on the flipside"
+msgstr "La dimensione del carattere per il titolo visibile nel retro della immagine"
+
+#: nggFlashSettings.php:350
+msgid "Description Font Size"
+msgstr "Dimensione font descrizione"
+
+#: nggFlashSettings.php:351
+msgid "The font size of the description on the flipside"
+msgstr "La dimensione del carattere per la descrizione visibile nel retro della immagine"
+
+#: nggFlashSettings.php:354
+msgid "Nav Button Color"
+msgstr "Colore del pulsante di navigazione"
+
+#: nggFlashSettings.php:356
+msgid "Hexadecimal color value of the navigation arrows."
+msgstr "Valore esagesimale del colore per le frecce di navigazione"
+
+#: nggFlashSettings.php:359
+msgid "Flip Button Color"
+msgstr "Colore per il pulsante ruota"
+
+#: nggFlashSettings.php:361
+msgid "Hexadecimal color value of the flip button."
+msgstr "Valore esagesimale del colore per il pulsante di rotazione"
+
+#: nggFlashSettings.php:366
+msgid "Hexadecimal color value of the text color."
+msgstr "Valore esagesimale del colore per il colore del testo"
+
+#: nggFlashSettings.php:369
+msgid "Link Text Color"
+msgstr "Colore per il link di testo"
+
+#: nggFlashSettings.php:371
+msgid "Hexadecimal color value of the flipside link text."
+msgstr "Valore esagesimale del colore per il collegamento ipertestuale"
+
+#: nggFlashSettings.php:374
+msgid "Link Background Color"
+msgstr "Colore di sfondo per il link"
+
+#: nggFlashSettings.php:376
+msgid "Hexadecimal color value of the flipside link text background."
+msgstr "Valore esagesimale del colore per lo sfondo del link di testo nel retro della immagine"
+
+#: nggFlashSettings.php:379
+msgid "Link Font Size"
+msgstr "Dimensione font per il link"
+
+#: nggFlashSettings.php:380
+msgid "Font size of flipside link text."
+msgstr "Dimensione del carattere per il collegamento ipertestuale nel retro della immagine"
+
+#: nggFlashSettings.php:383
+msgid "Link Target"
+msgstr "Target del link"
+
+#: nggFlashSettings.php:385
+msgid "_self"
+msgstr "_self"
+
+#: nggFlashSettings.php:386
+msgid "_blank"
+msgstr "_blank"
+
+#: nggFlashSettings.php:387
+msgid "_parent"
+msgstr "_parent"
+
+#: nggFlashSettings.php:388
+msgid "_top"
+msgstr "_top"
+
+#: nggFlashSettings.php:389
+msgid "\"_self\" specifies the current frame in the current window; \"_blank\" specifies a new window; \"_parent\" specifies the parent of the current frame; \"_top\" specifies the top-level frame in the current window."
+msgstr "\"_self\" aprirà il frame nella medesima finestra; \"_blank\" in una nuova finestra; \"_parent\" in una parent nella medesima finestra ; \"_top\" in top-level frame nella medesima finestra"
+
+#: nggFlashSettings.php:404
+msgid "AutoViewer Settings"
+msgstr "Impostazioni AutoViewer"
+
+#: nggFlashSettings.php:405
+msgid "The autoviewer.swf is not in the nggflashviewer/flash folder. AutoViewer will not work."
+msgstr "L'autoviewer.swf non é nella cartella nggflashviewer/flash. Senza questo file l'AutoViewer non funzionerà."
+
+#: nggFlashSettings.php:410
+msgid "Hexadecimal color value of the image frame (e.g ff00ff)."
+msgstr "Valore esagesimale per il colore della cornice della immagine (es. ff00ff)"
+
+#: nggFlashSettings.php:417
+msgid "Image Padding"
+msgstr "Padding immagine"
+
+#: nggFlashSettings.php:418
+msgid "Padding in pixels."
+msgstr "Padding espresso in pixel"
+
+#: nggFlashSettings.php:421
+msgid "Display Time"
+msgstr "Tempo visualizzazione"
+
+#: nggFlashSettings.php:422
+msgid "seconds"
+msgstr "secondi"
+
+#: nggFlashSettings.php:422
+msgid "Time to display image in seconds"
+msgstr "Il tempo di permanenza delle immagini espresso in secondi"
+
+#: nggFlashSettings.php:436
+msgid "PostcardViewer Settings"
+msgstr "Impostazioni PostcardViewer"
+
+#: nggFlashSettings.php:437
+msgid "The pcviewer.swf is not in the nggflashviewer/flash folder. PostcardViewer will not work."
+msgstr "Il pcviewer.swf non é nella cartella nggflashviewer/flash. Senza questo file il PostcardViewer non funzionerà."
+
+#: nggFlashSettings.php:440
+msgid "Cell Dimension"
+msgstr "Dimensione elemento"
+
+#: nggFlashSettings.php:441
+msgid "The size of the square *cell* that contains each image (pixels). Make this at least as big as your biggest image to avoid the images overlapping."
+msgstr "La dimensione del riquadro *elemento* che contiene ogni singola immagine (in pixel). Fai sì che la dimensione sia pari alla tua immagine più grande affinché possa essere evitata la sovrapposizione delle immagini"
+
+#: nggFlashSettings.php:445
+msgid "Number of columns of images. Rows are calculated automatically from the number of images in the gallery."
+msgstr "Numero delle colonne di immagini. Le righe verranno calcolate automaticamente in relazione al numero di immagini presenti nella galleria "
+
+#: nggFlashSettings.php:448
+msgid "Zoomed-in Percentage"
+msgstr "Percentuale zoom avanti"
+
+#: nggFlashSettings.php:449
+msgid "The amout of scale when zoomed out (percentage)."
+msgstr "Il valore percentuale per il zoom avanti"
+
+#: nggFlashSettings.php:452
+msgid "Zoomed-out Percentage"
+msgstr "Percentuale zoom indietro"
+
+#: nggFlashSettings.php:453
+msgid "The amout of scale when zoomed in (percentage)."
+msgstr "Il valore percentuale per il zoom indietro"
+
+#: nggFlashSettings.php:458
+msgid "Color of image frame (hexidecimal color value)."
+msgstr "Colore cornice immagine (valore esagesimale del colore)"
+
+#: nggFlashSettings.php:465
+msgid "Caption Color"
+msgstr "Colore descrizione"
+
+#: nggFlashSettings.php:467
+msgid "Color of captions (hexidecimal color value)."
+msgstr "Colore per la descrizione (valore esagesimale del colore)"
+
+#: nggFlashSettings.php:479
+msgid "Reset options"
+msgstr "Ripristina le opzioni"
+
+#: nggFlashSettings.php:482
+msgid "Reset all options/settings to the default installation."
+msgstr "Ripristina tutte le opzioni/impostazioni con quelle predefinite"
+
+#: nggFlashSettings.php:483
+msgid "Reset settings"
+msgstr "Ripristino impostazioni"
+
+#: nggFlashSettings.php:483
+msgid ""
+"Reset all options to default settings ?\\n"
+"\\n"
+"Choose [Cancel] to Stop, [OK] to proceed.\\n"
+msgstr ""
+"Desideri ripristinare tutte le opzioni con le impostazioni predefinite ?\\n"
+"\\n"
+"Scegli [Cancella] per fermarti, [OK] per procedere.\\n"
+
+#: nggFlashSettings.php:488
+msgid "Uninstall options from the database"
+msgstr "Disinstalla le opzioni dal database"
+
+#: nggFlashSettings.php:492
+msgid "You don't like NextGEN FlashViewer ?"
+msgstr "Non ti piace NextGEN FlashViewer?"
+
+#: nggFlashSettings.php:493
+msgid "No problem, before you deactivate this plugin press the Uninstall Button, because deactivating NextGEN FlashViewer does not remove any data that may have been created. "
+msgstr "Nessun problema! Prima di disattivare questo plugin premi il pulsante di disinstallazione affinché possano essere rimossi tutti i dati che sono stati salvati per il plugin nel database"
+
+#: nggFlashSettings.php:494
+msgid "Uninstall plugin"
+msgstr "Disinstalla il plugin"
+
+#: nggFlashSettings.php:494
+msgid ""
+"You are about to Uninstall this plugin from WordPress.\\n"
+"This action is not reversible.\\n"
+"\\n"
+"Choose [Cancel] to Stop, [OK] to Uninstall.\\n"
+msgstr ""
+"Stai per disinstallare questo plugin di WordPress.\\n"
+"L'azione non sraà reversibile.\\n"
+"\\n"
+"Scegli [Cancella] per fermarti, [OK] per disinstallare.\\n"
+
+#: nggFlashViewer.php:40
+msgid "You are not allowed to call this page directly."
+msgstr "Non ti é permesso di caricare direttamente questa pagina."
+
+#: nggFlashViewer.php:66
+msgid "Sorry, NextGEN FlashViewer works only in combination with NextGEN Gallery."
+msgstr "Il plugin NextGEN FlashViewer funziona solamente in combinazione con la NextGEN Gallery."
+
+#: nggFlashViewer.php:173
+msgid "viewer.swf not found"
+msgstr "Il file viewer.swf non é stato trovato"
+
+#: nggFlashViewer.php:205
+msgid "TiltViewer.swf not found"
+msgstr "Il file TiltViewer.swf non é stato trovato"
+
+#: nggFlashViewer.php:231
+msgid "autoviewer.swf not found"
+msgstr "Il file autoviewer.swf non é stato trovato"
+
+#: nggFlashViewer.php:256
+msgid "pcviewer.swf not found"
+msgstr "Il file pcviewer.swf non é stato trovato"
+
+#: nggFlashViewer.php:493
+msgid "FlashViewer"
+msgstr "FlashViewer"
+

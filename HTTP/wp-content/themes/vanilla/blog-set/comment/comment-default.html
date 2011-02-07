@@ -1,0 +1,45 @@
+<div tal:replace="">
+<!--
+
+Australis Media has made the contents of this file
+available under a CC-GNU-GPL license:
+
+ http://creativecommons.org/licenses/GPL/2.0/
+
+ A copy of the full license can be found as part of this
+ distribution in the file LICENSE.TXT
+
+You may use the Vanilla theme software in accordance
+with the terms of that license. You agree that you are
+solely  responsible for your use of the Vanilla theme
+software and you represent and warrant to Australis Media
+that your use of the Vanilla theme software will comply
+with the CC-GNU-GPL.
+
+-->
+</div>
+
+<div metal:define-macro="loader" tal:omit-tag="">
+
+	<div metal:fill-slot="comment" id="comment-${comment/id}" class="${comment/class}">
+		<span tal:condition="php: comment.approved == '0'">
+			<div class="notification"><strong>${structure comment/message}</strong></div>${comment/approved}
+		</span>
+	
+		<div class="info">
+			<address class="vcard author entry-title comment-author">
+				<span class="photo" tal:condition="exists: comment/avatar">${structure comment/avatar}</span>
+				${structure comment/author_link}
+			</address><!--.vcard-->
+			<div class="date comment-date">
+				${structure comment/date}
+			</div><!--.date-->
+		</div><!--.info-->
+	
+		<div class="entry-content comment-content">
+			${structure comment/text}
+		</div><!--.entry-content-->
+		<div class="comment-editlink"><a href="${structure comment/edit_link}" title="${comment/edit_attribute}">${comment/edit_message}</a></div>
+	</div><!--.comment-->
+
+</div>

@@ -1,0 +1,82 @@
+NextGEN FlashViewer
+by ShabuShabu Webdesign
+
+v1.3
+-NEW:		Support for Shadowbox 2.0
+-NEW:		Support for qTranslate and Polyglot
+-Bugfix:	getimagesize uses absolute path now (needed for autoviewer)
+-Bugfix:	Values for horizontal & vertical align were mixed up
+-Bugfix:	Thickbox/Lightview effect should be working again
+-Changed:	Viewers have been moved to .../plugins/nggflash-swf/
+-Added:		swfobject 2.1 needed, when not added by NGG
+
+v1.2
+-NEW:		Automatic unistall via register_uninstall_hook()
+-Added:		Compatibility with WP 2.7 and NextGEN Gallery 1.0
+-Added:		lib/shortcodes.php for use of WP shortcodes
+-Changed:	moved functions to lib/functions.php
+-Changed:	moved options to admin/install.php
+-Changed:	rewritten plugin as a class
+-Changed:	rewritten admin area as a class
+-Changed:	renamed and moved xml files to folder xml/
+
+v1.1b
+-Added:		lib/swfobject.php for compatibility with nggallery 0.99 and highslide 4.0
+-Added:		Italian language files added  - THX to Gianni Diurno(http://gidibao.net/)
+
+v1.0
+-Added:		Compatibility with WP 2.6
+
+v0.92
+-Added:		Spanish language files added  - THX to Karin(http://es-xchange.com/)
+
+v0.91
+-Bugfix:	Background color conflict with SimpleViewer settings solved
+
+v0.90
+-NEW:		Support for Lightview (THX to Antonio & Fabian)
+-Added:		Titel for Thickbox & Lightview
+-Bugfix:	Folder name can be nextgen-flashviewer now (THX to Alex Rabe)
+
+v0.82
+-Bugfix:	Preloader color can now be changed again
+
+v0.81
+-Bugfix:	Categories on Write-Screen displayed properly now
+
+v0.80
+-NEW:		Support for PostcardViewer (THX to meierma)
+-Added:		Further support for Language Switcher
+-Added:		New options for SimpleViewer 1.8.5
+-Added:		More Flickr options for TiltViewer
+-Bugfix:	Simpleviewer Background Image is working now
+
+v0.71
+-Bugfix:	NGG check needs to happen after NGG has loaded (THX to Alex Rabe)
+
+v0.70
+-NEW:		Use of Flickr for TiltViewer is now supported
+-NEW:		Support for TiltViewer Pro settings
+-Changed:	SWFobject  background can now be set within SimpleViewer settings (used NGG Slideshow settings before)
+-Removed:	Admin styles for WP 2.3 and lower
+
+v0.62
+-Changed:	updated error messages (and .po/.mo files) to reflect new folder structure
+
+v0.61
+-Changed:	Folder structure
+-Bugfix:	missing * in regular expressions
+
+v0.60
+-NEW:		Support for AutoViewer
+-NEW:		Admin pages in the NextGEN Gallery admin area
+-NEW:		Support for Highslide
+-NEW:		Support for Language Switcher (http://poplarware.com/languageplugin.html)
+-Changed:	Plugin name
+-Added:		nggflash.po file for translations
+-Added:		nggflash-de_DE.po and nggflash-de_DE.mo files
+-Added:		Option preloader color for SimpleViewer
+-Added:		Admin style for WP 2.5
+
+v0.50
+-initial release as NextGEN Simpleviewer by Alex Rabe

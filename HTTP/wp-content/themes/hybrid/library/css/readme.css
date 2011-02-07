@@ -1,0 +1,27 @@
+body {
+	width: 780px;
+	margin: 36px auto;
+	font: 14px/21px "Lucida Grande", "Lucida Sans Unicode", Tahoma, Verdana, sans-serif;
+	}
+/* Links */
+a:link, a:visited {
+	color: #2f6eb9;
+	text-decoration: none;
+	}
+a:hover, a:active {
+	text-decoration: underline;
+	}
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+	margin-top: 36px;
+	color: #666;
+	font-family: Cambria, Georgia, Times, "Times New Roman", serif;
+	}
+h1, h2 {
+	padding-bottom: 12px;
+	border-bottom: 1px solid #ccc;
+	}
+h1 {
+	margin-top: 0;
+	font-size: 2.1em;
+	}

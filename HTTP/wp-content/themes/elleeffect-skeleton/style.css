@@ -1,0 +1,428 @@
+/**
+ * Theme Name: Elleeffect-Skeleton
+ * Theme URI: http://themehybrid.com/themes/skeleton
+ * Description: A blank child of the Hybrid theme framework representing the visual hierarchy of Hybrid with designers in mind.
+ * Author: Justin Tadlock
+ * Author URI: http://justintadlock.com
+ * Version: 0.2
+ * Tags: threaded-comments
+ * Template: hybrid
+ *
+ * Skeleton is released under the GNU General Public License, version 2 (GPL).
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+* Import pre-made styles from Hybrid
+************************************************/
+
+/* Eric Meyer's reset.css */
+	/* @import url('../hybrid/library/css/reset.css'); */
+
+/* 18px, 20px, 21px, 22px, 24px or 25px margins and line-height (don't use reset.css with these) */
+	/* @import url('../hybrid/library/css/18px.css'); */
+	/* @import url('../hybrid/library/css/20px.css'); */
+	/* @import url('../hybrid/library/css/21px.css'); */
+	/* @import url('../hybrid/library/css/22px.css'); */
+	/* @import url('../hybrid/library/css/24px.css'); */
+	/* @import url('../hybrid/library/css/25px.css'); */
+
+/* Layout */
+	/* @import url('../hybrid/library/css/2c-l-fixed.css'); */
+	/* @import url('../hybrid/library/css/2c-r-fixed.css'); */
+	/* @import url('../hybrid/library/css/3c-l-fixed.css'); */
+	/* @import url('../hybrid/library/css/3c-r-fixed.css'); */
+	/* @import url('../hybrid/library/css/3c-c-fixed.css'); */
+
+/* Plugins CSS */
+	/* @import url('../hybrid/library/css/plugins.css'); */
+
+/* Drop-downs CSS */
+	/* @import url('../hybrid/library/css/drop-downs.css'); */
+
+/* Hybrid's default CSS */
+	/* @import url('../hybrid/library/css/screen.css'); */
+
+/**
+* Body
+************************************************/
+
+/* Contains everything */
+body {}
+
+	/* Wrapper for everything inside of the body */
+	#body-container {}
+
+/**
+* Elements
+************************************************/
+
+/* Hyperlinks */
+a:link {}
+a:visited {}
+a:hover {}
+a:active {}
+
+/* Headers */
+h1 {}
+h2 {}
+h3 {}
+h4 {}
+h5 {}
+h6 {}
+
+/* Text elements */
+strong {}
+em {}
+cite {}
+abbr {}
+acronym {}
+sup {}
+sub {}
+address {}
+ins {}
+dfn {}
+del {}
+
+/* Paragraphs */
+p {}
+
+/* Unordered lists */
+ul {}
+	ul li {}
+
+/* Ordered lists */
+ol {}
+	ol li {}
+
+/* Defition lists */
+dl {}
+	dt {}
+	dd {}
+
+/* Blockquotes */
+blockquote {}
+	blockquote blockquote {}
+	blockquote em {}
+
+/* Object */
+object {}
+
+/* Code */
+code {}
+pre {}
+pre code {}
+
+/* Tables */
+table {}
+	caption {}
+	tr {}
+	th {}
+	td {}
+
+/* Forms */
+form {}
+	textarea {}
+	input {}
+	label {}
+	option {}
+
+/* Notes */
+.note {}
+
+/* Warnings/Alerts */
+.warning, .alert {}
+
+/* Errors */
+.error {}
+
+/* Downloads */
+.download {}
+
+/* Alignment */
+.left, .alignleft {}
+.right, .alignright {}
+.center, .aligncenter {}
+.block, .alignnone {}
+.clear {}
+
+/**
+* Images
+************************************************/
+
+/* Normal images */
+img {}
+a img {}
+
+/* WP Smilies */
+img.wp-smiley {}
+
+/* Thumbnails */
+.thumbnail {}
+
+/* WP Captions [caption] */
+.wp-caption {}
+	.wp-caption img {}
+	.wp-caption p {}
+
+/* Gallery [gallery] */
+.gallery {}
+	.gallery img {}
+
+/* Avatars */
+.avatar {}
+
+/**
+* Header
+************************************************/
+
+/* Contains entire header */
+#header-container {}
+
+	/* Contains site title and tagline */
+	#header {}
+
+		/* Site title */
+		#site-title {}
+			#site-title a {}
+				#site-title a span {}
+
+		/* Site description/tagline */
+		#site-description {}
+
+/**
+* Primary Menu
+************************************************/
+
+/* Wrapper for entire menu area */
+#primary-menu {}
+
+	/* Wrapper for unordered list of menu items */
+	#primary-menu div.menu {}
+
+		/* Menu list. */
+		#primary-menu ul {}
+			#primary-menu li {}
+				#primary-menu li a {}
+			#primary-menu li.current-menu-item {}
+
+/**
+* Containers below the header and navigation
+************************************************/
+
+/* Wrapper for the content and primary/secondary widget sections */
+#container {}
+
+	/**
+	* Content
+	************************************************/
+
+	/* Contains site's main content */
+	#content {}
+
+		/* Breadcrumb trail */
+		.breadcrumb {}
+			.breadcrumb-trail {}
+
+		/* Archive and search <div> before posts are listed */
+		.archive-info
+		.author-info {}
+		.term-info
+		.category-info {}
+		.tag-info {}
+		.date-info {}
+		.search-info {}
+
+			/* Archive and search page titles. */
+			.archive-title
+			.author-title {}
+			.term-title {}
+			.category-title {}
+			.tag-title {}
+			.date-title {}
+			.search-title {}
+
+		/* Entry wrapper <div> */
+		.hentry {}
+		.post {}
+		.page {}
+
+			/* Post, page, and 404 page titles */
+			.entry-title {}
+			.post-title {}
+			.page-title {}
+			.attachment-title {}
+			.error-404-title {}
+
+			/* Author and date byline */
+			.byline {}
+
+			/* Full entries */
+			.entry-content {}
+
+			/* Excerpts (introduced) */
+			.entry-summary {}
+
+				/* Using <!--nextpage--> */
+				p.page-links a {}
+
+				/* More link <!--more--> */
+				a.more-link {}
+
+			/* Entry metadata */
+			.entry-meta {}
+
+		/* Post series */
+		.series {} 
+			.series-title {}
+
+		/* Navigation links */
+		.navigation-links {}
+			.navigation-links .previous {}
+			.navigation-links .next {}
+
+		/* WP PageNavi (plugin) */
+		.wp-pagenavi {}
+			.wp-pagenavi .pages {}
+			.wp-pagenavi .current {}
+			.wp-pagenavi .extend {}
+			.wp-pagenavi a {}
+
+		/* Attachment image navigation */
+		.navigation-attachment {}
+
+		/**
+		* Comments template
+		************************************************/
+
+		/* Wrapper for entire comments area */
+		#comments-template {}
+
+			/* Comments section headers/titles */
+			.comments-header {}
+			#comments-number {}
+
+			/* Comments closed paragraph */
+			p.comments-closed {}
+
+				/* Main comments section */
+				#comments {}
+					#comments ol {}
+
+						/* Individual comments (note that WordPress has even/odd backwards) */
+						#comments li {}
+							#comments li li {}
+								#comments li li li {}
+									#comments li li li li {}
+						#comments li.even {}
+						#comments li.odd {}
+						#comments li.thread-even {}
+						#comments li.thread-odd {}
+						#comments li.author {}
+						#comments li.trackback {}
+						#comments li.pingback {}
+
+							/* Comment avatars */
+							#comments .avatar {}
+
+							/* Comment metadata */
+							#comments .comment-meta {}
+								#comments .comment-meta cite {}
+
+							/* Comment text */
+							#comments .comment-text {}
+
+					/* Paged comments navigation */
+					#comments-template .paged-navigation {}
+						#comments-template .paged-navigation .page-numbers {}
+						#comments-template .paged-navigation .next {}
+						#comments-template .paged-navigation .prev {}
+
+				/* Main comment form div */
+				#respond {}
+
+					/* Comment form title */
+					#reply {}
+
+					/* Comment form elements */
+					p#cancel-comment-reply {}
+					#respond form {}
+						#respond .form-author {}
+							#respond input {}
+						#respond .form-email {}
+						#respond .form-url {}
+						#respond .form-textarea {}
+							#respond textarea {}
+						#respond #submit {}
+							#respond #submit:hover {}
+
+		/**
+		* Utility widget sections (see other widget code below)
+		************************************************/
+
+		/* All utility widget sections (except widgets template) */
+		.utility {}
+
+		/* Before content */
+		#utility-before-content {}
+
+		/* After content */
+		#utility-after-content {}
+
+		/* After post but before comments */
+		#utility-after-single {}
+
+		/* After page but before comments */
+		#utility-after-page {}
+
+		/* Widgets page template widgets */
+		.page-template-widgets #content .widget {}
+
+	/**
+	* Widget sections (Primary and Secondary)
+	************************************************/
+
+	/* Widgets in general */
+	.widget {}
+		.widget-inside {}
+			.widget-title {}
+
+	/* Primary widget section */
+	#primary {}
+		#primary .widget {}
+			#primary .widget-inside {}
+				#primary .widget-title {}
+				#primary .widget ul {}
+					#primary .widget ul li {}
+
+	/* Secondary widget section */
+	#secondary {}
+		#secondary .widget {}
+			#secondary .widget-inside {}
+				#secondary .widget-title {}
+				#secondary .widget ul {}
+					#secondary .widget ul li {}
+
+/**
+* Footer
+************************************************/
+
+/* Wrapper for the entire footer */
+#footer-container {}
+
+	/* Subsidiary widget section */
+	#subsidiary {}
+		#subsidiary .widget {}
+			#subsidiary .widget-inside {}
+				#subsidiary .widget-title {}
+
+	/* Footer section */
+	#footer {}
+
+		/* Footer extra */
+		#footer .copyright {}
+		#footer .credit {}

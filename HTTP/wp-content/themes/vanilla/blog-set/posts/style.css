@@ -1,0 +1,72 @@
+/*
+
+Theme Name: Vanilla Theme
+Theme URI: http://www.vanillatheme.com
+Description: A base theme for themers who really mean business.
+Version: 0.5 beta
+Author: Alister Cameron, Australis Media
+Author URI: http://www.alistercameron.com
+Tags: widgets, customizable, 3-column, 2-column, 1-column, framework, semantic, white, red, gray, carrington, hybrid, sandbox, tarski
+
+// This file is part of the Vanilla Theme for WordPress
+// http://www.vanillatheme.com
+//
+// Copyright (c) 2008 Australis Media Pty Ltd. All rights reserved.
+// http://www.australismedia.com
+//
+// Released under the GPL license
+// http://www.opensource.org/licenses/gpl-license.php
+//
+// **********************************************************************
+// This program is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+// **********************************************************************
+
+*/
+
+/* Reset browser defaults */
+@import url('http://yui.yahooapis.com/3.0.0pr1/build/cssreset/reset.css');
+@import url('http://yui.yahooapis.com/3.0.0pr1/build/cssfonts/fonts.css');
+@import url('http://yui.yahooapis.com/3.0.0pr1/build/cssgrids/grids.css');
+
+/* including for compatibility */
+
+.alignleft {
+	float:left;
+	margin-right:1em;
+	margin-bottom:1em;
+}
+.alignright {
+	float:right;
+	margin-left:1em;
+	margin-bottom:1em;
+}
+.aligncenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.wp-caption {
+	border: 1px solid #ddd;
+	text-align: center;
+	background-color: #f3f3f3;
+	padding-top: 4px;
+	margin: 10px;
+	/* optional rounded corners for browsers that support it */
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+.wp-caption img {
+	margin: 0;
+	padding: 0;
+	border: 0 none;
+}
+.wp-caption p.wp-caption-text {
+	font-size: 11px;
+	line-height: 17px;
+	padding: 0 4px 5px;
+	margin: 0;
+}

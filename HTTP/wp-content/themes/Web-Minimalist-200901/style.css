@@ -1,0 +1,255 @@
+/*  
+Theme Name: Web Minimalist 200901
+Theme URI: http://www.WebMinimalist.com/
+Description: A minimalist, imageless Wordpress Theme from WebMinimalist.com. Custom Header Image allows you to upload and crop a new image from your dashboard. The comment section is supporting Gravatars (http://gravatar.com/).
+Version: 1.0
+Author: Effi
+Author URI: http://www.EffiHaryanti.com/
+Tags: custom-header, threaded-comments, fixed-width, green, blue, right-sidebar, three-columns
+*/
+
+/* -------------------- GENERAL -------------------- */
+
+
+body, h1, h2, h3, h4, h5, h6, address, blockquote, dd, dl, hr, form { margin: 0; padding: 0; }
+
+body { font-family: Arial, Verdana, Helvetica, Sans-Serif; font-size: 13px; text-align: justify; background: #aba000; color: #2a2a2a; }
+
+h1, h2, h3, h4, h5, h6 { font-family: "Trebuchet MS", Helvetica, Georgia, Sans-Serif; font-weight: bold; text-transform: uppercase; }
+
+p { margin: 15px 0; }
+
+a { text-decoration: none; color: #00729f; }
+a:hover { text-decoration: underline; }
+
+blockquote p { padding: 0 15px; }
+code { }
+
+hr { display: none; }
+
+.entry img { margin: 0 3px 3px 3px; }
+
+img.centered { display: block; margin-left: auto; margin-right: auto; }
+img.alignright { margin: 0 0 2px 7px; padding: 4px; display: inline; }
+img.alignleft { margin: 0 7px 2px 0; padding: 4px; display: inline; }
+img.wp-smiley { border: 0; margin: 0; padding: 0; background-color: transparent; }
+
+a img {	border: 0; }
+
+input, textarea { font-family: Arial, Helvetica, Georgia, Sans-Serif; font-size: 12px; padding: 2px; }
+input#s, input#author, input#email, input#url, textarea#comment { padding: 3px; }
+
+input#author, input#email, input#url { margin: 0 5px 0 0; }
+
+pre { width: 90%; }
+
+small { font-size: 90%; }
+
+
+.aligncenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.alignleft {
+	float: left;
+}
+
+.alignright {
+	float: right;
+}
+
+.wp-caption {
+	border: 1px solid #ddd;
+	text-align: center;
+	background-color: #f3f3f3;
+	padding-top: 4px;
+	margin: 10px;
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.wp-caption img {
+	margin: 0;
+	padding: 0;
+	border: 0 none;
+}
+
+.wp-caption-dd {
+	font-size: 11px;
+	line-height: 17px;
+	padding: 0 4px 5px;
+	margin: 0;
+}
+
+
+/* -------------------- LAYOUT -------------------- */
+
+
+#container { margin: 0 auto; width: 949px; padding: 0; }
+
+
+#page { float: left; width: 949px; margin: 0; background: #fff; border-top: 10px solid #005b7f; border-bottom: 10px solid #005b7f;}
+
+#header { float: right; width: 340px; background: #008bc2; border-bottom: 10px solid #005b7f; }
+
+.mainwrap { float: left; width: 949px; margin: 0; display: inline; }
+
+.content { float: left; width: 589px; background: transparent; }
+
+#contactform { padding: 20px 0; border: none; }
+
+
+/* -------------------- HEADER / SITE TITLE -------------------- */
+
+
+#header .site_title { float: left; width: 100%; }
+
+#header .site_title h1 { margin: 20px 20px 10px 20px; font-size: 180%; position: relative; color: #f1f1f1; }
+
+#header .site_title a, #header .site_title a:visited { color: #f1f1f1; text-decoration: none; }
+#header .site_title a:hover { color: #f1f1f1; }
+
+#header .description { padding: 0 20px 20px 20px; color: #f1f1f1; font-size: 90%; font-style: italic; }
+
+
+/* -------------------- POSTS -------------------- */
+
+
+.post { padding: 10px 0 10px 10px; }
+
+.entry { padding: 0; }
+
+.post h2 { padding: 10px 0 0 0; font-size: 18px; border-top: 1px dashed #aaa; }
+.post h2 a { color: #005b7f; text-decoration: none; }
+.post h2 a:hover { color: #827b00; text-decoration: none; }
+
+.postinfo { font-size: 85%; line-height: 150%; float: left; width: 589px; margin: 0 0 20px 0; padding: 0; clear: both; }
+.postinfo ul { list-style-type: none; margin: 0; padding: 10px 0 0 0; }
+.postinfo ul li { float: left; margin: 0 10px 0 0; display: inline; }
+
+.postinfo ul li.author { padding: 0 0 0 20px; background: url(images/user.gif) no-repeat 0 0; }
+.postinfo ul li.date { padding: 0 0 0 20px; background: url(images/time.gif) no-repeat 0 0; }
+.postinfo ul li.category-info { padding: 0 0 0 20px; background: url(images/file.gif) no-repeat 0 0; }
+.postinfo ul li.comment-number { padding: 0 0 0 19px; background: url(images/reply.gif) no-repeat 0 0; }
+.postinfo ul li.edit-info { padding: 0; }
+
+.postinfo a { color: #827b00; }
+
+
+.navigation { float: left; width: 579px; display: inline; margin: 10px; }
+
+
+/* -------------------- SIDEBAR (LEFT AND RIGHT) -------------------- */
+
+
+#sidebarbox { float: right; width: 340px; margin: 0; }
+
+.sidebarleft { float: left; width: 160px; padding: 0 10px 0 0; display: inline; text-align: left; }
+
+.sidebar { float: right; width: 160px; padding: 0 0 0 10px; display: inline; text-align: left; }
+
+
+.sidebarleft ul, .sidebarleft p, .sidebar ul, .sidebar p { margin: 0; padding: 0; list-style: none; }
+.sidebarleft ul li, .sidebar ul li { padding: 0 0 10px 0; margin-bottom: 10px; }
+
+.sidebarleft ul li h2, .sidebar ul li h2 { font-size: 14px; color: #f1f1f1; font-weight: normal; padding: 4px 3px; background: #008bc2; margin-bottom: 5px; }
+
+.sidebarleft ul ul li, .sidebar ul ul li { padding: 3px 3px 0 18px; margin-bottom: 0; background: url(images/folder.gif) no-repeat top left; }
+.sidebarleft ul ul ul li, .sidebar ul ul ul li { padding: 0 0 0 18px; }
+
+
+/* -------------------- SIDEBAR / SEARCH -------------------- */
+
+
+#searchform { margin: 10px auto; padding: 5px 3px; }
+
+#searchform #s { width: 120px; padding: 0 10px; }
+
+#searchsubmit {	padding: 1px; }
+
+#search form#searchform .keyword { float: left; border: 1px solid #aaa; background: #fff; }
+#search form#searchform .keyword input#s { float: left; margin: 0; border: 0; display: inline; background: transparent; }
+
+
+/* -------------------- COMMENTS -------------------- */
+
+
+.comments { padding: 20px 0 0 0; }
+.comments h2 { font-size: 130%; color: #222; padding-bottom: 20px; }
+
+#respond h3 { font-size: 130%; color: #222; }
+
+
+#commentform #author, #commentform #email, #commentform #url, #commentform textarea { border: 1px solid #ccc; padding: 0.2em; margin-left: 10px; }
+
+#commentform textarea { width: 96%; }
+
+#commentlist, #commentlist2 { width: 98%; margin: 0 0 20px 0; padding: 0 0 0 10px; }
+#commentlist ul, #commentlist2 ul { margin: 0; padding: 0; }
+
+#commentlist li { border: 1px solid #ccc; margin: 0 0 20px 0; list-style-type: none; padding: 0; }
+#commentlist2 li { border: 1px solid #ccc; margin: 0 0 20px 0; list-style-type: none; padding: 5px 14px 9px 63px; }
+
+#commentlist li p { padding: 5px 10px 5px 80px; margin: 0; }
+#commentlist2 li p { margin: 0; }
+
+#commentlist a, #commentlist2 a { }
+
+#commentlist li div.meta, #commentlist2 li div.meta { padding: 0; margin: 0; text-align: center; }
+
+#commentlist2 li.even { background: #ffffff; }
+#commentlist2 li.odd { background: #efefef; }
+
+#commentlist li .avatar { margin: 5px; }
+#commentlist2 li .avatar { margin-left: -58px; }
+
+.avatar { float: left; padding: 0; border: 1px solid #bbb; width: 50px; height: 50px; }	
+
+
+#commentlist2 li ul li { margin-right: -15px; margin-left: -50px; margin-bottom: -10px; }
+
+.children { padding: 0; }
+
+.reply { text-align: right; padding: 5px; }
+.navigation { width: 100%; height: 20px; }
+.cancel-comment-reply { text-align: right; float: none; }
+
+.comment-meta1 { float: right; margin-top: 5px; margin-right: 10px; margin-bottom: 10px; font-size: 80%; color: #555; }
+.comment-meta1 a { color: #333; }
+
+.comment-meta  a { font-size: 8px; float: right; margin-top: -18px; color: #757575; }
+
+.fn { font-size: 110%; font-weight: bold; font-style: normal; }
+.says { display: none; }
+
+
+/* -------------------- CALENDAR -------------------- */
+
+
+table#wp-calendar { width: 100%; text-transform: none; }
+
+table#wp-calendar caption { padding: 10px 15px; }
+
+table#wp-calendar th { padding: 0px; text-align: center; background: #eee; }
+table#wp-calendar td { padding: 0px; text-align: center; }
+
+
+/* -------------------- FOOTER -------------------- */
+
+
+#footer { float: left; width: 100%; font-size: 11px; margin-top: 20px; border-top: 1px dashed #aaa; color: #666; clear: both; }
+
+#footer a { text-decoration: none; color: #000; }
+#footer a:hover { text-decoration: underline; }
+
+#footer p { margin: 20px 10px; }
+
+
+/* -------------------- ADS -------------------- */
+
+
+#ads-single { float: right; margin-left: 10px; }

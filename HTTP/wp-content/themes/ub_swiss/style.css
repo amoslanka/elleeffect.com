@@ -1,0 +1,620 @@
+/*
+DESIGN NAME: Swiss
+DESIGN URI: http://www.upstartblogger.com/magazine-wordpress-theme-upstart-blogger-swiss
+VERSION: 0.1
+DESCRIPTION: A clean magazine theme in the international typographic style
+DESIGNER: Ashley Morgan
+DESIGNER URI: http://www.upstartblogger.com/
+*/
+
+#theme-link:after {
+	content: " Do blogs have to look like blogs?";
+	color: #666;
+}
+
+/* @group Layout */
+
+html * {
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-top: 0;
+	padding-right: 0;
+	padding-bottom: 0;
+	padding-left: 0px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+body {
+	color: #333333;
+	text-align: left;
+	font-family: "Helvetica Neue", Helvetica, Arial;
+	font-size: 101%;
+	line-height: 150%;
+	background-color: #FFFFFF;
+}
+header {
+	background-color: #000000;
+}
+
+#wrapper {
+	width: 960px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#access {
+	margin-left: 20px;
+	margin-right: 20px;
+	display: none;
+}
+
+#menu {
+	display: inline;
+}
+
+#blog-title {
+	font-size: 4em;
+	font-weight: bold;
+	margin-top: 20px;
+	margin-right: 20px;
+	margin-bottom: 0;
+	margin-left: 20px;
+	color: #000000;
+	line-height: normal;
+}
+
+#blog-title a:link, #blog-title a:visited {
+	color: #000000;
+	text-decoration: none;
+}
+
+#blog-title a:hover {
+	color: #000000;
+	letter-spacing: normal;
+}
+
+#blog-description {
+	color: #333333;
+	font-size: 1.5em;
+	font-weight: bold;
+	text-align: left;
+	margin-right: 20px;
+	margin-bottom: 0;
+	margin-left: 20px;
+	line-height: normal;
+}
+
+.subheading {
+	margin-right: 20px;
+	margin-left: 20px;
+}
+
+#content {
+	float: left;
+	padding-top: 50px;
+	padding-right: 0;
+	padding-bottom: 100px;
+	padding-left: 0px;
+}
+.subheading {
+	margin-right: 20px;
+	margin-left: 20px;
+}
+
+#primary {
+	float: left;
+	margin-top: 50px;
+	margin-right: 0;
+	margin-bottom: 0;
+	margin-left: 0px;
+}
+
+#secondary {
+	float: left;
+	margin-top: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	margin-left: 0px;
+}
+
+#footer {
+	clear: both;
+	font-size: 0.68em;
+	margin-left: 20px;
+	text-align: left;
+	margin-right: 20px;
+	padding-top: 50px;
+	padding-right: 0;
+	padding-bottom: 25px;
+	padding-left: 0;
+}
+
+/* @end */
+
+/* @group Comments */
+
+#comments {
+	clear: both;
+	width: 920px;
+	margin-top: 0;
+	margin-right: 20px;
+	margin-bottom: 0;
+	margin-left: 20px;
+	padding-top: 50px;
+	padding-right: 0;
+	padding-bottom: 0;
+	padding-left: 0;
+}
+
+form#commentform .form-label {
+	margin: 1em 0 0;
+}
+
+form#commentform span.req-field {
+	background: #fff;
+	color: red;
+}
+
+form#commentform,form#commentform p {
+	padding: 0;
+}
+
+input#author,input#email,input#url {
+	width: 50%;
+}
+
+input#author,input#email,input#url,textarea#comment {
+	padding: 0.2em;
+}
+
+.comments ol li {
+	line-height: 150%;
+	list-style-position: inside;
+	list-style-type: none;
+}
+
+textarea#comment {
+	height: 13em;
+	margin: 0 0 0.5em;
+	overflow: auto;
+	width: 66%;
+}
+
+li.comment {
+	padding: 20px 0 0;
+}
+
+li.comment.bypostauthor {
+	background: #cbc4ab;
+	padding: 20px;
+}
+
+#respond {
+	padding-top: 50px;
+}
+
+#comments ol {
+	margin: 0;
+}
+
+.comment-author {
+	font-size: 1.2em;
+}
+
+/* @end */
+
+/* @group Entries */
+
+.entry-title:before {
+	color: #d4d4d4;
+}
+
+.entry-title {
+	clear: both;
+	color: #000000;
+	font-size: 180%;
+	line-height: 140%;
+	margin-top: 50px;
+	padding-top: 0px;
+	padding-right: 0;
+	padding-bottom: 0;
+	padding-left: 0;
+}
+
+.entry-content {
+	overflow: hidden;
+}
+
+.entry-date {
+	font-size: 76%;
+	line-height: 1.4em;
+}
+
+.entry-meta {
+	color: #333333;
+	font-size: 76%;
+	line-height: 1.4em;
+}
+
+.meta-sep {
+	color: #333333;
+}
+
+.comments-link {
+	color: #5e5e5e;
+}
+
+abbr.published {
+	border: none;
+	cursor: default;
+}
+
+/* @end */
+
+/* @group Archive & Search */
+
+.archive, .search {
+	background: #ffffff;
+}
+
+.archive .post, .search .post {
+	width: 920px;
+	margin-right: 20px;
+	margin-left: 20px;
+}
+
+.archive #nav-above, .search #nav-above {
+	position: absolute;
+	left: 720px;
+	top: 300px;
+	width: 242px;
+	display: none;
+}
+
+.archive #nav-below, .search #nav-below {
+	padding-top: 50px;
+}
+
+.archive #search, .search #search {
+}
+
+/* @end */
+
+/* @group Home */
+
+.home #content {
+	float: left;
+	padding-top: 50px;
+	padding-right: 0;
+	padding-bottom: 100px;
+}
+
+.home .author {
+	padding-right: 10px;
+}
+
+.home .entry-content {
+	display: block;
+}
+
+.home .navigation {
+	display: none;
+}
+
+.home .edit-link {
+	display: none;
+}
+
+.home .post {
+	float: left;
+	padding-top: 0;
+	padding-right: 20px;
+	padding-bottom: 0;
+	padding-left: 20px;
+	width: 440px;
+}
+
+.home .cat-links {
+	display: none;
+}
+
+.home .meta-sep {
+	display: none;
+}
+
+.p3, .p5, .p7, .p9, .p11, .p13, .p15, .p17, .p19, .p21, .p23, .p25 {
+	clear: both;
+}
+
+/* @end */
+
+/* @group Single */
+
+.single .post {
+	float: left;
+	padding: 0;
+	width: 920px;
+	margin-right: 20px;
+	margin-left: 20px;
+}
+
+.single #nav-above {
+	position: absolute;
+	left: 720px;
+	top: 300px;
+	width: 200px;
+	display: none;
+}
+
+.single #nav-below {
+	padding-top: 50px;
+}
+
+.single .entry-meta {
+	line-height: 160%;
+	margin-top: 20px;
+	margin-right: 0;
+	margin-bottom: 20px;
+	margin-left: 0;
+	padding: 0px;
+}
+
+/* @end */
+
+/* @group Page */
+
+.page {
+	background: #ffffff;
+	width: 920px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: 20px;
+	padding-left: 20px;
+}
+
+.page #search {
+	background: #ffffff;
+}
+
+.page .entry-content ul li {
+	list-style-type: none;
+	margin-left: 0;
+}
+
+/* @end */
+
+/* @group Images */
+
+img {
+	border: none;
+	overflow: hidden;
+}
+
+img.alignright {
+	margin-left: 15px;
+}
+
+img.alignleft {
+	margin-right: 15px;
+}
+
+img.center {
+	text-align: center;
+}
+
+/* @end */
+
+/* @group Links */
+
+a:link, a:visited {
+	color: #000000;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:hover {
+	color: #000000;
+	background-color: #FFFF66;
+}
+
+a img {
+	border: 8px solid #eaeaea;
+}
+
+a:hover img {
+	border-color: #b5d5ff;
+}
+
+.entry-content a {
+	font-weight: bold;
+}
+
+/* @end */
+
+/* @group Lists */
+
+.entry-content ul, ol {
+	margin-left: 20px;
+}
+
+.entry-content ul li {
+	list-style-type: square;
+	margin-left: 20px;
+}
+
+.entry-content ol li {
+	margin-left: 20px;
+}
+
+dl {
+	padding: 0 40px 20px 0;
+}
+
+dt {
+	font-weight: bold;
+	padding: 20px 0 0 20px;
+}
+
+dd {
+	padding: 0 20px 10px 20px;
+}
+
+.entry-content h1, .entry-content h2, .entry-content h3, .entry-content h4, .entry-content h5, .entry-content h6 {
+	color: #eaeaea;
+	padding-top: 2em;
+}
+
+/* @end */
+
+/* @group Nav */
+
+.nav-previous {
+	float: left;
+	margin-right: 20px;
+}
+
+.nav-next {
+	float: right;
+	margin-left: 20px;
+}
+
+#nav-below {
+	clear: both;
+	width: 920px;
+	margin-right: 20px;
+	margin-left: 20px;
+}
+
+/* @end */
+
+/* @group Sidebars */
+
+.sidebar {
+	clear: both;
+	line-height: 1.4em;
+	width: 654px;
+	margin-top: 0;
+	margin-right: 20px;
+	margin-bottom: 30px;
+	margin-left: 20px;
+	font-size: 76%;
+}
+
+.sidebar, .sidebar ul,.sidebar li {
+	display: inline;
+}
+
+.sidebar li h3 {
+	color: #333333;
+	display: inline;
+	font-size: 1em;
+	padding-right: 5px;
+	font-weight: normal;
+}
+
+.sidebar input#s {
+	width: 10em;
+}
+
+.sidebar ul li ul li:before {
+	color: #ffffff;
+	content: "_";
+}
+
+.sidebar ul li ul li {
+	padding-right: 5px;
+}
+
+li#pages, li#categories, li#archives, li.linkcat, li#rss-links, li#meta {
+	clear: both;
+	display: block;
+	float: left;
+	width: 920px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+#search {
+	float: left;
+	width: 905px;
+	margin-top: 25px;
+	margin-right: 20px;
+	margin-bottom: 25px;
+	margin-left: 20px;
+	padding-top: 0px;
+	padding-right: 0;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+
+/* @end */
+
+/* @group Etc. */
+
+.alignleft {
+	float: left;
+}
+
+.alignright {
+	float: right;
+}
+
+blockquote {
+	border-bottom: 3px solid #eaeaea;
+	border-right: 3px solid #eaeaea;
+	font-weight: bold;
+	margin: 25px;
+	padding: 0 20px 5px;
+}
+
+.center {
+	text-align: center;
+}
+
+p {
+	padding-top: 10px;
+	padding-right: 0;
+	padding-bottom: 10px;
+	padding-left: 0px;
+}
+
+code, pre {
+	background: #d4d4d4;
+	overflow: auto;
+	padding: 4px;
+}
+
+h2.page-title {
+	color: #333333;
+	margin-right: 20px;
+	margin-left: 20px;
+	padding-top: 56px;
+}
+
+small {
+	font-size: 0.85em;
+}
+
+sub {
+	position: relative;
+	bottom: -0.2em;
+	vertical-align: baseline;
+}
+
+sup {
+	position: relative;
+	bottom: 0.3em;
+	vertical-align: baseline;
+}
+
+acronym, abbr {
+	border-bottom: 1px dotted;
+	cursor: help;
+}
+
+label {
+	cursor: pointer;
+}
+
+/* @end */

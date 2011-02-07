@@ -1,0 +1,33 @@
+<div tal:replace="">
+<!--
+
+Australis Media has made the contents of this file
+available under a CC-GNU-GPL license:
+
+ http://creativecommons.org/licenses/GPL/2.0/
+
+ A copy of the full license can be found as part of this
+ distribution in the file LICENSE.TXT
+
+You may use the Vanilla theme software in accordance
+with the terms of that license. You agree that you are
+solely  responsible for your use of the Vanilla theme
+software and you represent and warrant to Australis Media
+that your use of the Vanilla theme software will comply
+with the CC-GNU-GPL.
+
+-->
+</div>
+
+<div metal:define-macro="loader" tal:omit-tag="">
+	
+	<div metal:fill-slot="ping" id="comment-${ping/id}" class="${ping/class}">
+		${structure ping/author_link}
+		<span class="date">
+			<span class="on">${ping/on}</span> <abbr class="published" title="${structure ping/date_attribute}">${structure ping/date}</abbr>
+		</span>
+		<blockquote class="entry-summary" cite="${structure ping/author_url}">${structure ping/text}</blockquote> 
+		<div class="comment-editlink"><a href="${structure ping/edit_link}" title="${ping/edit_attribute}">${ping/edit_message}</a></div>
+	</div><!--.ping-->
+
+</div>

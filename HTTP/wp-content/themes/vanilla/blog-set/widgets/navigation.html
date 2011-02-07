@@ -1,0 +1,55 @@
+<div tal:replace="">
+<!--
+
+Australis Media has made the contents of this file
+available under a CC-GNU-GPL license:
+
+ http://creativecommons.org/licenses/GPL/2.0/
+
+ A copy of the full license can be found as part of this
+ distribution in the file LICENSE.TXT
+
+You may use the Vanilla theme software in accordance
+with the terms of that license. You agree that you are
+solely responsible for your use of the Vanilla theme
+software and you represent and warrant to Australis Media
+that your use of the Vanilla theme software will comply
+with the CC-GNU-GPL.
+
+-->
+</div>
+
+<div metal:define-macro="loader" tal:omit-tag="">
+
+<div metal:fill-slot="navigation">
+	<!-- slot: navigation -->
+	<div id="navigation">
+		<ul>
+			${php: wp_list_pages('title_li=')}
+			<li tal:condition="vanilla/widget/navigation/user_id" class="secondary">
+				<a href="${php: site_url('wp-login.php?action=logout', 'login')}">${php: __('Log Out', 'carrington')}</a>
+			</li>
+			<li tal:condition="not: vanilla/widget/navigation/user_id" class="secondary">
+				<a href="${php: site_url('wp-login.php', 'login')}">${php: __('Log In', 'carrington')}</a>
+			</li>
+			<li class="secondary">
+				${php: wp_register('','')}
+			</li>
+			<span tal:condition="exists: vanilla/entries" tal:repeat="entry vanilla/entries" tal:omit-tag="">
+				<li class="secondary" tal:condition="php: repeat.entry.number == '1' && (is_single() || is_page())">
+					<a href="${structure entry/edit_link}">${php: __('Edit Page')}</a>
+				</li>
+			</span>
+		</ul>
+	</div><!-- #navigation -->
+</div>
+
+</div>
+
+
+
+
+
+
+
+

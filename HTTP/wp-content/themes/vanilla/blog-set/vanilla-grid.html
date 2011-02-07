@@ -1,0 +1,162 @@
+<div tal:replace="">
+<!--
+
+Australis Media has made the contents of this file
+available under a CC-GNU-GPL license:
+
+ http://creativecommons.org/licenses/GPL/2.0/
+
+ A copy of the full license can be found as part of this
+ distribution in the file LICENSE.TXT
+
+You may use the Vanilla theme software in accordance
+with the terms of that license. You agree that you are
+solely responsible for your use of the Vanilla theme
+software and you represent and warrant to Australis Media
+that your use of the Vanilla theme software will comply
+with the CC-GNU-GPL.
+
+-->
+</div>
+
+<metal:block define-macro="vanilla_grid">
+	<!-- macro: vanilla_grid -->
+	<tal:block condition="php: vanilla['page']['template'] != 'yui-t7'">
+		<tal:block condition="php: vanilla['page']['nesting'] == 'yui-g'">
+			<metal:block use-macro="vanilla_grid_outer_single_col" />
+		</tal:block>
+		<tal:block condition="php: vanilla['page']['nesting'] != 'yui-g'">
+			<metal:block use-macro="vanilla_grid_outer_multi_col" />
+		</tal:block>
+	</tal:block>
+	<tal:block condition="php: vanilla['page']['template'] == 'yui-t7'">
+		<tal:block condition="php: vanilla['page']['nesting'] == 'yui-g'">
+			<metal:block use-macro="vanilla_grid_inner_single_col" />
+		</tal:block>
+		<tal:block condition="php: vanilla['page']['nesting'] != 'yui-g'">
+			<metal:block use-macro="vanilla_grid_inner_multi_col" />
+		</tal:block>
+	</tal:block>
+</metal:block>
+
+
+
+<metal:block define-macro="vanilla_grid_sidebars_top">
+	<!-- macro: vanilla_grid_sidebars_top -->
+	<tal:block condition="php: in_array(vanilla['page']['nesting'], array('yui-gd', 'yui-gf'))">
+		<tal:block condition="php: in_array(vanilla['page']['template'], array('yui-t1', 'yui-t2', 'yui-t3'))">
+			<div class="yui-u first sidebar sidebar-inner">
+				<span metal:define-slot="secondary_sidebar" />
+			</div><!-- .yui-u first -->
+		</tal:block>
+		<tal:block condition="php: NOT in_array(vanilla['page']['template'], array('yui-t1', 'yui-t2', 'yui-t3'))">
+			<div class="yui-u first sidebar sidebar-outer">
+				<span metal:define-slot="primary_sidebar" />
+			</div><!-- .yui-u first -->
+		</tal:block>
+		<tal:block condition="php: vanilla['page']['template'] == 'yui-t7'">
+			<div class="yui-u first sidebar sidebar-outer">
+				<span metal:define-slot="secondary_sidebar" />
+			</div><!-- .yui-u first -->
+		</tal:block>
+	</tal:block>
+</metal:block>
+
+
+
+<metal:block define-macro="vanilla_grid_sidebars_middle">
+	<!-- macro: vanilla_grid_sidebars_middle -->
+	<tal:block condition="php: in_array(vanilla['page']['nesting'], array('yui-gc', 'yui-ge'))">
+		<div class="yui-u sidebar sidebar-inner">
+		<tal:block condition="php: in_array(vanilla['page']['template'], array('yui-t1', 'yui-t2', 'yui-t3'))">
+			<span metal:define-slot="secondary_sidebar" />
+		</tal:block>
+		<tal:block condition="php: NOT in_array(vanilla['page']['template'], array('yui-t1', 'yui-t2', 'yui-t3'))">
+			<span metal:define-slot="primary_sidebar" />
+		</tal:block>
+		<tal:block condition="php: vanilla['page']['template'] == 'yui-t7'">
+			<span metal:define-slot="secondary_sidebar" />
+		</tal:block>
+		</div><!-- .yui-u -->
+	</tal:block>
+</metal:block>
+
+
+
+<metal:block define-macro="vanilla_grid_sidebars_bottom">
+	<!-- macro: vanilla_grid_sidebars_bottom -->
+	<tal:block condition="php: vanilla['page']['nesting'] == 'yui-g'">
+		<div class="yui-b sidebar sidebar-outer">
+			<span metal:define-slot="primary_sidebar" />
+			<span metal:define-slot="secondary_sidebar" />
+		</div><!-- .yui-b -->
+	</tal:block>
+	<tal:block condition="php: in_array(vanilla['page']['template'], array('yui-t1', 'yui-t2', 'yui-t3'))">
+		<div class="yui-b sidebar sidebar-outer">
+			<span metal:define-slot="primary_sidebar" />
+		</div><!-- .yui-b -->
+	</tal:block>
+	<tal:block condition="php: NOT in_array(vanilla['page']['template'], array('yui-t1', 'yui-t2', 'yui-t3'))">
+		<div class="yui-b sidebar sidebar-outer">
+			<tal:block tal:condition="php: vanilla['page']['nesting'] != 'yui-g'">
+				<span metal:define-slot="secondary_sidebar" />
+			</tal:block>
+		</div><!-- .yui-b -->
+	</tal:block>
+</metal:block>
+
+
+
+<metal:block define-macro="vanilla_grid_inner_single_col">
+	<!-- macro: vanilla_grid_inner_single_col -->
+	<div id="content" class="yui-g">
+		<span metal:define-slot="content" />
+		<span metal:use-macro="vanilla_grid_sidebars_middle" />
+	</div><!-- .yui-g -->			
+</metal:block>
+
+
+
+<metal:block define-macro="vanilla_grid_inner_multi_col">
+	<!-- macro: vanilla_grid_inner_multi_col -->
+	<div class="${vanilla/page/nesting}">
+		<span metal:use-macro="vanilla_grid_sidebars_top" />
+		<div id="content" class="class" tal:attributes="class php: (in_array(vanilla['page']['nesting'], array('yui-gc', 'yui-ge'))) ? 'yui-u first' : 'yui-u'">
+			<span metal:define-slot="content" />
+		</div><!-- .yui-u first -->
+		<span metal:use-macro="vanilla_grid_sidebars_middle" />
+	</div><!-- .yui-g -->
+</metal:block>
+
+
+
+<metal:block define-macro="vanilla_grid_outer_single_col">
+	<!-- macro: vanilla_grid_outer_single_col -->
+	<div class="yui-main">
+		<div class="yui-b">
+			<div id="content" class="yui-g">
+				<span metal:define-slot="content" />
+				<span metal:use-macro="vanilla_grid_sidebars_middle" />
+			</div><!-- .yui-g -->
+		</div><!-- .yui-b -->
+	</div><!-- #yui-main -->
+	<span metal:use-macro="vanilla_grid_sidebars_bottom" />
+</metal:block>
+
+
+
+<metal:block define-macro="vanilla_grid_outer_multi_col">
+	<!-- macro: vanilla_grid_outer_multi_col -->
+	<div class="yui-main">
+		<div class="yui-b">
+			<div class="${vanilla/page/nesting}">
+				<span metal:use-macro="vanilla_grid_sidebars_top" />
+				<div id="content" class="class" tal:attributes="class php: (in_array(vanilla['page']['nesting'], array('yui-gc', 'yui-ge'))) ? 'yui-u first' : 'yui-u'">
+					<span metal:define-slot="content" />
+				</div><!-- .yui-u -->
+				<span metal:use-macro="vanilla_grid_sidebars_middle" />
+			</div><!-- .yui-g -->
+		</div><!-- .yui-b -->
+	</div><!-- #yui-main -->
+	<span metal:use-macro="vanilla_grid_sidebars_bottom" />
+</metal:block>

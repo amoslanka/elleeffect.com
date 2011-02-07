@@ -1,0 +1,90 @@
+body {
+	background:#1B1B1B;
+}
+#header {
+	position:relative;
+	width:950px;
+	margin:0 auto;
+	background:transparent;
+	padding:72px 0 0 0;
+    border-bottom:1px solid #272727;
+}
+#branding {
+    width:950px;
+    margin:0 auto;
+	padding:18px 0;
+}
+#blog-title {
+	font-size:35px;
+	font-weight:bold;
+	line-height:36px;
+	padding:0 5px 0 40px;
+	display:block;
+	text-transform:uppercase;
+}
+#blog-title a {
+	text-decoration:none;
+	color:#6DCFF6;
+}
+#blog-title a:hover {
+    color:#FFF;
+}
+#blog-description {
+ 	display:block;
+   font-size:18px;
+	text-transform:none;
+	letter-spacing:0;
+	color:#FFF;
+	margin-right:70px;
+	margin-left:40px;
+	padding-bottom:18px;
+}
+#access {
+    width:950px;
+    margin:0 auto;
+    overflow:hidden;
+    border-top:1px solid #272727;
+}
+#access ul {
+	margin:0 40px 0 0;
+	list-style:none;
+	float:right;
+    border-right:1px solid #272727;
+}
+#access ul ul {
+	display:none;	
+}
+#access li {
+	display:inline;
+	margin:0;
+}
+#access a {
+    display:block;
+    float:left;
+    color:#FFF;
+    padding:0 10px;
+    line-height:21px;
+    text-decoration:none;
+    text-transform:uppercase;
+    font-size:10px;
+    letter-spacing:2px;
+    border-left:1px solid #272727;
+}
+#access .current_page_item a {
+    background:#494949;
+}
+#access a:hover {
+    background:#323232;
+}
+a.browser-upgrade {
+    font-size:10px;
+    position:absolute;
+    top:18px;
+    right:80px;
+}
+#container {
+	overflow-x: hidden;
+}
+#primary {
+	overflow-x: hidden;
+}

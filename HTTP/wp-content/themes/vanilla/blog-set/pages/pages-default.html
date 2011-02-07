@@ -1,0 +1,93 @@
+<div tal:replace="">
+<!--
+
+Australis Media has made the contents of this file
+available under a CC-GNU-GPL license:
+
+ http://creativecommons.org/licenses/GPL/2.0/
+
+ A copy of the full license can be found as part of this
+ distribution in the file LICENSE.TXT
+
+You may use the Vanilla theme software in accordance
+with the terms of that license. You agree that you are
+solely responsible for your use of the Vanilla theme
+software and you represent and warrant to Australis Media
+that your use of the Vanilla theme software will comply
+with the CC-GNU-GPL.
+
+-->
+</div>
+
+<div metal:define-macro="page" tal:omit-tag="">
+
+<span tal:define="file php:vanilla_get_template('hooks.html')"
+	  metal:use-macro="${file}/loader" tal:comment="All the 'hook' slots." />
+<span tal:define="file php:vanilla_get_template('header/' . vanilla['header']['tpl_file'])"
+	  metal:use-macro="${file}/loader" tal:comment="All the header slots." />
+<span tal:define="file php:vanilla_get_template('vanilla-utility.html')"
+	  metal:use-macro="${file}/loader" tal:comment="All the utility block slots." />
+<span tal:define="file php:vanilla_get_template('footer/' . vanilla['footer']['tpl_file'])"
+	  metal:use-macro="${file}/loader" tal:comment="All the footer slots." />
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> <!-- have to put language back in here. -->
+<head profile="http://gmpg.org/xfn/11">
+	<span metal:define-slot="head" />
+</head>
+<body class="${vanilla/page/body_class}">
+
+	<span metal:define-slot="before_page" />
+
+	<div id="page">
+	
+		<span metal:define-slot="before_hd" />
+		<span metal:define-slot="hd" />
+		<span metal:define-slot="sub_header" />
+		<span metal:define-slot="before_bd" />
+		
+		<div id="bd" class="${vanilla/page/bd_class} hfeed">
+
+			<span metal:define-slot="breadcrumbs" />
+				
+			<div tal:define="file php:vanilla_get_template('vanilla-grid.html')"
+				 metal:use-macro="${file}/vanilla_grid" tal:omit-tag="">
+				<div metal:fill-slot="content" tal:omit-tag="">
+					<span metal:define-slot="content_top" />
+					
+					<span tal:repeat="entry vanilla/entries" tal:omit-tag="">
+						<span tal:condition="php: repeat.entry.number == '1'" tal:omit-tag="">
+							<span tal:define="file php:vanilla_get_template('content/' . vanilla['content']['tpl_file'])"
+								  metal:use-macro="${file}/loader" tal:comment="The content slot." />
+							<span tal:define="file php:vanilla_get_template('comments/' . vanilla['comments']['tpl_file'])"
+								  metal:use-macro="${file}/loader" tal:comment="The comments slot." />
+							
+							<span metal:define-slot="content" />
+							<div id="comments">
+								<span metal:define-slot="comments" />
+							</div><!--#comments-->
+						</span>
+					</span>
+	
+					<span metal:define-slot="content_bottom" />
+				</div>
+			</div>
+			
+		</div><!-- #bd-->
+		
+		<span metal:define-slot="utility" />
+		<span metal:define-slot="before_ft" />
+		<span metal:define-slot="ft" />
+		<span metal:define-slot="after_ft" />
+		
+	</div><!--#page-->
+	
+	<span metal:define-slot="after_page" />
+	<span metal:define-slot="wp_footer" />
+
+</body>
+</html>
+
+</div>
+
+<span metal:use-macro="page" comment="Don't remove this, or you get... nothing!" />

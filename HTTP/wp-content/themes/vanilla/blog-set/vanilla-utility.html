@@ -1,0 +1,68 @@
+<div tal:replace="">
+<!--
+
+Australis Media has made the contents of this file
+available under a CC-GNU-GPL license:
+
+ http://creativecommons.org/licenses/GPL/2.0/
+
+ A copy of the full license can be found as part of this
+ distribution in the file LICENSE.TXT
+
+You may use the Vanilla theme software in accordance
+with the terms of that license. You agree that you are
+solely responsible for your use of the Vanilla theme
+software and you represent and warrant to Australis Media
+that your use of the Vanilla theme software will comply
+with the CC-GNU-GPL.
+
+-->
+</div>
+
+<metal:block define-macro="loader">
+
+	<metal:block define-macro="vanilla_utility_4_col">
+		<div class="yui-g first">
+			<div class="yui-u first">
+				<span metal:define-slot="utility_1" />
+			</div>
+			<div class="yui-u">
+				<span metal:define-slot="utility_2" />
+			</div>
+		</div>
+		<div class="yui-g">
+			<div class="yui-u first">
+				<span metal:define-slot="utility_3" />
+			</div>
+			<div class="yui-u">
+				<span metal:define-slot="utility_4" />
+			</div>
+		</div>
+	</metal:block>
+	
+	
+	<metal:block fill-slot="utility">
+		${php: do_action('vanilla_before_utility_grid')}
+		<tal:block define="global utl_class php: str_replace('gg','g', vanilla['utility'])" />
+		<tal:block condition="php: vanilla['utility'] != 'yui-ga'">
+			<div id="utility" class="yui-d3 ${utl_class}">
+				<tal:block use-macro="vanilla_utility_4_col" condition="php: vanilla['utility'] == 'yui-gg'" tal:comment="4 utility columns" />
+				<tal:block condition="php: vanilla['utility'] != 'yui-gg'">
+					<div class="yui-u first">
+						<span metal:define-slot="utility_1" />
+					</div>
+					<div class="yui-u">
+						<span metal:define-slot="utility_2" />
+					</div>
+					<tal:block condition="php: vanilla['utility'] == 'yui-gb'" tal:comment="3 utility columns">
+						<div class="yui-u">
+							<span metal:define-slot="utility_3" />
+						</div>
+					</tal:block>
+				</tal:block>
+			</div><!-- #utility -->
+		</tal:block>
+		${php: do_action('vanilla_after_utility_grid')}
+	</metal:block>
+
+</metal:block>

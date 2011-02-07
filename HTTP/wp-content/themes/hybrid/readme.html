@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<title>A guide to the Hybrid theme framework</title>
+
+<link rel="stylesheet" href="library/css/base.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="library/css/readme.css" type="text/css" media="screen" />
+
+</head>
+<body>
+
+<h1 title="A guide to using the Hybrid WordPress theme framework">A guide to Hybrid</h1>
+
+<p>Hybrid is a theme framework.</p>
+
+<p>What this means is that the possibilities are endless.  It is the culmination of over three years working with WordPress and a few solid months of rethinking how WordPress themes <em>should</em> work.  It looks simple on the outside, but you can do nearly anything with enough creativity.</p>
+
+<p>Is it a perfect solution for everything?  Maybe not, but it's as close as you'll come to being able to run any type of site with a single base theme on WordPress.  Everyone from first-time WordPress users to advanced developers and designers can take advantage of this theme framework.</p>
+
+<h2>Theme Options</h2>
+
+<p>Themes are becoming more and more bloated with multiple theme options, which makes it even harder to customize your theme.  With Hybrid, each theme option has been carefully weighed and removed then added again in an attempt to only put things that matter into the WordPress backend.</p>
+
+<p>Theme options are about sharing your content with the world.</p>
+
+<p>So, every theme option available is there for your convenience, but they won't bloat your site or get in the way of your customization.  Plus, Hybrid theme options only leave a single entry in your database, which reduces the clutter of multiple options that many plugins and themes add.</p>
+
+<h2>Widgets</h2>
+
+<p>Hybrid comes with a lot of <a href="http://codex.wordpress.org/Plugins/WordPress_Widgets" title="WordPress Widgets">widget</a> options.  There are two main widget sections: Primary Insert and Secondary Insert.  Your widgets can be added or removed depending on which part of your blog a visitor is on.</p>
+
+<p>Plus, widget areas completely collapse if there's nothing to display, leaving you with clean code to work with.</p>
+
+<p>Oh yeah, there's even a page template that's completely widgetized.</p>
+
+<h2>Page Templates</h2>
+
+<p>This framework is packaged with loads of useful <a href="http://codex.wordpress.org/Pages#Page_Templates" title="Page templates">page templates</a>.  Page templates change the way a page displays or functions depending on the particular template you've chosen.</p>
+
+<dl>
+<dt title="Archives page template">Archives</dt>
+	<dd>By default, this template will show your category and monthly archives.  To overwrite this, you can activate one of three plugins: <a href="http://www.geekwithlaptop.com/projects/clean-archives" title="Clean Archives">Clean Archives</a>, <a href="http://justinblanton.com/projects/smartarchives" title="Smart Archives">Smart Archives</a>, or <a href="http://wordpress.org/extend/plugins/smarter-archives/installation" title="Smarter Archives">Smarter Archives</a>.</dd>
+<dt title="Authors page template">Authors</dt>
+	<dd>The Authors template will list each of your authors (in order of display name) with the biographical information from their user profiles along with a spam-protected link to their email address.  Only authors with posts are shown.</dd>
+<dt title="Biography page template">Biography</dt>
+	<dd>The Biography template will set the page author's information at the top of the page (from author's profile).  It's a good way to start off a single-author blog's about page.</dd>
+<dt title="Blog page template">Blog</dt>
+	<dd>If you don't use a blog-based front page, this template is useful for setting up an alternate blog page.  It will show the number of posts set in your reading settings.</dd>
+<dt title="Bookmarks page template">Bookmarks</dt>
+	<dd>Will produce an unordered list of your bookmarks by default.  Alternately, you can install the <a href="http://wordpress.org/extend/plugins/hot-friends" title="Hot Friends WordPress plugin">Hot Friends</a> plugin, which will overwrite the default setting.</dd>
+<dt title="Categories page template">Categories</dt>
+	<dd>The Categories template will list your categories along with their post counts and RSS feed links.  Activating the <a href="http://wordpress.org/extend/plugins/no-widget-category-cloud" title="No Widget Category Cloud plugin">No Widget Category Cloud</a> plugin will overwrite the default settings.</dd>
+<dt title="Logged In page template">Logged In</dt>
+	<dd>This template will allow you to show custom content to only logged-in users.  You can also check for users with specific <a href="http://codex.wordpress.org/Roles_and_Capabilities" title="WordPress roles and capabilities">capabilities</a>.  Just use the custom field key <code>Capability</code> and put any capability in as the custom field value (also checks for multiple values).  For users without permission to see the content, a link to log in and a link to register (if registrations allowed) will be displayed.</dd>
+<dt title="Log In page template">Log In</dt>
+	<dd>With this template, you can create a custom log in page.  You won't have to send your users to the <code>wp-login.php</code> page that looks nothing like your site anymore.</dd>
+<dt title="No Widgets page template">No Widgets</dt>
+	<dd>For use on pages where you don't want any widgets displayed.</dd>
+<dt title="Quick Post page template">Quick Post</dt>
+	<dd>You can use this template to write quick posts on your site. You can even set up a Twitter-like site with this template.</dd>
+<dt title="Register page template">Register</dt>
+	<dd>The Register template allow you to have a custom registration page that looks and feels like the rest of your site.  New users will no longer have to visit the WordPress admin-styled <code>wp-register.php</code> page.</dd>
+<dt title="Tags page template">Tags</dt>
+	<dd>The Tags template will show a tag cloud of all your site's tags.  You can also overwrite this by installing the <a href="http://wordpress.org/extend/plugins/configurable-tag-cloud-widget" title="Configurable Tag Cloud Widget">Configurable Tag Cloud Widget</a>.</dd>
+<dt title="Widgets page template">Widgets</dt>
+	<dd>The Widgets template is completely widgetized.  Basically, you can do anything you want with it.  You could even create your own custom home page with just widgets.</dd>
+</dl>
+
+<h2>Attachment Handling</h2>
+
+<p>Hybrid takes attachment handling to a whole new level.  <a href="http://codex.wordpress.org/Using_Image_and_File_Attachments" title="Using image and file attachments">Attachments</a> are files that you've uploaded to a post, which doesn't necessarily mean that it must be placed within the post area.</p>
+
+<p>There are quite a few attachment templates to handle things you've uploaded: <code>attachment.php</code>, <code>application.php</code>, <code>audio.php</code>, <code>image.php</code>, <code>text.php</code>, and <code>video.php</code>.  Basically, this theme knows what to do when you link to an attachment page, which is simply just a child/sub-page of any post/page.</p>
+
+<h2>Child Themes</h2>
+
+<p>When I call Hybrid a theme framework, I mean it.  It is <strong>meant</strong> to be used as a base theme to build from.  What this allows us to do is extend it through child themes.</p>
+
+<p>Yes, you can create your own theme.  Even if you're a total <em>noob</em> to WordPress!</p>
+
+<p>Just create a new theme folder in your <code>/wp-content/themes</code> directory.  Call it something like <em>My Hybrid</em> or some other much cooler name.  So, you'd have a directory like <code>/wp-content/themes/my-hybrid</code>.  Then, create a <code>style.css</code> file within your theme folder.  At the top, add this information:</p>
+
+<pre><code>/* 
+Theme Name: My Hybrid
+Theme URI: http://link-to-your-site.com
+Description: Describe what your theme should be like.
+Version: 0.1
+Author: Your Name
+Author URI: http://link-to-your-site.com
+Tags: Add, Whatever, Tags, You, Want
+Template: hybrid
+*/</code></pre>
+
+<p>Now, you have your own theme!  Of course, you might want to style it.</p>
+
+<p>Here's three stylesheets that will help you get started.  Just add this to your stylesheet.</p>
+
+<pre><code>/* Get base CSS */
+@import url('../hybrid/library/css/base.css');
+
+/* Get default Hybrid CSS */
+@import url('../hybrid/library/css/default.css');
+
+/* Get the plugins CSS */
+@import url('../hybrid/library/css/plugins.css');</code></pre>
+
+<p>The <code>base.css</code> resets all browser defaults and sets up some nice typography for you to start with.  The <code>default.css</code> is the default theme CSS that you can overwrite.  And, of course, <code>plugins.css</code> sets some default styling for supported plugins.</p>
+
+<h2>Theme Support</h2>
+
+<p>The most authoritative source for finding out how to use the theme or do some nifty stuff is the <a href="http://themehybrid.com/themes/hybrid" title="Hybrid theme page">theme documentation</a>.  I'll constantly update it with tutorials and frequently asked questions.</p>
+
+<p>We also have a vibrant community at the <a href="http://themehybrid.com/support" title="Theme Hybrid support forums">Theme Hybrid Support Forums</a>.  If you ever lose the link, you can find it right from your Hybrid Settings page in your WordPress dashboard.</p>
+
+<h2>Built-in support for plugins</h2>
+
+<ul>
+<li><a href="http://wordpress.org/extend/plugins/all-in-one-seo-pack" title="All-In-One SEO Pack">All-In-One SEO Pack</a></li>
+<li><a href="http://wordpress.org/extend/plugins/comment-license" title="Comment License">Comment License</a></li>
+<li><a href="http://wordpress.org/extend/plugins/headspace2" title="Headspace 2">Headspace 2</a></li>
+<li><a href="http://www.geekwithlaptop.com/projects/clean-archives" title="Clean Archives">Clean Archives</a></li>
+<li><a href="http://justintadlock.com/archives/2008/04/13/cleaner-wordpress-gallery-plugin" title="Cleaner WordPress Gallery Plugin">Cleaner WordPress Gallery Plugin</a></li>
+<li><a href="http://wordpress.org/extend/plugins/configurable-tag-cloud-widget" title="Configurable Tag Cloud Widget">Configurable Tag Cloud Widget</a></li>
+<li><a href="http://www.plaintxt.org/experiments/easy-contact" title="Easy Contact Form">Easy Contact</a></li>
+<li><a href="http://wordpress.org/extend/plugins/hot-friends" title="Hot Friends Bookmarks Plugin">Hot Friends</a></li>
+<li><a href="http://wordpress.org/extend/plugins/no-widget-category-cloud" title="No Widget Category Cloud">No Widget Category Cloud</a></li>
+<li><a href="http://wordpress.org/extend/plugins/smart-404" title="Smart 404">Smart 404</a></li>
+<li><a href="http://justinblanton.com/projects/smartarchives" title="Smart Archives">Smart Archives</a></li>
+<li><a href="http://wordpress.org/extend/plugins/smarter-archives/installation" title="Smarter Archives">Smarter Archives</a></li>
+<li><a href="http://wordpress.org/extend/plugins/subscribe-to-comments" title="Subscribe to comments">Subscribe To Comments</a></li>
+<li><a href="http://wordpress.org/extend/plugins/stats" title="WordPress.com Stats">WordPress.com Stats</a></li>
+<li><a href="http://wordpress.org/extend/plugins/wp-email" title="WP Email">WP Email</a></li>
+<li><a href="http://wordpress.org/extend/plugins/wp-pagenavi" title="WP Pagenavi">WP Pagenavi</a></li>
+<li><a href="http://wordpress.org/extend/plugins/wp-relativedate" title="WP Relative Date">WP Relative Date</a></li>
+</ul>
+
+<h2>Frameworks &amp; Other Code</h2>
+
+<p>Hybrid owes a lot of thanks to several CSS frameworks and code other people have worked hard at putting together.  The default styles and extra stylesheets take ideas and code from many different frameworks and stylesheets, which are also included for your use.  Video attachment handling is done with Flowplayer.  The SimplePie PHP class is included for parsing feeds if we need to do that.</p>
+
+<ul>
+<li><a href="http://960.gs" title="960 Grid System">960 Grid System</a> (License: <a href="http://www.gnu.org/licenses/gpl.html" title="GPL 3">GPL</a> &amp; <a href="http://www.opensource.org/licenses/mit-license.php" title="MIT License">MIT</a>)</li>
+<li><a href="http://www.blueprintcss.org/" title="Blueprint CSS: Google Code">Blueprint</a> (License: <a href="http://www.opensource.org/licenses/mit-license.php" title="MIT License">MIT</a>)</li>
+<li><a href="http://devkick.com/lab/tripoli" title="Tripoli: A CSS standard for HTML rendering">Tripoli</a> (License: <a href="http://www.gnu.org/licenses/gpl.html" title="GPL License">GPL</a>)</li>
+<li><a href="http://flowplayer.org/tools/flash-embed.html" title="Adobe Flash Embedding Script">Flash Embed</a> (License: <a href="http://www.opensource.org/licenses/mit-license.php" title="MIT License">MIT</a>)</li>
+<li><a href="http://flowplayer.org" title="Flowplayer">Flowplayer</a> (License: <a href="http://www.gnu.org/licenses/gpl.html" title="GPL 3 License">GPL</a>)</li>
+<li><a href="http://www.twinhelix.com/css/iepngfix" title="IE png fix">Internet Explorer .png fix</a> (License: <a href="http://creativecommons.org/licenses/LGPL/2.1/" title="LGPL License">LGPL</a>)</li>
+<li><a href="http://simplepie.org" title="SimplePie: Super-fast, easy-to-use, RSS and Atom feed parsing in PHP">SimplePie</a> (License: <a href="http://www.opensource.org/licenses/bsd-license.php" title="BSD License">BSD</a>)</li>
+</ul>
+
+<h2>Credit</h2>
+
+<p>I don't know if I can come close to naming all the people that should be credited, but I'll list some of the main folks.</p>
+
+<ul>
+<li><a href="http://themeshaper.com" title="Theme Shaper">Ian Stewart</a></li>
+<li><a href="http://prologuetheme.org" title="Prologue Theme">Prologue</a></li>
+<li><a href="http://www.plaintxt.org/themes/sandbox" title="The Sandbox theme">Sandbox</a></li>
+<li><a href="http://tarskitheme.com" title="Tarski: An elegant, flexible WordPress theme">Tarski</a></li>
+<li><a href="http://microformats.org" title="Microformats">Microformats</a></li>
+<li><a href="http://microid.org" title="MicroID">MicroID</a></li>
+<li><a href="http://ottodestruct.com/blog/2008/09/29/wordpress-27-comments-enhancements" title="WordPress 2.7 comments enhancements">Otto's WP 2.7 comments enhancements</a></li>
+<li><a href="http://www.nathanrice.net/blog/wordpress-seo-the-ultimate-guide-to-wordpress-theme-search-engine-optimization" title="The ultimate guide to WordPress theme search engine optimization">Nathan Rice's SEO for WordPress guide</a></li>
+<li><a href="http://wordpress.org" title="WordPress: A state-of-the-art publishing platform">WordPress</a>, of course!</li>
+</ul>
+
+<h2>Copyright &amp; License</h2>
+
+<p>Hybrid is licensed under the <a href="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html" title="GNU GPL">GNU General Public License</a>, version 2 (GPL).</p>
+
+<p>This theme is copyrighted to <a href="http://justintadlock.com" title="Justin Tadlock">Justin Tadlock</a> and <a href="http://themehybrid.com" title="Theme Hybrid">Theme Hybrid</a>.</p>
+
+<p>2008 &copy Justin Tadlock</p>
+
+</body>
+</html>

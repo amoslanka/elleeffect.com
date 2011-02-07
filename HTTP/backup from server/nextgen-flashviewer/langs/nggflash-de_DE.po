@@ -1,0 +1,837 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: NextGen FlashViewer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-02-01 21:20+1000\n"
+"PO-Revision-Date: 2009-02-01 21:21+1000\n"
+"Last-Translator: Boris Glumpler <bo@travel-junkie.com>\n"
+"Language-Team: Boris Glumpler <bo@travel-junkie.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: nggflashviewer.php:40
+msgid "You are not allowed to call this page directly."
+msgstr "Du darfst diese Seite nicht direkt aufrufen."
+
+#: admin/admin.php:31
+msgid "Sorry, NextGEN FlashViewer works only in combination with NextGEN Gallery."
+msgstr "Leider funktioniert NextGEN FlashViewer nur in Verbindung mit NextGEN Gallery"
+
+#: admin/admin.php:39
+msgid "FlashViewer"
+msgstr "FlashViewer"
+
+#: admin/admin.php:69
+msgid "<a href=\"http://travel-junkie.com/geeky-stuff/wp-plugin-nextgen-fashviewer/\" target=\"_blank\">Support</a>"
+msgstr "<a href=\"http://travel-junkie.com/geeky-stuff/wp-plugin-nextgen-fashviewer/\" target=\"_blank\">Unterst&uuml;tzung</a>"
+
+#: admin/admin.php:74
+msgid "Get help with NextGEN FlashViewer"
+msgstr "Hol Dir Hilfe zu  NextGEN FlashViewer"
+
+#: admin/admin.php:78
+msgid "More Help & Info"
+msgstr "Mehr Hilfe &Info"
+
+#: admin/admin.php:80
+msgid "<a href=\"http://wordpress.org/extend/plugins/nextgen-flashviewer\" target=\"_blank\">Download a new version</a>"
+msgstr "<a href=\"http://wordpress.org/extend/plugins/nextgen-flashviewer\" target=\"_blank\">Lade eine neue Version herunter</a>"
+
+#: admin/settings.php:26
+msgid "Update Successfully"
+msgstr "Update erfolgreich"
+
+#: admin/settings.php:37
+msgid "Reset all settings to default parameter"
+msgstr ""
+
+#: admin/settings.php:46
+msgid "Uninstall sucessfull ! Now delete the plugin and enjoy your life ! Good luck !"
+msgstr ""
+
+#: admin/settings.php:67
+#: admin/settings.php:83
+msgid "General Settings"
+msgstr "AllgemeineEinstellungen"
+
+#: admin/settings.php:68
+msgid "SimpleViewer"
+msgstr "SimpleViewer"
+
+#: admin/settings.php:69
+msgid "TiltViewer"
+msgstr "TiltViewer"
+
+#: admin/settings.php:70
+msgid "AutoViewer"
+msgstr "AutoViewer"
+
+#: admin/settings.php:71
+msgid "PostcardViewer"
+msgstr "PostcardViewer"
+
+#: admin/settings.php:72
+msgid "Setup"
+msgstr "Setup"
+
+#: admin/settings.php:73
+#: admin/settings.php:506
+msgid "Credits"
+msgstr "Credits"
+
+#: admin/settings.php:74
+#: admin/settings.php:513
+msgid "Donate"
+msgstr "Spende"
+
+#: admin/settings.php:86
+msgid "Effects"
+msgstr "Effekte"
+
+#: admin/settings.php:88
+msgid "Please note that none of these effects work out of the box, so the effect of your choice needs to be already installed before you activate the option here."
+msgstr ""
+
+#: admin/settings.php:90
+msgid "Thickbox"
+msgstr "Thickbox"
+
+#: admin/settings.php:91
+msgid "Highslide"
+msgstr "Highslide"
+
+#: admin/settings.php:92
+msgid "Lightview"
+msgstr "Lightview"
+
+#: admin/settings.php:93
+msgid "Shadowbox"
+msgstr "Shadowbox"
+
+#: admin/settings.php:94
+msgid "Different JS-Effects to open Simpleviewer/TiltViewer/Auto/PostcardViewer in."
+msgstr "Verschiedene JS-Effekte um Simpleviewer/TiltViewer/Auto/PostcardViewer zu &ouml;ffnen."
+
+#: admin/settings.php:97
+msgid "Enable Right Click Open"
+msgstr "&Ouml;ffnen mit Rechtsklick aktivieren"
+
+#: admin/settings.php:100
+#: admin/settings.php:232
+#: admin/settings.php:239
+#: admin/settings.php:246
+#: admin/settings.php:303
+#: admin/settings.php:323
+#: admin/settings.php:330
+msgid "true"
+msgstr "wahr"
+
+#: admin/settings.php:101
+#: admin/settings.php:233
+#: admin/settings.php:240
+#: admin/settings.php:247
+#: admin/settings.php:304
+#: admin/settings.php:324
+#: admin/settings.php:331
+msgid "false"
+msgstr "falsch"
+
+#: admin/settings.php:102
+msgid "Whether to display a *Open In new Window...* dialog when right-clicking on an image."
+msgstr "Ob ein *In einem neuen fenster &ouml;ffnen...* Dialog bei Rechtsklick eines Bildes angezeigt wird."
+
+#: admin/settings.php:105
+msgid "Background Color"
+msgstr "Hintergrundfarbe"
+
+#: admin/settings.php:107
+msgid "Color of SWFObject background (hexidecimal color value e.g ff00ff)."
+msgstr "Hintergrundfarbe des  SWFObject(Hexadezimaler Farbenwert, z.B. ff00ff)."
+
+#: admin/settings.php:110
+msgid "About Text"
+msgstr "&Uuml;ber Text"
+
+#: admin/settings.php:111
+msgid "The text displayed for the right-click *About* menu option."
+msgstr "Der Text, der f&uuml;r die rechtsklick *&Uuml;ber* Men&uuml;option hergenommen wird."
+
+#: admin/settings.php:114
+msgid "Open Image Text"
+msgstr "Bild &ouml;ffnen Text"
+
+#: admin/settings.php:115
+msgid "The text displayed for the right-click *Open Image in New Window* menu option."
+msgstr "Der Text, der f&uuml;r die rechtsklick *Bild in neuem Fenster &ouml;ffnen* Men&uuml;option hergenommen wird."
+
+#: admin/settings.php:119
+#: admin/settings.php:211
+#: admin/settings.php:398
+#: admin/settings.php:432
+#: admin/settings.php:476
+msgid "Update"
+msgstr "Update"
+
+#: admin/settings.php:130
+msgid "SimpleViewer Settings"
+msgstr "SimpleViewer Einstellungen"
+
+#: admin/settings.php:131
+msgid "The viewer.swf is not in the .../plugins/nggflash-swf/ folder. SimpleViewer will not work."
+msgstr "viewer.swf befindet sich nicht im  .../plugins/nggflash-swf/ Ordner. SimpleViewer wird nicht funktionieren."
+
+#: admin/settings.php:134
+msgid "Maximum Image Width"
+msgstr "Maximale Bildbreite"
+
+#: admin/settings.php:135
+msgid "Width of your largest image in pixels. Used to determine the best layout for your gallery."
+msgstr "Weite deines gr&ouml;sten Bildes in Pixel, damit das beste Layout deiner Galerie bestimmt werden kann."
+
+#: admin/settings.php:138
+msgid "Maximum Image Height"
+msgstr "Maximale Bildgr&ouml;sse"
+
+#: admin/settings.php:139
+msgid "Height of your largest image in pixels. Used to determine the best layout for your gallery."
+msgstr "H&ouml;he deines gr&ouml;sten Bildes in Pixel, damit das beste Layout deiner Galerie bestimmt werden kann."
+
+#: admin/settings.php:142
+#: admin/settings.php:369
+msgid "Text Color"
+msgstr "Textfarbe"
+
+#: admin/settings.php:144
+msgid "Color of title and caption text (hexidecimal color value e.g ff00ff)."
+msgstr "Farbe der Titel und Untertitel (Hexadezimaler Farbenwert, z.B. ff00ff)."
+
+#: admin/settings.php:147
+msgid "Preloader Color"
+msgstr "Farbe der Ladeanzeige"
+
+#: admin/settings.php:149
+msgid "Color of the loader (hexidecimal color value e.g ff00ff)."
+msgstr "Farbe des Loaders (Hexadezimaler Farbenwert, z.B. ff00ff)."
+
+#: admin/settings.php:152
+#: admin/settings.php:263
+#: admin/settings.php:413
+#: admin/settings.php:461
+msgid "Frame Color"
+msgstr "Rahmenfarbe"
+
+#: admin/settings.php:154
+msgid "Color of image frame, navigation buttons and thumbnail frame (hexidecimal color value e.g ff00ff)."
+msgstr "Farbe des Bilderrahmens, der Navigationskn&ouml;pfe und Thumbnailrahmens (Hexadezimaler Farbenwert, z.B. ff00ff)."
+
+#: admin/settings.php:157
+#: admin/settings.php:335
+#: admin/settings.php:418
+#: admin/settings.php:466
+msgid "Frame Width"
+msgstr "Rahmenbreite"
+
+#: admin/settings.php:158
+#: admin/settings.php:419
+#: admin/settings.php:467
+msgid "Width of image frame in pixels."
+msgstr "Breite des Bilderrahmen in Pixel."
+
+#: admin/settings.php:161
+msgid "Stage Padding"
+msgstr "B&uuml;hnen Padding"
+
+#: admin/settings.php:162
+msgid "Distance between image and thumbnails and around gallery edge."
+msgstr "Abstand zwischen Bild und Thumbnail und um die Galerier&auml;nder."
+
+#: admin/settings.php:165
+msgid "Nav Padding"
+msgstr "Nav Padding"
+
+#: admin/settings.php:166
+msgid "Distance between image and thumbnails (pixels)."
+msgstr "Abstand zwischen Bild und Thumbnail (in Pixel)."
+
+#: admin/settings.php:170
+msgid "Thumbnail Columns"
+msgstr "Thumbnail Spalten"
+
+#: admin/settings.php:171
+msgid "Number of thumbnail columns. (To disable thumbnails completely set this value to 0.)"
+msgstr "Anzahl der Thumbnail Spalten. (Um Thumbnails zu deaktivieren diesen Wert auf 0 setzen.)"
+
+#: admin/settings.php:174
+msgid "Thumbnail Rows"
+msgstr "Thumbnail Reihen"
+
+#: admin/settings.php:175
+msgid "Number of thumbnail rows. (To disable thumbnails completely set this value to 0.)"
+msgstr "Anzahl der Thumbnail Reihen. (Um Thumbnails zu deaktivieren diesen Wert auf 0 setzen.)"
+
+#: admin/settings.php:178
+msgid "Navigation Position"
+msgstr "Position der Navigation"
+
+#: admin/settings.php:181
+#: admin/settings.php:201
+msgid "top"
+msgstr "oben"
+
+#: admin/settings.php:182
+#: admin/settings.php:202
+msgid "bottom"
+msgstr "unten"
+
+#: admin/settings.php:183
+#: admin/settings.php:192
+msgid "left"
+msgstr "links"
+
+#: admin/settings.php:184
+#: admin/settings.php:193
+msgid "right"
+msgstr "rechts"
+
+#: admin/settings.php:185
+msgid "Position of thumbnails relative to image."
+msgstr "Position der Thumbnails relativ zum Bild."
+
+#: admin/settings.php:188
+msgid "Horizontal Align"
+msgstr "Horizontale Ausrichtung"
+
+#: admin/settings.php:191
+#: admin/settings.php:200
+msgid "center"
+msgstr "zentrieren"
+
+#: admin/settings.php:194
+msgid "Horizontal placment of the image and thumbnails within the SWF."
+msgstr "Horizontale Plazierung des Bildes und der Thumbnails innerhalb des SWF."
+
+#: admin/settings.php:197
+msgid "Vertical Align"
+msgstr "Vertikale Ausrichtung"
+
+#: admin/settings.php:203
+msgid "Vertical placment of the image and thumbnails within the SWF."
+msgstr "Vertikale Plazierung des Bildes und der Thumbnails innerhalb des SWF."
+
+#: admin/settings.php:206
+msgid "Background Image Path (URL)"
+msgstr "Pfad Hintergrundbild (URL)"
+
+#: admin/settings.php:207
+msgid "Relative or absolute path to a JPG or SWF to load as the gallery background."
+msgstr "Relativer oder absoluter Pfad zu einem JPG oder SWF, das als Galeriehintergrund geladen werden soll."
+
+#: admin/settings.php:222
+msgid "TiltViewer Settings"
+msgstr "TiltViewer Einstellungen"
+
+#: admin/settings.php:223
+msgid "The TiltViewer.swf is not in the .../plugins/nggflash-swf/ folder. TiltViewer will not work."
+msgstr "TiltViewer.swf befindet sich nicht im  .../plugins/nggflash-swf/ Ordner. TiltViewer wird nicht funktionieren."
+
+#: admin/settings.php:226
+msgid "Maximum JPG Size"
+msgstr "Maximale JPG Gr&ouml;sse"
+
+#: admin/settings.php:227
+msgid "Set this value to the largest dimension (width or height) of your largest image. TiltViewer uses this value to proportionately scale your images to fit."
+msgstr "Diesen Wert zu der gr&ouml;ssten Dimension (Weite oder H&ouml;he) deines gr&ouml;ssten Bildes setzen. TiltViewer benutzt diesen Wert um deine Bilder proportional zu skalieren."
+
+#: admin/settings.php:230
+msgid "Use Reload Button"
+msgstr "Reload Knopf verwenden"
+
+#: admin/settings.php:234
+msgid "Defines whether to use the circular reload button under the images, or to use next/back arrow buttons for gallery paging."
+msgstr "Definiert, ob der runde Reload Knopf unterhalb der Bilder oder Vor/Zur&uuml;ck Pfeile f&uuml;r die Galerie hergenommen werden."
+
+#: admin/settings.php:237
+msgid "Show Flip Button"
+msgstr "Flip Knopf anzeigen"
+
+#: admin/settings.php:241
+msgid "Defines whether to display the *flip* button at the bottom-right of a zoomed in image. Affects all images."
+msgstr "Definiert, ob der *Flip* Knopf rechts unten in einem vergr&ouml;sserten Bild angezeigt werden soll. Betrifft alle Bilder."
+
+#: admin/settings.php:244
+msgid "Show Link Button"
+msgstr "Link Knopf anzeigen"
+
+#: admin/settings.php:248
+msgid "Defines whether to display the *go to Flickr page* button on the image flipside. Affects all images."
+msgstr "Definiert, ob der *go to Flickr page* Link auf der R&uuml;ckseite angezeigt werden soll. Betrifft alle Bilder."
+
+#: admin/settings.php:251
+msgid "Link Label"
+msgstr "Link Text"
+
+#: admin/settings.php:252
+msgid "Text to display as the flipside link button label."
+msgstr "Text f&uuml;r den Link auf der R&uuml;ckseite."
+
+#: admin/settings.php:255
+#: admin/settings.php:449
+msgid "Columns"
+msgstr "Spalten"
+
+#: admin/settings.php:256
+msgid "Number of columns of images to display."
+msgstr "Anzahl der dargestellten Bildspalten."
+
+#: admin/settings.php:259
+msgid "Rows"
+msgstr "Reihen"
+
+#: admin/settings.php:260
+msgid "Number of rows of images to display."
+msgstr "Anzahl der dargestellten Bildreihen."
+
+#: admin/settings.php:265
+msgid "Hexadecimal color value of the image frame."
+msgstr "Hexacezimaler Farbwert des Bilderrahmens."
+
+#: admin/settings.php:268
+msgid "Backside Color"
+msgstr "Farbe der R&uuml;ckseite"
+
+#: admin/settings.php:270
+msgid "Hexadecimal color value of the flipside background."
+msgstr "Hexadezimaler Farbwert des Hintergrunds der R&uuml;ckseite."
+
+#: admin/settings.php:273
+msgid "Background Inner Color"
+msgstr "Innere Hintergrundfarbe"
+
+#: admin/settings.php:275
+msgid "Hexadecimal color value of the stage background gradient center."
+msgstr "Hexadezimaler abfallender Farbwert des Zentrums des B&uuml;hnenhintergrundes."
+
+#: admin/settings.php:278
+msgid "Background Outer Color"
+msgstr "&Auml;ussere Hintergrundfarbe"
+
+#: admin/settings.php:280
+msgid "Hexadecimal color value of the stage background gradient edge."
+msgstr "Hexadezimaler abfallender Farbwert des Randes des B&uuml;hnenhintergrundes."
+
+#: admin/settings.php:283
+msgid "Go Fullscreen Text"
+msgstr "Vollbildschirm Aktivierungstext"
+
+#: admin/settings.php:284
+msgid "The text displayed for the right-click *Go Fullscreen* menu option."
+msgstr "Der Text, der f&uuml;r die rechtsklick *Vollbildschirm anzeigen* Men&uuml;option hergenommen wird."
+
+#: admin/settings.php:287
+msgid "Exit Fullscreen Text"
+msgstr "Vollbildschirm Beenden Text"
+
+#: admin/settings.php:288
+msgid "The text displayed for the right-click *Exit Fullscreen* menu option."
+msgstr "Der Text, der f&uuml;r die rechtsklick *Vollbildschirm beenden* Men&uuml;option hergenommen wird."
+
+#: admin/settings.php:291
+msgid "Flickr User ID"
+msgstr "Flickr Benutzer ID"
+
+#: admin/settings.php:292
+msgid "User ID of your Flickr account, which you can find <a href=\"http://www.flickr.com/services/api/explore/?method=flickr.people.findByUsername\">here</a>."
+msgstr "Benutzer ID deines Flickr Kontos, das Du <a href=\"http://www.flickr.com/services/api/explore/?method=flickr.people.findByUsername\">hier</a> finden kannst."
+
+#: admin/settings.php:294
+msgid "Tag Mode"
+msgstr "Tag Modus"
+
+#: admin/settings.php:296
+msgid "any"
+msgstr "beliebig"
+
+#: admin/settings.php:297
+msgid "all"
+msgstr "alle"
+
+#: admin/settings.php:298
+msgid " Use \"any\" for an OR combination of tags (image can have 1 or more tags to be displayed) or \"all\" for an AND combination (image must have all tags to be displayed)."
+msgstr "Benutze \"beliebig\" f&uuml;r eine ODER Kombination von Tags (Bild kann 1 oder mehrere Tags haben um angezeigt zu werden) oder \"alle\" f&uuml;r eine UND Kombination Bild muss alle Tags haben um angezeigt zu werden)."
+
+#: admin/settings.php:301
+msgid "Show Taken By Text"
+msgstr "Geschossen von Text anzeigen"
+
+#: admin/settings.php:305
+msgid "Defines whether to display the 'taken by X on Y' text on the image flipside."
+msgstr "Definiert, ob der 'taken by X on Y'  Text auf der Bildr&uuml;ckseite agezeigt werden soll."
+
+#: admin/settings.php:310
+msgid "TiltViewer Pro Settings"
+msgstr "TiltViewer Pro Einstellungen"
+
+#: admin/settings.php:314
+msgid "Are you using TiltViewer Pro?"
+msgstr "Benutzt Du TiltViewer Pro?"
+
+#: admin/settings.php:316
+msgid "yes"
+msgstr "ja"
+
+#: admin/settings.php:317
+msgid "no"
+msgstr "nein"
+
+#: admin/settings.php:318
+msgid "<font color=\"red\">IMPORTANT:</font> The Pro options will only be available to you if you actually have the Pro version and if you answered yes!"
+msgstr "<font color=\"red\">WICHTIG:</font> Die Pro Einstellungen werden nur zur Verf&uuml;gung stehen, wenn Du wirklich die Pro Version besitzt und Du mit Ja geantwortet hast!"
+
+#: admin/settings.php:321
+msgid "Transparent Background"
+msgstr "Transparenter Hintergrund"
+
+#: admin/settings.php:325
+msgid "Defines whether to hide the radial gradient background behind the image grid."
+msgstr "Definiert, ob der radiale graduelle Hintergrund hinter dem Bildraster versteckt werden soll"
+
+#: admin/settings.php:328
+msgid "Show Fullscreen Option"
+msgstr "Option Vollbildschirm anzeigen"
+
+#: admin/settings.php:332
+msgid "Defines whether to show the *Go Fullscreen* right-click menu option."
+msgstr "Definiert, ob die Rechtsklick Vollbildschirm Option angezeigt werden soll."
+
+#: admin/settings.php:336
+msgid "Width of the image frames. To remove frames completely set this to -5."
+msgstr "Breite des Bildrahmens. Um Rahmen komplett zu entfernen auf -5 setzen."
+
+#: admin/settings.php:339
+msgid "Zoomed-in Distance"
+msgstr "Abstand Zoomed-In"
+
+#: admin/settings.php:340
+msgid "Camera distance from image when zoomed in to an image. Increasing this value makes the image smaller."
+msgstr "Kameraabstand zum Bild, wenn auf ein Bild eingezoomt wird. Je gr&ouml;sser der Wert, desto kleiner das Bild."
+
+#: admin/settings.php:343
+msgid "Zoomed-out Distance"
+msgstr "Abstand Zoomed-Out"
+
+#: admin/settings.php:344
+msgid "Camera distance from image-grid when zoomed out. Increasing this value makes the image-grid smaller."
+msgstr "Kameraabstand zum Bildraster, wenn weggezoomt wird. Je gr&ouml;sser der Wert, desto kleiner das Bildraster."
+
+#: admin/settings.php:347
+msgid "Font Name"
+msgstr "Name des Zeichensatzes"
+
+#: admin/settings.php:348
+msgid "Font style used by the flipside text. Note: this font is not embedded in the swf, so the user must have the specified font on their machine to view the font. If they don't have the specified font, they will see the default system font (usually 'sans')"
+msgstr "Zeichensatz, der auf der R&uuml;ckseite benutzt wird. Achtung: Dieser Zeichensatz ist nicht im SWF eingebettet, also muss der Benutzer den spezifizierten Zeichensatz auf seiner Maschine haben um ihn anzeigen zu k&ouml;nnen. Wenn sie diesen nicht haben, dann wird der vorgegebene Systemzeichensatz verwendet (normalerweise 'sans')"
+
+#: admin/settings.php:351
+msgid "Title Font Size"
+msgstr "Zeichensatzgr&ouml;sse des Titels"
+
+#: admin/settings.php:352
+msgid "The font size of the title on the flipside"
+msgstr "Die Zeichensatzgr&ouml;sse des Titels auf der R&uuml;ckseite"
+
+#: admin/settings.php:355
+msgid "Description Font Size"
+msgstr "Zeichensatzgr&ouml;sse der Beschreibung"
+
+#: admin/settings.php:356
+msgid "The font size of the description on the flipside"
+msgstr "Die Zeichensatzgr&ouml;sse der Beschreibung auf der R&uuml;ckseite"
+
+#: admin/settings.php:359
+msgid "Nav Button Color"
+msgstr "Nav Knopf Farbe"
+
+#: admin/settings.php:361
+msgid "Hexadecimal color value of the navigation arrows."
+msgstr "Hexacezimaler Farbwert der Navigationspfeile."
+
+#: admin/settings.php:364
+msgid "Flip Button Color"
+msgstr "Farbe des Flipknopfes"
+
+#: admin/settings.php:366
+msgid "Hexadecimal color value of the flip button."
+msgstr "Hexadezimaler Farbwert des Flipknopfes."
+
+#: admin/settings.php:371
+msgid "Hexadecimal color value of the text color."
+msgstr "Hexacezimaler Farbwert der Textfarbe."
+
+#: admin/settings.php:374
+msgid "Link Text Color"
+msgstr "Link Textfarbe"
+
+#: admin/settings.php:376
+msgid "Hexadecimal color value of the flipside link text."
+msgstr "Hexadezimaler Farbwert des Linktextes der R&uuml;ckseite."
+
+#: admin/settings.php:379
+msgid "Link Background Color"
+msgstr "Link Hintergrundfarbe"
+
+#: admin/settings.php:381
+msgid "Hexadecimal color value of the flipside link text background."
+msgstr "Hexadezimaler Farbwert des Texthintergrundes des Links der R&uuml;ckseite."
+
+#: admin/settings.php:384
+msgid "Link Font Size"
+msgstr "Zeichensatzgr&ouml;sse des Linkes"
+
+#: admin/settings.php:385
+msgid "Font size of flipside link text."
+msgstr "Seichensatzgr&ouml;sse des Linktextes der R&uuml;ckseite."
+
+#: admin/settings.php:388
+msgid "Link Target"
+msgstr "Link Ziel"
+
+#: admin/settings.php:390
+msgid "_self"
+msgstr "_self"
+
+#: admin/settings.php:391
+msgid "_blank"
+msgstr "_blank"
+
+#: admin/settings.php:392
+msgid "_parent"
+msgstr "_parent"
+
+#: admin/settings.php:393
+msgid "_top"
+msgstr "_top"
+
+#: admin/settings.php:394
+msgid "\"_self\" specifies the current frame in the current window; \"_blank\" specifies a new window; \"_parent\" specifies the parent of the current frame; \"_top\" specifies the top-level frame in the current window."
+msgstr "\"_self\" bedeutet den aktuellen Frame im aktuellen Fenster; \"_blank\" bedeutet ein neues Fenster; \"_parent\" bedeutet den Parent des aktuellen Frames; \"_top\" bedeutet das Top-Level Frame im aktuellen Fenster."
+
+#: admin/settings.php:409
+msgid "AutoViewer Settings"
+msgstr "AutoViewer Einstellungen"
+
+#: admin/settings.php:410
+msgid "The autoviewer.swf is not in the .../plugins/nggflash-swf/ folder. AutoViewer will not work."
+msgstr "autoviewer.swf befindet sich nicht im  .../plugins/nggflash-swf/ Ordner. AutoViewer wird nicht funktionieren."
+
+#: admin/settings.php:415
+msgid "Hexadecimal color value of the image frame (e.g ff00ff)."
+msgstr "Hexadezimaler Farbwert des Bilderrahmens (z.B. ff00ff)."
+
+#: admin/settings.php:422
+msgid "Image Padding"
+msgstr "Bildabstand"
+
+#: admin/settings.php:423
+msgid "Padding in pixels."
+msgstr "Abstand in Pixel."
+
+#: admin/settings.php:426
+msgid "Display Time"
+msgstr "Anzeigezeit"
+
+#: admin/settings.php:427
+msgid "seconds"
+msgstr "Sekunden"
+
+#: admin/settings.php:427
+msgid "Time to display image in seconds"
+msgstr "Zeit in Sekunden die das Bild angezeigt wird"
+
+#: admin/settings.php:441
+msgid "PostcardViewer Settings"
+msgstr "PostcardViewer Einstellungen"
+
+#: admin/settings.php:442
+msgid "The pcviewer.swf is not in the .../plugins/nggflash-swf/ folder. PostcardViewer will not work."
+msgstr "pcviewer.swf befindet sich nicht im  .../plugins/nggflash-swf/ Ordner. PostcardViewer wird nicht funktionieren."
+
+#: admin/settings.php:445
+msgid "Cell Dimension"
+msgstr "Zell Dimension"
+
+#: admin/settings.php:446
+msgid "The size of the square *cell* that contains each image (pixels). Make this at least as big as your biggest image to avoid the images overlapping."
+msgstr "Die Gr&ouml;sse der quadratischen Zelle, die jedes Bild umgibt (Pixel). Mache das mindestens so gross, wie dein gr&ouml;sstes Bild, damit keine Bilder &uuml;berlappen."
+
+#: admin/settings.php:450
+msgid "Number of columns of images. Rows are calculated automatically from the number of images in the gallery."
+msgstr "Anzahl der Bilderspalten. Reihen werden automatisch anhand der Anzahl der Bilder der Galerie berechnet."
+
+#: admin/settings.php:453
+msgid "Zoomed-in Percentage"
+msgstr "Prozentsatz Zoomed-In"
+
+#: admin/settings.php:454
+msgid "The amout of scale when zoomed out (percentage)."
+msgstr "Der Maßstab wenn ausgezoomt ist (in Prozent)."
+
+#: admin/settings.php:457
+msgid "Zoomed-out Percentage"
+msgstr "Prozentsatz Zoomed-Out"
+
+#: admin/settings.php:458
+msgid "The amout of scale when zoomed in (percentage)."
+msgstr "Der Maßstab wenn eingezoomt ist (in Prozent)."
+
+#: admin/settings.php:463
+msgid "Color of image frame (hexidecimal color value)."
+msgstr "Farbe des Bildrahmens (Hexadezimaler Farbenwert, z.B. ff00ff)."
+
+#: admin/settings.php:470
+msgid "Caption Color"
+msgstr "Titel Farbe"
+
+#: admin/settings.php:472
+msgid "Color of captions (hexidecimal color value)."
+msgstr "Farbe der Titel (Hexadezimaler Farbenwert, z.B. ff00ff)."
+
+#: admin/settings.php:484
+msgid "Reset options"
+msgstr ""
+
+#: admin/settings.php:487
+msgid "Reset all options/settings to the default installation."
+msgstr ""
+
+#: admin/settings.php:488
+msgid "Reset settings"
+msgstr ""
+
+#: admin/settings.php:488
+msgid ""
+"Reset all options to default settings ?\\n"
+"\\n"
+"Choose [Cancel] to Stop, [OK] to proceed.\\n"
+msgstr ""
+
+#: admin/settings.php:493
+msgid "Uninstall options from the database"
+msgstr "Einstellungen aus der Datenbank entfernen"
+
+#: admin/settings.php:497
+msgid "You don't like NextGEN FlashViewer ?"
+msgstr "NextGEN FlashViewer gef&auml;llt Dir nicht?"
+
+#: admin/settings.php:498
+msgid "No problem, before you deactivate this plugin press the Uninstall Button, because deactivating NextGEN FlashViewer does not remove any data that may have been created. "
+msgstr "Kein Problem. Bevor Du dieses Plugin deaktivierst, dr&uuml;cke den Deinstallierknopf, da keine eventuell  produzierten Daten durch Deaktivierung von NextGEN FlashViewer entfernt werden."
+
+#: admin/settings.php:499
+msgid "Uninstall plugin"
+msgstr "Plugin entfernen"
+
+#: admin/settings.php:499
+msgid ""
+"You are about to Uninstall this plugin from WordPress.\\n"
+"This action is not reversible.\\n"
+"\\n"
+"Choose [Cancel] to Stop, [OK] to Uninstall.\\n"
+msgstr ""
+
+#: admin/settings.php:507
+msgid "As always, when something has been created there are people to thank. This is that list:"
+msgstr "Jedesmal, wenn irgendwas kreiert wurde gibt es Leuten zu danken. Dies ist diese Liste:"
+
+#: admin/settings.php:508
+msgid "for the great NextGEN Gallery, the initial version of this plugin and general help."
+msgstr "f&uuml;r die grossartige NextGEN GAllery, die erste VErsion dieses Plugins und allgemein Hilfe."
+
+#: admin/settings.php:508
+msgid "for all the wonderful viewers"
+msgstr "f&uuml;r die tollen Viewer"
+
+#: admin/settings.php:508
+msgid "for the Spanish language files"
+msgstr "f&uuml;r die Spanischen Sprachdateien"
+
+#: admin/settings.php:508
+msgid "for the Italian language files"
+msgstr "f&uuml;r die Italienischen Sprachdateien"
+
+#: admin/settings.php:508
+msgid "Idea to add PostcardViewer"
+msgstr "Idee PostcardViewer hinzuzuf&uuml;gen"
+
+#: admin/settings.php:514
+msgid "We spend a lot of time and effort on implementing new features and on the maintenance of this plugin, so if you feel generous and have a few bucks to spare, then please consider to donate."
+msgstr "Wir verbringen viel Zeit und Aufwand mit neuen Features und der Instandhaltung dieses Plugins, wenn Du dich also spendabel f&uuml;hlst und ein paar Euro übrig hast, dann denke bitte &uuml;ber eine Spende nach."
+
+#: admin/settings.php:515
+msgid "Click on the button below and you will be redirected to the PayPal site where you can make a safe donation"
+msgstr "Klicke auf den Knopf und Du wirst zur PayPal Seite weitergeleitet, von wo aus Du eine sichere Spende leisten kannst"
+
+#: admin/settings.php:519
+msgid "NextGEN FlashViewer Plugin @ http://shabushabu-webdesign.com"
+msgstr "NextGEN FlashViewer Plugin @ http://shabushabu-webdesign.com"
+
+#: admin/settings.php:526
+msgid "Make payments with PayPal - it's fast, free and secure!"
+msgstr "T&auml;tige Bezahlungen mit PayPal - es ist schnell, umsonst und sicher!"
+
+#: admin/settings.php:529
+msgid "Thank you and all the best!"
+msgstr "Danke sehr und Alles Gute!"
+
+#: lib/shortcodes.php:111
+#: lib/shortcodes.php:138
+#: lib/shortcodes.php:161
+#: lib/shortcodes.php:184
+msgid "[Gallery not found]"
+msgstr "[Gallerie nicht gefunden]"
+
+#: lib/functions.php:29
+#: lib/functions.php:67
+#: lib/functions.php:132
+#: lib/functions.php:209
+#: lib/functions.php:305
+#: lib/functions.php:345
+#: lib/functions.php:403
+#: lib/functions.php:442
+msgid "The <a href=\"http://www.macromedia.com/go/getflashplayer\">Flash Player</a> and <a href=\"http://www.mozilla.com/firefox/\">a browser with Javascript support</a> are needed.."
+msgstr ""
+
+#~ msgid "Flash folder"
+#~ msgstr "Flash Ordner"
+#~ msgid "The url to the folder containing all the viewers. NO trailing slash."
+#~ msgstr ""
+#~ "Die URL zu dem Ordner, der alle Viewer enth&auml;lt. KEIN Slash am Ende."
+#~ msgid "Absolute Path"
+#~ msgstr "Absoluter Pfad"
+#~ msgid "Absolute path to your WP installation."
+#~ msgstr "Absoluter Pfad zu deiner WP Installation."
+#~ msgid "Initial value (NO trailing slash!):"
+#~ msgstr "Anfangswert (KEIN Slash am Ende!):"
+#~ msgid ""
+#~ "Please note that only the Thickbox effect works out of the box. Please "
+#~ "have a look at the Highslide documentation or read <a href=\"http://"
+#~ "travel-junkie.com/geeky-stuff/highslide-and-nextgen-gallery/\">this "
+#~ "article</a> on integrating Highslide with NextGEN Gallery."
+#~ msgstr ""
+#~ "Nur der Thickbox Effekt funktioniert ohne weitere Modifikationen. Lese "
+#~ "die Highslide Anleitung ode lese <a href=\"http://travel-junkie.com/geeky-"
+#~ "stuff/highslide-and-nextgen-gallery/\">diesen Artikel</a> &uuml;ber die "
+#~ "Integration von Highslide und NextGEN Gallery."
+#~ msgid "TiltViewer.swf not found"
+#~ msgstr " TiltViewer.swf nicht gefunden"
+#~ msgid "autoviewer.swf not found"
+#~ msgstr "autoviewer.swf nicht gefunden"
+#~ msgid "pcviewer.swf not found"
+#~ msgstr "pcviewer.swf nicht gefunden"
+

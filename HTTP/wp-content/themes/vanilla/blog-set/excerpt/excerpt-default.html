@@ -1,0 +1,30 @@
+<div tal:replace="">
+<!--
+
+Australis Media has made the contents of this file
+available under a CC-GNU-GPL license:
+
+ http://creativecommons.org/licenses/GPL/2.0/
+
+ A copy of the full license can be found as part of this
+ distribution in the file LICENSE.TXT
+
+You may use the Vanilla theme software in accordance
+with the terms of that license. You agree that you are
+solely  responsible for your use of the Vanilla theme
+software and you represent and warrant to Australis Media
+that your use of the Vanilla theme software will comply
+with the CC-GNU-GPL.
+
+-->
+</div>
+
+<div metal:define-macro="loader" tal:omit-tag="">
+
+	<div metal:fill-slot="excerpt" id="post-excerpt-${entry/id}" class="hentry excerpt ${entry/class}">
+		<strong class="entry-title"><a href="${entry/permalink}" title="Permanent link to ${entry/title_attribute}" rel="bookmark" rev="post-${entry/id}">${entry/title}</a></strong> <span class="date"><abbr class="published" title="${entry/date_time}">${entry/date}</abbr></span>
+		<p class="categories" tal:condition="entry/categories_list">Posted in ${structure entry/categories_list}</p> 
+		<span class="comments-link" tal:condition="entry/comments_link">${structure entry/comments_link}</span>
+	</div><!-- .excerpt -->
+
+</div>
