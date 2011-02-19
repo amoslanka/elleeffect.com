@@ -1,15 +1,4 @@
-<?php 
-	function add_page_body_class($classes) {
-		$classes[] = basename(get_permalink());
-		return $classes;
-	}
-	if(is_page()) 
-		add_filter('body_class', 'add_page_body_class');
-?>
-
-
-<?php get_header(); ?>
-<div id="body">
+<?php include('page-header.php'); ?>
 <?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
 
 					<div class="post">
@@ -24,5 +13,4 @@
 						<?php edit_post_link( __( 'Edit', 'twentyten' ), '', '' ); ?>
 					</div>
 <?php endwhile; ?>
-</div>
-<?php get_footer(); ?>
+<?php include('page-footer.php') ?>

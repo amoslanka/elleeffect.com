@@ -146,7 +146,7 @@ function wp_nav_menu( $args = array() ) {
 
 	// Get the nav menu based on the requested menu
 	$menu = wp_get_nav_menu_object( $args->menu );
-
+	
 	// Get the nav menu based on the theme_location
 	if ( ! $menu && $args->theme_location && ( $locations = get_nav_menu_locations() ) && isset( $locations[ $args->theme_location ] ) )
 		$menu = wp_get_nav_menu_object( $locations[ $args->theme_location ] );

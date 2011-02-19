@@ -52,8 +52,29 @@
 
 		<div id="access" role="navigation">
 		  <?php /*  Allow screen readers / text browsers to skip the navigation menu and get right to the good stuff */ ?>
-			<a href="#content" title="<?php esc_attr_e( 'Skip to content', 'twentyten' ); ?>"><?php _e( 'Skip to content', 'twentyten' ); ?></a>
+			<a href="#body" title="<?php esc_attr_e( 'Skip to content', 'twentyten' ); ?>"><?php _e( 'Skip to content', 'twentyten' ); ?></a>
+
+			<?php /* The galleries portion of the nav.   */ ?>
+			<?php 
+			wp_nav_menu( array(	'theme_location' => 'gallery_nav', 
+										// 'sort_column' => 'menu_order', 
+										// 'container_class' => 'main_nav', 
+										// 'menu_class' => 'main_nav_menu', 
+										'fallback_cb' => 'get_gallery_nav' 
+										) );
+			?>
+			
 			<?php /* Our navigation menu.  If one isn't filled out, wp_nav_menu falls back to wp_page_menu.  The menu assiged to the primary position is the one used.  If none is assigned, the menu with the lowest ID is used.  */ ?>
 			<?php wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) ); ?>
+			
 		</div><!-- #access -->
 	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	

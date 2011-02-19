@@ -38,11 +38,90 @@
  * @since Starkers 3.0
  */
 
+
+
+
+
+
 wp_register_script( 'modernizr', '/wp-includes/js/jquery/modernizr-1.6.min.js', false, '1.6');
+wp_register_script( 'inflection', get_bloginfo('template_directory') . '/javascripts/inflection.min.js', false, '1');
 wp_register_script( 'jquery_1_5', '/wp-includes/js/jquery/jquery-1.5.min.js', false, '1.5');
 wp_register_script('backstretch', get_bloginfo('template_directory') . '/javascripts/jquery.backstretch.min.js', 'jquery_1_5');
-$application_js_deps = array('modernizr', 'jquery_1_5', 'backstretch');
+
+$application_js_deps = array('modernizr', 'jquery_1_5', 'backstretch', 'inflection');
+
 wp_register_script('application', get_bloginfo('template_directory') . '/javascripts/application.js', $application_js_deps);
+
+
+add_action('after_setup_theme', 'my_after_setup_function');
+function my_after_setup_function() {
+
+	/**
+	 * The register_nav_menu function takes two parameters
+	 * @param string $location This is the location you'll reference when you call this nav menu in your theme code
+	 * @param string $description This is the description that will appear in the WordPress admin to help you assign a nav menu to the proper location
+*/
+	// register_nav_menu('Main Menu', 'The main site navigation menu');
+	// register_nav_menu('gallery_nav', 'Gallery list menu');
+	
+	
+	
+}
+
+
+
+/**
+ * Builds the gallery nav based on the ngg custom field named "Group"
+ */
+function get_gallery_nav($add_items='', $force_expanded=false) {
+	$s = '';
+	$s .= '<div class="gallery-nav"><ul class="menu" id="menu-gallery-nav">';
+	
+	if (!defined("CONDENSED_GALLERIES")) {
+		define('CONDENSED_GALLERIES', false);
+	}
+	
+	if (CONDENSED_GALLERIES == true && $force_expanded != true) {
+		$slug = "galleries";
+		$g = "Galleries";
+		
+		$s .= '<li class="menu-item-'.$slug.' menu-item '.$slug.'">';
+		$s .= '<a href="'.get_bloginfo('url').'/'.$slug.'">'.$g.'</a>';
+		$s .= '</li>';
+
+	} else {
+		// Build the nav from gallery group names.
+		
+		global $wpdb;
+		$group_custom_field = $wpdb->get_row("SELECT field_name, drop_options FROM ".$wpdb->prefix."nggcf_fields"." WHERE `field_name`='Group'");
+
+		$gallery_names = split('[,]', $group_custom_field->drop_options);
+
+		foreach ($gallery_names as $g) {
+			$g = trim($g);
+			$slug = generateSlug($g, 500);
+			$s .= '<li class="menu-item-'.$slug.' menu-item '.$slug.'">';
+			$s .= '<a href="'.get_bloginfo('url').'/galleries/view#'.$slug.'">'.$g.'</a>';
+			$s .= '</li>';
+		}
+	}
+	if (is_string($add_items)) {
+		$s .= $add_items;
+	}
+	$s .= '</ul></div>';
+	
+	echo $s;
+}
+
+function generateSlug($phrase, $maxLength){
+	$result = strtolower($phrase);
+ 
+	$result = preg_replace("/[^a-z0-9\s-]/", "", $result);
+	$result = trim(preg_replace("/[\s-]+/", " ", $result));
+	$result = trim(substr($result, 0, $maxLength));
+	$result = preg_replace("/\s/", "-", $result);
+	return $result;
+}
 
 /**
  * Set the content width based on the theme's design and stylesheet.
@@ -102,6 +181,8 @@ function twentyten_setup() {
 	register_nav_menus( array(
 		'primary' => __( 'Primary Navigation', 'twentyten' ),
 	) );
+
+	// register_nav_menu('custom_menu', __('Custom Menu'));
 
 	// This theme allows users to set a custom background
 	add_custom_background();
