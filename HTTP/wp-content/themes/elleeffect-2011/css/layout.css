@@ -120,11 +120,18 @@ body.info-page .post img.alignright {
 	display:block;
 	width:360px; height:360px;
 	
-	background: #fff;
+	background: #fff no-repeat;
 	text-indent: -9999px;
 }
 
-
-
+#body .gallery-nav li.menu-item-travel a {
+    background-image: url(../images/gallery-posters/travel.jpg);
+}
+#body .gallery-nav li.menu-item-portrait a {
+    background-image: url(../images/gallery-posters/portrait.jpg);
+}
+#body .gallery-nav li.menu-item-weddings a {
+    background-image: url(../images/gallery-posters/wedding.jpg);
+}
 
 
