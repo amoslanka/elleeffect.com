@@ -72,10 +72,14 @@ function my_after_setup_function() {
 
 /**
  * Builds the gallery nav based on the ngg custom field named "Group"
+ * It creates child links for each gallery within the group.
  */
-function get_gallery_nav($add_items='', $force_expanded=false) {
+function get_gallery_nav($add_items='', $force_expanded=false, $classname="") {
+	if ($classname == "") {
+		$classname = 'gallery-nav';
+	}
 	$s = '';
-	$s .= '<div class="gallery-nav"><ul class="menu" id="menu-gallery-nav">';
+	$s .= '<div class="'.$classname.'"><ul class="menu" id="menu-'.$classname.'">';
 	
 	if (!defined("CONDENSED_GALLERIES")) {
 		define('CONDENSED_GALLERIES', false);
@@ -94,14 +98,49 @@ function get_gallery_nav($add_items='', $force_expanded=false) {
 		
 		global $wpdb;
 		$group_custom_field = $wpdb->get_row("SELECT field_name, drop_options FROM ".$wpdb->prefix."nggcf_fields"." WHERE `field_name`='Group'");
+		
+		
+		$galleries_query = " SELECT * FROM ".$wpdb->nggallery;
+		$galleries_query .= " INNER JOIN ".$wpdb->prefix."nggcf_field_values" . " ON " . $wpdb->prefix . "ngg_gallery.`gid`=" . $wpdb->prefix . "nggcf_field_values.`pid`";
+		$galleries_query .= " INNER JOIN ".$wpdb->prefix."nggcf_fields" . " ON " . $wpdb->prefix . "nggcf_field_values.`fid`=" . $wpdb->prefix . "nggcf_fields.`id`";
+		$galleries_query .= " WHERE " . $wpdb->prefix."nggcf_fields.field_name='Group'";
+		$galleries_query .= " GROUP BY " . $wpdb->nggallery . ".`name`";
+		
+		// SELECT * FROM wp_eqv5w1_ngg_gallery
+		// INNER JOIN wp_eqv5w1_nggcf_field_values
+		// ON wp_eqv5w1_ngg_gallery.`gid`=wp_eqv5w1_nggcf_field_values.`pid`
+		// INNER JOIN wp_eqv5w1_nggcf_fields
+		// ON wp_eqv5w1_nggcf_field_values.`fid`=wp_eqv5w1_nggcf_fields.`id`
+		// WHERE wp_eqv5w1_nggcf_fields.field_name = 'Group'
+		
+		$galleries = $wpdb->get_results($galleries_query);
+		$gallery_groups = split('[,]', $group_custom_field->drop_options);
 
-		$gallery_names = split('[,]', $group_custom_field->drop_options);
-
-		foreach ($gallery_names as $g) {
-			$g = trim($g);
-			$slug = generateSlug($g, 500);
-			$s .= '<li class="menu-item-'.$slug.' menu-item '.$slug.'">';
-			$s .= '<a href="'.get_bloginfo('url').'/galleries/view#'.$slug.'">'.$g.'</a>';
+		// echo $galleries_query;
+		// echo '<br>'.count($galleries);
+			
+		foreach ($gallery_groups as $group) {
+			$group = trim($group);
+			$group_slug = generateSlug($group, 500);
+			$s .= '<li class="menu-item-'.$group_slug.' menu-item '.$group_slug.'">';
+			$s .= '<a href="'.get_bloginfo('url').'/galleries/view#'.$group_slug.'">'.$group.'</a>';
+			// add gallery children. travel-1, travel-2, etc
+			if (count($galleries)>0) {
+				$s .= '<ul class="sub-menu">';
+				
+				$i = 1;
+				foreach ($galleries as $gallery) {
+					
+					if ($gallery->field_value == $group) {
+						$slug = $gallery->name;
+						$s .= '<li class="sub-menu-item-'.$slug.' sub-menu-item sub-menu-item-'.$i.' '.$slug.'">';
+						$s .= '<a href="'.get_bloginfo('url').'/galleries/view#'.$slug.'">'.$gallery->title.'</a>';
+						$s .= '</li>';
+						$i++;
+					}
+				}
+				$s .= '</ul>';
+			}
 			$s .= '</li>';
 		}
 	}
@@ -112,6 +151,8 @@ function get_gallery_nav($add_items='', $force_expanded=false) {
 	
 	echo $s;
 }
+
+
 
 function generateSlug($phrase, $maxLength){
 	$result = strtolower($phrase);

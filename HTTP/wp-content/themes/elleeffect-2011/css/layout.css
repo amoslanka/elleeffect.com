@@ -68,6 +68,13 @@ body { background: url(../images/bl-bg.jpg) no-repeat -9999px; margin:0; padding
 #access .menu a.travel { background: url(../images/btn-travel.png) no-repeat; width: 76px; }
 #access .menu a.portrait { background: url(../images/btn-lifestyle.png) no-repeat; width: 80px; margin-right:5px; }
 
+
+/* Posts */
+/* ----------------------------------------- */
+
+.post p { margin-bottom: .65em; }
+
+
 /* The info-page. Centered content h&v, large bg image of Lauren's face. */
 /* ----------------------------------------- */
 
@@ -94,29 +101,27 @@ body.info-page .post img.alignright {
 	margin-right: -12px;
 }
 
-.post p { margin-bottom: .65em; }
-
-
-
 /*Gallery List page*/
-#body .gallery-nav {
+#body .block-gallery-nav {
 	width: 768px;
+/*  float:left;*/
+	margin: 0 auto;
+}
+#body .block-gallery-nav ul.menu {
 	float:left;
 }
-#body .gallery-nav ul.menu {
-	float:left;
-}
-#body .gallery-nav li {
+#body .block-gallery-nav li {
 	width:360px; height:360px;
 	float:left;
 	margin: 12px;
 } 
-#body .gallery-nav li.menu-item {
+#body .block-gallery-nav li.menu-item {
 	padding-bottom: 14px;
 	background: url(../images/gallery-nav-box-shadow-bottom.png) bottom left no-repeat;
 }
-/*#body .gallery-nav li { clear:left; }*/
-#body .gallery-nav li.menu-item a {
+/*#body .block-gallery-nav li { clear:left; }*/
+#body .block-gallery-nav li.menu-item a {
+    position:absolute;
 	display:block;
 	width:360px; height:360px;
 	
@@ -124,14 +129,80 @@ body.info-page .post img.alignright {
 	text-indent: -9999px;
 }
 
-#body .gallery-nav li.menu-item-travel a {
+#body .block-gallery-nav li.menu-item-travel a {
     background-image: url(../images/gallery-posters/travel.jpg);
 }
-#body .gallery-nav li.menu-item-portrait a {
+#body .block-gallery-nav li.menu-item-portrait a {
     background-image: url(../images/gallery-posters/portrait.jpg);
 }
-#body .gallery-nav li.menu-item-weddings a {
+#body .block-gallery-nav li.menu-item-weddings a {
     background-image: url(../images/gallery-posters/wedding.jpg);
 }
 
+#body .block-gallery-nav ul.sub-menu {
+    margin-top: 125px;
+}
+#body .block-gallery-nav li.sub-menu-item {
+    width:auto; height:auto;
+	float: none;
+	margin: auto;
+	background: transparent;
+}
+#body .block-gallery-nav li.sub-menu-item a {
+	display:block;
+    width:100%; height:auto;
+	
+    background: transparent;
+/*  text-indent: 0;*/
+    background-position:top center;
+    background-repeat:no-repeat;
+	
+	position:relative;
+}
+#body .block-gallery-nav li.sub-menu-item a:hover {
+    background-position:bottom center;
+    cursor: pointer;
+}
+#body .block-gallery-nav li.sub-menu-item-1 a {
+    background-image: url(../images/one.png);
+    height:24px;
+    margin-bottom: 14px;
+}
+#body .block-gallery-nav li.sub-menu-item-2 a {
+    background-image: url(../images/two.png);
+    height:28px;
+    margin-bottom: 4px;
+}
+#body .block-gallery-nav li.sub-menu-item-3 a {
+    background-image: url(../images/three.png);
+    height:38px;
+}
+#body .block-gallery-nav li.sub-menu-item-1 a {
+    
+}
 
+body.gallery-list-page #menu-gallery-nav .menu-item-galleries {
+    display:none;
+}
+body.gallery-list-page h1 {
+    clear:left;
+    float:none;
+    margin-bottom: -16px;
+}
+body.gallery-list-page #access {
+    clear:left;
+    float:none;
+}
+body.gallery-list-page .post {
+    clear:left;
+    float:none;
+    width:360px;
+    color: #999;
+    font-size: 11px;
+}
+body.gallery-list-page h2 {
+    display:none;
+}
+body.gallery-list-page #header {
+    width:auto;
+}

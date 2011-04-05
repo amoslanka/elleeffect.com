@@ -52,7 +52,7 @@ $(document).ready(function() {
 	
 	
 	// On info-page pages, h and v center the post. (does it on page resize, in case the page does resize)
-	$('body').resize(function(event) {
+	$('body.info-page').resize(function(event) {
 		var w = parseInt($('.post').css('position', 'absolute').width(), 10);
 		$('.post').css('position', 'relative').width(w + 10).vCenter().hCenter();
 
@@ -76,6 +76,51 @@ $(document).ready(function() {
 	
 	// If the post has an image add a class to its container.
 	$('.post img').parents('.post').addClass('has-image');
+	
+	
+	
+	// // // // // // // // // // // // // // // // 
+	// Gallery List page
+	// // // // // // // // // // // // // // // // 
+    
+    // $('body.gallery-list-page #text-block').prepend($('#header'));
+    
+    var text_block = $('<div />');
+    var text_block_position = $('<li />');
+
+    $('body.gallery-list-page').each(function(index) {
+        text_block.append($('#header'));
+        text_block.append($('.post'));
+        $('#body').prepend(text_block);
+        $('#menu-block-gallery-nav').append(text_block_position);
+    });
+    
+    
+    
+    $('body.gallery-list-page').resize(function(event) {
+        text_block.css('position', 'absolute');
+        var offset = text_block_position.offset();
+        text_block.css('left', offset.left);
+        text_block.css('top', offset.top);
+	}).resize();
+    
+    $('#body .block-gallery-nav .menu-item').hover(function() {
+        
+        $('a', this).first().animate({opacity:0.3}, 300);
+        $('li.sub-menu-item a', this).fadeIn(400);
+        
+    }, function() {
+        
+        $('a', this).first().animate({opacity:1}, 100);
+        $('li.sub-menu-item a', this).fadeOut('fast');
+
+    }).each(function(index) {
+        
+        $('li.sub-menu-item a', this).fadeOut(0);
+        
+    });;
+	
+	
 	
 	
 });
