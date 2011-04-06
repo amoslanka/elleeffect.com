@@ -7,6 +7,7 @@ Author: Amos Lanka
 ?>
 
 <?php
+
 // [elle-gallery-path foo="foo-value"]
 // function bartag_func( $atts ) {
 //  extract( shortcode_atts( array(
@@ -17,5 +18,5 @@ Author: Amos Lanka
 //  return "foo = {$foo}";
 // }
 // add_shortcode( 'bartag', 'bartag_func' );
-// 
+
 ?>

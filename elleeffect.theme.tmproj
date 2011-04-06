@@ -42,11 +42,17 @@
 		</dict>
 		<dict>
 			<key>filename</key>
-			<string>../../../mamp/elleeffect.com/wp-content/themes/elleeffect/elle-gallery-page.php</string>
+			<string>../../../mamp/elleeffect.com/wp-content/themes/elleeffect/elle-gallery-landing.php</string>
 			<key>lastUsed</key>
 			<date>2010-05-03T02:30:16Z</date>
 			<key>selected</key>
 			<true/>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>../../../mamp/elleeffect.com/wp-content/themes/elleeffect/elle-gallery-page.php</string>
+			<key>lastUsed</key>
+			<date>2010-05-03T02:30:16Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -206,12 +212,6 @@
 			<key>filename</key>
 			<string>../../../mamp/elleeffect.com/wp-content/themes/elleeffect/wp-syntax.css</string>
 		</dict>
-		<dict>
-			<key>filename</key>
-			<string>../../../mamp/elleeffect.com/wp-content/themes/elleeffect/elle-gallery-landing.php</string>
-			<key>lastUsed</key>
-			<date>2010-05-03T02:30:16Z</date>
-		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>345</integer>
@@ -277,8 +277,12 @@
 		</dict>
 	</dict>
 	<key>showFileHierarchyDrawer</key>
+	<false/>
+	<key>showFileHierarchyPanel</key>
 	<true/>
+	<key>treeState</key>
+	<dict/>
 	<key>windowFrame</key>
-	<string>{{348, 48}, {1322, 980}}</string>
+	<string>{{348, 72}, {1322, 956}}</string>
 </dict>
 </plist>
