@@ -52,7 +52,7 @@ $(document).ready(function() {
 	
 	
 	// On info-page pages, h and v center the post. (does it on page resize, in case the page does resize)
-	$('body.info-page').resize(function(event) {
+	$('body.info-page, body.splash-page, body.gallery-view-page').resize(function(event) {
 		var w = parseInt($('.post').css('position', 'absolute').width(), 10);
 		$('.post').css('position', 'relative').width(w + 10).vCenter().hCenter();
 
@@ -77,11 +77,17 @@ $(document).ready(function() {
 	// If the post has an image add a class to its container.
 	$('.post img').parents('.post').addClass('has-image');
 	
-	
-	
-	// // // // // // // // // // // // // // // // 
-	// Gallery List page
-	// // // // // // // // // // // // // // // // 
+    
+    
+    // // // // // // // // // // // // // // // // 
+    // Splash page
+    // // // // // // // // // // // // // // // // 
+    
+    $('body.splash-page #body img').vCenter().hCenter();
+    
+    // // // // // // // // // // // // // // // // 
+    // Gallery List page
+    // // // // // // // // // // // // // // // // 
     
     // $('body.gallery-list-page #text-block').prepend($('#header'));
     
@@ -94,8 +100,6 @@ $(document).ready(function() {
         $('#body').prepend(text_block);
         $('#menu-block-gallery-nav').append(text_block_position);
     });
-    
-    
     
     $('body.gallery-list-page').resize(function(event) {
         text_block.css('position', 'absolute');
@@ -120,7 +124,23 @@ $(document).ready(function() {
         
     });;
 	
+	// // // // // // // // // // // // // // // // 
+	// Gallery VIEW page
+	// // // // // // // // // // // // // // // // 
 	
+	if (typeof(window['swfobject']) != "undefined") {
+	    var params = {
+	        scale: 'noscale',
+	        align: 'tl',
+	        wmode: 'true',
+	        bgcolor: '#ffffff'
+	    };
+	    var flashvars = {
+	        
+	    };
+	    
+    	swfobject.embedSWF(THEME_ROOT + "/swf/elleviewer.swf", "elleviewer", "100%", "100%", "9.0.0", "expressInstall.swf", flashvars, params);
+	}
 	
 	
 });

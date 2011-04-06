@@ -32,7 +32,7 @@ body { background: url(../images/bl-bg.jpg) no-repeat -9999px; margin:0; padding
 
 #header {
 	bottom:0;
-/*	position:absolute;*/
+/*    position:absolute;*/
 /*	position:absolute; bottom:0;*/
 /*	position:relative; bottom:0;*/
 /*	margin:auto;*/
@@ -74,6 +74,23 @@ body { background: url(../images/bl-bg.jpg) no-repeat -9999px; margin:0; padding
 
 .post p { margin-bottom: .65em; }
 
+/* Splash page */
+/* ----------------------------------------- */
+
+body.splash-page h1 {
+    display:none; 
+}
+body.splash-page #header {
+	width:550px;
+}
+body.splash-page #body {
+    width:100%;
+    height:100%;
+}
+body.splash-page #body img {
+    width: 843px;
+    margin: auto;
+}
 
 /* The info-page. Centered content h&v, large bg image of Lauren's face. */
 /* ----------------------------------------- */
@@ -101,7 +118,9 @@ body.info-page .post img.alignright {
 	margin-right: -12px;
 }
 
-/*Gallery List page*/
+/* Gallery List page */
+/* ----------------------------------------- */
+
 #body .block-gallery-nav {
 	width: 768px;
 /*  float:left;*/
@@ -206,3 +225,14 @@ body.gallery-list-page h2 {
 body.gallery-list-page #header {
     width:auto;
 }
+
+
+/* Gallery VIEW page */
+body.gallery-view-page h2 {
+    display:none;
+}
+
+
+
+
+#wpadminbar {display:none;}

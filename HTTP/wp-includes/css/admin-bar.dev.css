@@ -192,6 +192,8 @@
 }
 
 #wpadminbar .quicklinks li#wp-admin-bar-my-account-with-avatar > a img {
+	width: 16px;
+	height: 16px;
 	display: inline;
 	border: 1px solid #999;
 	vertical-align: middle;
@@ -203,6 +205,10 @@
 
 #wpadminbar .quicklinks li#wp-admin-bar-my-account-with-avatar ul {
 	left: 30px;
+}
+
+#wpadminbar .quicklinks li#wp-admin-bar-my-account-with-avatar ul ul { 
+ 	left: 0; 
 }
 
 #wpadminbar .quicklinks .menupop li a img.blavatar {

@@ -15,6 +15,8 @@
  * Creates the initial taxonomies when 'init' action is fired.
  */
 function create_initial_taxonomies() {
+	global $wp_rewrite;
+
 	register_taxonomy( 'category', 'post', array(
 		'hierarchical' => true,
 	 	'update_count_callback' => '_update_post_term_count',
@@ -22,7 +24,7 @@ function create_initial_taxonomies() {
 		'rewrite' => did_action( 'init' ) ? array(
 					'hierarchical' => true,
 					'slug' => get_option('category_base') ? get_option('category_base') : 'category',
-					'with_front' => false) : false,
+					'with_front' => ( get_option('category_base') && ! $wp_rewrite->using_index_permalinks() ) ? false : true ) : false,
 		'public' => true,
 		'show_ui' => true,
 		'_builtin' => true,
@@ -34,7 +36,7 @@ function create_initial_taxonomies() {
 		'query_var' => 'tag',
 		'rewrite' => did_action( 'init' ) ? array(
 					'slug' => get_option('tag_base') ? get_option('tag_base') : 'tag',
-					'with_front' => false) : false,
+					'with_front' => ( get_option('category_base') && ! $wp_rewrite->using_index_permalinks() ) ? false : true ) : false,
 		'public' => true,
 		'show_ui' => true,
 		'_builtin' => true,
@@ -329,7 +331,7 @@ function register_taxonomy( $taxonomy, $object_type, $args = array() ) {
 			$tag = '([^/]+)';
 
 		$wp_rewrite->add_rewrite_tag("%$taxonomy%", $tag, $args['query_var'] ? "{$args['query_var']}=" : "taxonomy=$taxonomy&term=");
-		$wp_rewrite->add_permastruct($taxonomy, "{$wp_rewrite->root}{$args['rewrite']['slug']}/%$taxonomy%", $args['rewrite']['with_front']);
+		$wp_rewrite->add_permastruct($taxonomy, "{$args['rewrite']['slug']}/%$taxonomy%", $args['rewrite']['with_front']);
 	}
 
 	if ( is_null($args['show_ui']) )
@@ -887,7 +889,10 @@ function get_term_by($field, $value, $taxonomy, $output = OBJECT, $filter = 'raw
 		$value = stripslashes($value);
 		$field = 't.name';
 	} else {
-		return get_term( (int) $value, $taxonomy, $output, $filter);
+		$term = get_term( (int) $value, $taxonomy, $output, $filter);
+		if ( is_wp_error( $term ) )
+			$term = false;
+		return $term;
 	}
 
 	$term = $wpdb->get_row( $wpdb->prepare( "SELECT t.*, tt.* FROM $wpdb->terms AS t INNER JOIN $wpdb->term_taxonomy AS tt ON t.term_id = tt.term_id WHERE tt.taxonomy = %s AND $field = %s LIMIT 1", $taxonomy, $value) );
@@ -2842,7 +2847,9 @@ function get_term_link( $term, $taxonomy = '') {
 	$t = get_taxonomy($taxonomy);
 
 	if ( empty($termlink) ) {
-		if ( $t->query_var )
+		if ( 'category' == $taxonomy )
+			$termlink = '?cat=' . $term->term_id;
+		elseif ( $t->query_var )
 			$termlink = "?$t->query_var=$slug";
 		else
 			$termlink = "?taxonomy=$taxonomy&term=$slug";

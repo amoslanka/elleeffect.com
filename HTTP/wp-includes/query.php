@@ -1231,13 +1231,22 @@ class WP_Query {
 	var $is_post_type_archive = false;
 
 	/**
-	 * Whether the tax query has been parsed once.
+	 * Stores the ->query_vars state like md5(serialize( $this->query_vars ) ) so we know
+	 * whether we have to re-parse because something has changed
 	 *
 	 * @since 3.1.0
 	 * @access private
-	 * @var bool
 	 */
-	var $parsed_tax_query = false;
+	var $query_vars_hash = false;
+
+	/**
+	 * Whether query vars have changed since the initial parse_query() call.  Used to catch modifications to query vars made
+	 * via pre_get_posts hooks.
+	 *
+	 * @since 3.1.1
+	 * @access private
+	 */
+	var $query_vars_changed = true;
 
 	/**
 	 * Resets query flags to false.
@@ -1395,6 +1404,7 @@ class WP_Query {
 
 		$this->query_vars = $this->fill_query_vars($this->query_vars);
 		$qv = &$this->query_vars;
+		$this->query_vars_changed = true;
 
 		if ( ! empty($qv['robots']) )
 			$this->is_robots = true;
@@ -1496,7 +1506,7 @@ class WP_Query {
 				$this->is_date = true;
 			}
 
-			$this->parsed_tax_query = false;
+			$this->query_vars_hash = false;
 			$this->parse_tax_query( $qv );
 
 			foreach ( $this->tax_query->queries as $tax_query ) {
@@ -1627,6 +1637,9 @@ class WP_Query {
 		if ( '404' == $qv['error'] )
 			$this->set_404();
 
+		$this->query_vars_hash = md5( serialize( $this->query_vars ) );
+		$this->query_vars_changed = false;
+
 		do_action_ref_array('parse_query', array(&$this));
 	}
 
@@ -1654,6 +1667,9 @@ class WP_Query {
 		}
 
 		foreach ( $GLOBALS['wp_taxonomies'] as $taxonomy => $t ) {
+			if ( 'post_tag' == $taxonomy )
+				continue;	// Handled further down in the $q['tag'] block
+
 			if ( $t->query_var && !empty( $q[$t->query_var] ) ) {
 				$tax_query_defaults = array(
 					'taxonomy' => $taxonomy,
@@ -1682,7 +1698,7 @@ class WP_Query {
 		}
 
 		// Category stuff
-		if ( !empty($q['cat']) && '0' != $q['cat'] && !$this->is_singular && !$this->parsed_tax_query ) {
+		if ( !empty($q['cat']) && '0' != $q['cat'] && !$this->is_singular && $this->query_vars_changed ) {
 			$q['cat'] = ''.urldecode($q['cat']).'';
 			$q['cat'] = addslashes_gpc($q['cat']);
 			$cat_array = preg_split('/[,\s]+/', $q['cat']);
@@ -1736,7 +1752,7 @@ class WP_Query {
 		}
 
 		// Tag stuff
-		if ( '' != $q['tag'] && !$this->is_singular && !$this->parsed_tax_query ) {
+		if ( '' != $q['tag'] && !$this->is_singular && $this->query_vars_changed ) {
 			if ( strpos($q['tag'], ',') !== false ) {
 				$tags = preg_split('/[,\s]+/', $q['tag']);
 				foreach ( (array) $tags as $tag ) {
@@ -1790,7 +1806,7 @@ class WP_Query {
 		}
 
 		if ( !empty($q['tag_slug__in']) ) {
-			$q['tag_slug__in'] = array_map('sanitize_title', (array) $q['tag_slug__in']);
+			$q['tag_slug__in'] = array_map('sanitize_title', array_unique( (array) $q['tag_slug__in'] ) );
 			$tax_query[] = array(
 				'taxonomy' => 'post_tag',
 				'terms' => $q['tag_slug__in'],
@@ -1799,7 +1815,7 @@ class WP_Query {
 		}
 
 		if ( !empty($q['tag_slug__and']) ) {
-			$q['tag_slug__and'] = array_map('sanitize_title', (array) $q['tag_slug__and']);
+			$q['tag_slug__and'] = array_map('sanitize_title', array_unique( (array) $q['tag_slug__and'] ) );
 			$tax_query[] = array(
 				'taxonomy' => 'post_tag',
 				'terms' => $q['tag_slug__and'],
@@ -1807,8 +1823,6 @@ class WP_Query {
 				'operator' => 'AND'
 			);
 		}
-
-		$this->parsed_tax_query = true;
 
 		$this->tax_query = new WP_Tax_Query( $tax_query );
 	}
@@ -1879,7 +1893,16 @@ class WP_Query {
 		// Shorthand.
 		$q = &$this->query_vars;
 
+		// Fill again in case pre_get_posts unset some vars.
 		$q = $this->fill_query_vars($q);
+
+		// Set a flag if a pre_get_posts hook changed the query vars.
+		$hash = md5( serialize( $this->query_vars ) );
+		if ( $hash != $this->query_vars_hash ) {
+			$this->query_vars_changed = true;
+			$this->query_vars_hash = $hash;
+		}
+		unset($hash);
 
 		// First let's clear some variables
 		$distinct = '';
@@ -2147,12 +2170,14 @@ class WP_Query {
 		$search = apply_filters_ref_array('posts_search', array( $search, &$this ) );
 
 		// Taxonomies
-		$this->parse_tax_query( $q );
+		if ( !$this->is_singular ) {
+			$this->parse_tax_query( $q );
 
-		$clauses = $this->tax_query->get_sql( $wpdb->posts, 'ID' );
+			$clauses = $this->tax_query->get_sql( $wpdb->posts, 'ID' );
 
-		$join .= $clauses['join'];
-		$where .= $clauses['where'];
+			$join .= $clauses['join'];
+			$where .= $clauses['where'];
+		}
 
 		if ( $this->is_tax ) {
 			if ( empty($post_type) ) {
@@ -2437,6 +2462,16 @@ class WP_Query {
 			}
 
 			$where .= ')';
+		}
+
+		// Parse the meta query again if query vars have changed.
+		if ( $this->query_vars_changed ) {
+			$meta_query_hash = md5( serialize( $q['meta_query'] ) );
+			$_meta_query = $q['meta_query'];
+			unset( $q['meta_query'] );
+			_parse_meta_query( $q );
+			if ( md5( serialize( $q['meta_query'] ) ) != $meta_query_hash && is_array( $_meta_query ) )
+				$q['meta_query'] = array_merge( $_meta_query, $q['meta_query'] );
 		}
 
 		if ( !empty( $q['meta_query'] ) ) {
@@ -2892,6 +2927,9 @@ class WP_Query {
 			if ( $term && ! is_wp_error($term) )  {
 				$this->queried_object = $term;
 				$this->queried_object_id = (int) $term->term_id;
+
+				if ( $this->is_category )
+					_make_cat_compat( $this->queried_object );
 			}
 		} elseif ( $this->is_post_type_archive ) {
 			$this->queried_object = get_post_type_object( $this->get('post_type') );

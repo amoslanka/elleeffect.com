@@ -24,6 +24,10 @@
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
+<script type="text/javascript" charset="utf-8">
+	var SITE_ROOT = "<?php bloginfo('siteurl'); ?>";
+	var THEME_ROOT = "<?php bloginfo('template_url'); ?>";
+</script>
 <?php
 	/* We add some JavaScript to pages with the comment form
 	 * to support sites with threaded comments (when in use).

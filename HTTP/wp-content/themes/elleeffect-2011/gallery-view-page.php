@@ -10,11 +10,12 @@
 		return $classes;
 	}
 	add_filter('body_class', 'add_info_page_body_class');
+
+    wp_enqueue_script( 'swfobject' );
 		
 ?>
 
 <?php include('page-header.php'); ?>
-
 
 <?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
 
@@ -25,5 +26,9 @@
 		
 <?php endwhile; ?>
 
+
+<div id='elleviewer'>
+	
+</div>
 
 <?php include('page-footer.php') ?>
