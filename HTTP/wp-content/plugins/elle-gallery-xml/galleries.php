@@ -1,4 +1,9 @@
 <?php
+// Create XML output
+//header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+//header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+header("content-type:text/xml;charset=utf-8");
+
 echo '<?xml version="1.0" encoding="UTF-8" ?>';
 echo '<elleviewer>';
 
@@ -35,10 +40,6 @@ include_once('dBug.php');
 // no images, no output
 if (!is_array($thepictures)) die;
 
-// Create XML output
-//header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
-//header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
-//header("content-type:text/xml;charset=utf-8");
 
 // echo "<pre>";
 // var_dump($thepictures);
@@ -98,18 +99,32 @@ if (is_array ($thepictures)){
 		
 	}
 	
-	new dBug($galleries);
+	// new dBug($galleries);
+	
+	foreach ($galleries as $gallery_group) {
+		echo "<gallery>\n";
+		echo "\t<title>".$gallery_group[0]->galleryTitle."</title>\n";
+		echo "\t<permalink>".$gallery_group[0]->gallerySlug."</permalink>\n";
+		echo "\t<images>\n";
+		foreach ($gallery_group as $picture) {
+			
+			// new dBug($picture);
+			
+			echo "\t\t<image>\n";
+			echo "\t\t\t<permalink><![CDATA[".$picture->pid."]]></permalink>\n";
+			echo "\t\t\t<name><![CDATA[".$picture->name."]]></name>\n";
+			echo "\t\t\t<title><![CDATA[".$picture->alttext."]]></title>\n";
+			echo "\t\t\t<imageUrl><![CDATA[".$imagePath.$picture->filename."]]></imageUrl>\n";
+			echo "\t\t\t<thumbUrl><![CDATA[".$thumbPath.$picture->filename."]]></thumbUrl>\n";
+			echo "\t\t\t<description><![CDATA[".strip_tags($picture->description)."]]></description>\n";
+			echo "\t\t</image>\n";
+		}
+		echo "\t</images>\n";
+		echo "</gallery>\n";
+	}
 	
 	
-	// foreach ($thepictures as $picture) {
-	// 	echo "<image>";
-	// 	echo '<name>'.$picture->name.'</name>';
-	// 	echo '<imageUrl>'.$imagePath.$picture->filename.'</imageUrl>';
-	// 	echo '<thumbUrl>'.$thumbPath.$picture->filename.'</thumbUrl>';
-	// 	echo '<description>'.strip_tags(nggflash::internationalize($picture->description)).'</description>';
-	// 	echo '<alttext>'.nggflash::internationalize($picture->alttext).'</alttext>';
-	// 	echo "</image>\n";
-	// }
+	
 }
 
 echo "</elleviewer>\n";
