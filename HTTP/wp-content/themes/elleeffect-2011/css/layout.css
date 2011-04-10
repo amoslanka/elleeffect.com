@@ -232,7 +232,13 @@ body.gallery-view-page h2 {
     display:none;
 }
 
-
+#elleviewer-container {
+/*    height:50%;*/
+    position:absolute; 
+    top:0;
+    left:0;
+    width:100%;
+}
 
 
 #wpadminbar {display:none;}

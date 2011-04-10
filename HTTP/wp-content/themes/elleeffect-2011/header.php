@@ -27,6 +27,7 @@
 <script type="text/javascript" charset="utf-8">
 	var SITE_ROOT = "<?php bloginfo('siteurl'); ?>";
 	var THEME_ROOT = "<?php bloginfo('template_url'); ?>";
+	var GALLERIES_PATH = "<?php bloginfo('siteurl'); ?>/wp-content/plugins/elle-gallery-xml/galleries.php";
 </script>
 <?php
 	/* We add some JavaScript to pages with the comment form

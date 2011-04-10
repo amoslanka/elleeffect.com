@@ -68,9 +68,6 @@ if (!is_array($thepictures)) die;
 
 // imagePath="'.$siteurl.'/'.$thepictures[0]->path.'/'.'" thumbPath="'.$siteurl.'/'.$thepictures[0]->path.'/thumbs/'.'"
 
-$imagePath = $siteurl.'/'.$thepictures[0]->path.'/';
-$thumbPath = $siteurl.'/'.$thepictures[0]->path.'/thumbs/thumbs_';
-
 
 
 if (is_array ($thepictures)){
@@ -106,13 +103,17 @@ if (is_array ($thepictures)){
 		echo "\t<title>".$gallery_group[0]->galleryTitle."</title>\n";
 		echo "\t<permalink>".$gallery_group[0]->gallerySlug."</permalink>\n";
 		echo "\t<images>\n";
+		
+		$imagePath = $siteurl.'/'.$gallery_group[0]->path.'/';
+		$thumbPath = $siteurl.'/'.$gallery_group[0]->path.'/thumbs/thumbs_';
+
 		foreach ($gallery_group as $picture) {
 			
 			// new dBug($picture);
 			
 			echo "\t\t<image>\n";
 			echo "\t\t\t<permalink><![CDATA[".$picture->pid."]]></permalink>\n";
-			echo "\t\t\t<name><![CDATA[".$picture->name."]]></name>\n";
+			// echo "\t\t\t<name><![CDATA[".$picture->name."]]></name>\n";
 			echo "\t\t\t<title><![CDATA[".$picture->alttext."]]></title>\n";
 			echo "\t\t\t<imageUrl><![CDATA[".$imagePath.$picture->filename."]]></imageUrl>\n";
 			echo "\t\t\t<thumbUrl><![CDATA[".$thumbPath.$picture->filename."]]></thumbUrl>\n";

@@ -11,7 +11,8 @@
 	}
 	add_filter('body_class', 'add_info_page_body_class');
 
-    wp_enqueue_script( 'swfobject' );
+    wp_enqueue_script( 'swfobject', get_bloginfo('template_url') . '/javascripts/swfobject.js' );
+    wp_enqueue_script( 'swfaddress', get_bloginfo('template_url') . '/javascripts/swfaddress.js' );
 		
 ?>
 
@@ -27,8 +28,10 @@
 <?php endwhile; ?>
 
 
-<div id='elleviewer'>
-	
+<div id='elleviewer-container'>
+	<div id="elleviewer">
+		
+	</div>
 </div>
 
 <?php include('page-footer.php') ?>

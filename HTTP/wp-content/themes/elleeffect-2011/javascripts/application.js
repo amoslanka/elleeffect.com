@@ -52,14 +52,12 @@ $(document).ready(function() {
 	
 	
 	// On info-page pages, h and v center the post. (does it on page resize, in case the page does resize)
-	$('body.info-page, body.splash-page, body.gallery-view-page').resize(function(event) {
+	$('body.info-page, body.splash-page').resize(function(event) {
 		var w = parseInt($('.post').css('position', 'absolute').width(), 10);
 		$('.post').css('position', 'relative').width(w + 10).vCenter().hCenter();
-
-		// console.log('w:', $('#access').width())
-		// w = parseInt($('#header').css('position', 'relative').width(), 10);
-		// $('#header').css('position', 'relative').width(w + 10).hCenter();
-		w = 0;
+	}).resize();
+	$('body.info-page, body.splash-page, body.gallery-view-page').resize(function(event) {
+		var w = 0;
 		$('#header > *, #header .menu').not('#access').each(function(index) {
 			console.log('adding width', $(this).outerWidth(), this);
 		  w += $(this).outerWidth();
@@ -132,15 +130,22 @@ $(document).ready(function() {
 	    var params = {
 	        scale: 'noscale',
 	        align: 'tl',
-	        wmode: 'true',
-	        bgcolor: '#ffffff'
+	        wmode: 'transparent',
+            bgcolor: '#ffffff'
 	    };
 	    var flashvars = {
-	        
+	        xmlDataPath: GALLERIES_PATH
 	    };
 	    
     	swfobject.embedSWF(THEME_ROOT + "/swf/elleviewer.swf", "elleviewer", "100%", "100%", "9.0.0", "expressInstall.swf", flashvars, params);
 	}
-	
+
+    // on resize, set the size of the swf
+	$('body.gallery-view-page').resize(function(event) {
+	    
+	    var h = $(window).height() - $('#header').height();
+        // console.log(' >> resize. avail height: ', h)
+        $('#elleviewer-container').height(h);
+	}).resize();
 	
 });
