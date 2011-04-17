@@ -41,7 +41,16 @@ $.fn.hCenter = function() {
 		$(this).css("position", "absolute");
 	});
 };
-
+$.fn.wait = function(time, type) {
+    time = time || 1000;
+    type = type || "fx";
+    return this.queue(type, function() {
+        var self = this;
+        setTimeout(function() {
+            $(self).dequeue();
+        }, time);
+    });
+};
 
 $(document).ready(function() {
 	
@@ -56,15 +65,28 @@ $(document).ready(function() {
 		var w = parseInt($('.post').css('position', 'absolute').width(), 10);
 		$('.post').css('position', 'relative').width(w + 10).vCenter().hCenter();
 	}).resize();
-	$('body.info-page, body.splash-page, body.gallery-view-page').resize(function(event) {
+	var $body = $('body.info-page, body.splash-page, body.gallery-view-page').resize(function(event) {
 		var w = 0;
+        // $('#header > *, #header .menu').not('#access').each(function(index) {
 		$('#header > *, #header .menu').not('#access').each(function(index) {
-			console.log('adding width', $(this).outerWidth(), this);
-		  w += $(this).outerWidth();
+			if ($(this).css('display') != "none")
+			{
+    			console.log('adding width', $(this).outerWidth(), this, $(this).css('display'));
+                w += $(this).outerWidth();
+			}
 		});
-		$('#header').width(w+70).hCenter();
-		// $('#header').hCenter();
-	}).resize();
+        var $header = $('#header');
+        
+        // w = $header.width();
+        
+        console.log("header width: " , $('#header').width(), w);
+        
+        // $('#header').hCenter();
+        $('#header').width(w).hCenter();
+        
+	});
+	
+	setTimeout(function(){ $body.resize(); }, 10);
 
 	// Apply classnames to navigation. WP doesn't by default give us the permalink of the pages as a class,
 	// so we'll add it here. 
@@ -75,8 +97,6 @@ $(document).ready(function() {
 	// If the post has an image add a class to its container.
 	$('.post img').parents('.post').addClass('has-image');
 	
-    
-    
     // // // // // // // // // // // // // // // // 
     // Splash page
     // // // // // // // // // // // // // // // // 

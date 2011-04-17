@@ -27,6 +27,12 @@ a:focus { outline: #666 dashed thin; }
 /* ----------------------------------------- */
 body { background: url(../images/bl-bg.jpg) no-repeat -9999px; margin:0; padding:0; }
 
+#error-404 {
+    width:600px;
+    margin: auto;
+    margin-top: 150px;
+}
+
 /* Header. */
 /* ----------------------------------------- */
 
@@ -37,7 +43,7 @@ body { background: url(../images/bl-bg.jpg) no-repeat -9999px; margin:0; padding
 /*	position:relative; bottom:0;*/
 /*	margin:auto;*/
 /*	margin-bottom:12px;*/
-	width:850px;
+/*  width:850px;*/
 	margin:auto;
 	height:50px;
 }
@@ -81,7 +87,7 @@ body.splash-page h1 {
     display:none; 
 }
 body.splash-page #header {
-	width:550px;
+/*  width:550px;*/
 }
 body.splash-page #body {
     width:100%;
@@ -125,6 +131,7 @@ body.info-page .post img.alignright {
 	width: 768px;
 /*  float:left;*/
 	margin: 0 auto;
+/*  margin-top: 25px;*/
 }
 #body .block-gallery-nav ul.menu {
 	float:left;
@@ -199,6 +206,8 @@ body.info-page .post img.alignright {
 #body .block-gallery-nav li.sub-menu-item-1 a {
     
 }
+
+#menu-block-gallery-nav { margin-top: 10px; }
 
 body.gallery-list-page #menu-gallery-nav .menu-item-galleries {
     display:none;

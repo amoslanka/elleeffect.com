@@ -155,7 +155,7 @@ public class ThumbNav extends EventDispatcher implements IAnimatable, IDisposabl
 		if (_lastButton) _lastButton.unselect();
 		_lastIndex = index;
 		if (_lastButton) _lastButton.select();
-		if (index < _currentDisplayIndex || index >= _currentDisplayIndex+Config.THUMBS_PER_ROW) displayRange(index);
+		if (index < _currentDisplayIndex || index >= _currentDisplayIndex+Config.THUMBS_PER_ROW) setTimeout(Callback.create(displayRange, index), 500);
 		dispatchEvent(new Event(Event.CHANGE));
 	}
 	

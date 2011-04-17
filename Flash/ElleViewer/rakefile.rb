@@ -28,6 +28,7 @@ require 'asunit4'
 
 # Compile the debug swf
 mxmlc "bin/elleviewer.swf" do |t|
+  `rm bin/elleviewer.swf`
   t.input = "src/ElleViewer.as"
   t.source_path << '../summit'
   t.library_path << 'lib/elleviewer.swc'
