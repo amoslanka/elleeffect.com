@@ -3,3 +3,5 @@ Flash/summit
 
 http/wp-config.php
 HTTP/wp-content/gallery/*
+
+HTTP/.htaccess
