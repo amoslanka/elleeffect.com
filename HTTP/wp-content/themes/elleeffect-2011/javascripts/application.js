@@ -79,10 +79,10 @@ $(document).ready(function() {
         
         // w = $header.width();
         
-        console.log("header width: " , $('#header').width(), w);
+        // console.log("header width: " , $('#header').width(), w);
         
         // $('#header').hCenter();
-        $('#header').width(w).hCenter();
+        $('#header').width(w+50).hCenter();
         
 	});
 	
