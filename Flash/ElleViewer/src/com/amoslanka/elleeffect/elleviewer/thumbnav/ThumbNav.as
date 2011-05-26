@@ -96,6 +96,9 @@ public class ThumbNav extends EventDispatcher implements IAnimatable, IDisposabl
 	
 	private function initObjects():void {
 		_shadow = $SP("shadow_mc");
+		_shadow.visible = false;
+		_shadow.alpha = 0;
+		
 		_thumbContainer = $SP("thumbContainer_mc");
 		/*target.addChild(_thumbContainer);*/
 		_thumbMask = new Sprite();
@@ -177,6 +180,8 @@ public class ThumbNav extends EventDispatcher implements IAnimatable, IDisposabl
 		}
 		
 		//_lastIndex = _thumbs.length >= 1 ? 0 : -1;
+		
+		TweenLite.to(_shadow, .25, {autoAlpha:1})
 		
 		arrange();
 		subnavigate(0);
