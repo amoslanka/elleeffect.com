@@ -251,3 +251,39 @@ body.gallery-view-page h2 {
 
 
 #wpadminbar {display:none;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+Blog specific styles
+
+*/
+
+#body {
+    width: 900px;
+    background-color: #fff;
+}
+#content {
+    float:left;
+    width:600px;
+}
+.sidebar {
+    display:block;
+    width:200px;
+    float:left;
+}

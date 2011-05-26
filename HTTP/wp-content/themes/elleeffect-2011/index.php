@@ -1,5 +1,7 @@
 <?php
 /**
+ * Template Name: Posts Index
+ *
  * The main template file.
  *
  * This is the most generic template file in a WordPress theme
@@ -15,6 +17,8 @@
 
 get_header(); ?>
 
+<div id="body">
+	<div id="content">
 			<?php
 			/* Run the loop to output the posts.
 			 * If you want to overload this in a child theme then include a file
@@ -22,6 +26,8 @@ get_header(); ?>
 			 */
 			 get_template_part( 'loop', 'index' );
 			?>
-
+	</div>
+	
 <?php get_sidebar(); ?>
+</div>
 <?php get_footer(); ?>
