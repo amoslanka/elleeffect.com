@@ -21,8 +21,8 @@
 
 <?php /* Display navigation to next/previous pages when applicable */ ?>
 <?php if ( $wp_query->max_num_pages > 1 ) : ?>
-		<?php next_posts_link( __( '&larr; Older posts', 'twentyten' ) ); ?>
-		<?php previous_posts_link( __( 'Newer posts &rarr;', 'twentyten' ) ); ?>
+		<?php // next_posts_link( __( '&larr; Older posts', 'twentyten' ) ); ?>
+		<?php // previous_posts_link( __( 'Newer posts &rarr;', 'twentyten' ) ); ?>
 <?php endif; ?>
 
 <?php /* If there are no posts to display, such as an empty archive page */ ?>
@@ -32,6 +32,8 @@
 		<?php get_search_form(); ?>
 
 <?php endif; ?>
+
+<div id="content">
 
 <?php
 	/* Start the Loop.
@@ -50,6 +52,8 @@
 	 */ ?>
 <?php while ( have_posts() ) : the_post(); ?>
 
+<div class="post">
+  
 <?php /* How to display posts in the Gallery category. */ ?>
 
 	<?php if ( in_category( _x('gallery', 'gallery category slug', 'twentyten') ) ) : ?>
@@ -125,6 +129,8 @@
 		<?php comments_template( '', true ); ?>
 
 	<?php endif; // This was the if statement that broke the loop into three parts based on categories. ?>
+  
+  </div><!-- end .post -->
 
 <?php endwhile; // End the loop. Whew. ?>
 
@@ -133,3 +139,6 @@
 				<?php next_posts_link( __( '&larr; Older posts', 'twentyten' ) ); ?>
 				<?php previous_posts_link( __( 'Newer posts &rarr;', 'twentyten' ) ); ?>
 <?php endif; ?>
+
+</div> <!-- end #content -->
+
