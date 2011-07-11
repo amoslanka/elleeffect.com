@@ -8,13 +8,15 @@
  */
 
 get_header(); ?>
+<div id="body">
+	<div id="content">
 
 <?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
 
 					<?php // previous_post_link( '%link', '' . _x( '&larr;', 'Previous post link', 'twentyten' ) . ' %title' ); ?>
 					<?php // next_post_link( '%link', '%title ' . _x( '&rarr;', 'Next post link', 'twentyten' ) . '' ); ?>
 
-        <div id="content">
+        <!-- <div id="content"> -->
           <div class="post">
 
   					<h1><?php the_title(); ?></h1>
@@ -42,9 +44,10 @@ get_header(); ?>
   				<?php comments_template( '', true ); ?>
 
         </div>
-      </div>
+      <!-- </div> -->
 
-<?php endwhile; // end of the loop. ?>
-  
-<?php get_sidebar(); ?>
+    <?php endwhile; // end of the loop. ?>
+	</div>
+	<?php get_sidebar(); ?>
+</div>
 <?php get_footer(); ?>

@@ -258,7 +258,7 @@ body.gallery-view-page h2 {
   The blog
 
 */
-body.blog, body.archive, body.single, body.category {
+/*body.blog, body.archive, body.single, body.category {
   text-align: left;
   
 }
@@ -290,7 +290,40 @@ body.blog .post, body.archive .post, body.single .post, body.category .post {
 
 .xoxo {
   width: 200px;
-/*  float:right;*/
-  float:left;
 
+  float:left;
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+Blog specific styles
+
+*/
+
+#body {
+    width: 900px;
+    background-color: #fff;
+}
+#content {
+    float:left;
+    width:600px;
+}
+.sidebar {
+    display:block;
+    width:200px;
+    float:left;
 }

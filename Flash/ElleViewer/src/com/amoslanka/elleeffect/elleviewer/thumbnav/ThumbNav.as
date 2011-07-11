@@ -65,6 +65,7 @@ public class ThumbNav extends EventDispatcher implements IAnimatable, IDisposabl
 	
 	private var _leftButton:IButtonComponent;
 	private var _rightButton:IButtonComponent;
+	private var _dirButtonsContainer:Sprite;
 	
 	/**
 	 * Constructor.
@@ -96,6 +97,9 @@ public class ThumbNav extends EventDispatcher implements IAnimatable, IDisposabl
 	
 	private function initObjects():void {
 		_shadow = $SP("shadow_mc");
+		_shadow.visible = false;
+		_shadow.alpha = 0;
+		
 		_thumbContainer = $SP("thumbContainer_mc");
 		/*target.addChild(_thumbContainer);*/
 		_thumbMask = new Sprite();
@@ -106,11 +110,15 @@ public class ThumbNav extends EventDispatcher implements IAnimatable, IDisposabl
 		
 		var clip:Sprite;
 		
+		_dirButtonsContainer = new Sprite();
+		target.addChild(_dirButtonsContainer);
+		TweenLite.to(_dirButtonsContainer, 0, {autoAlpha:0});
+		
 		clip = new ThumbNavLeft_Graphic();
-		target.addChild(clip);
+		_dirButtonsContainer.addChild(clip);
 		_leftButton  = new ThumbNavArrowButton(clip);
 		clip = new ThumbNavRight_Graphic();
-		target.addChild(clip);
+		_dirButtonsContainer.addChild(clip);
 		_rightButton = new ThumbNavArrowButton(clip);
 		
 		em.addEvent(_leftButton,  MouseEvent.CLICK, onDirButtonClick);
@@ -165,18 +173,30 @@ public class ThumbNav extends EventDispatcher implements IAnimatable, IDisposabl
 		
 		var item:ImageModel;
 		var thumb:IButtonComponent;
-		for (var i:int = 0; i<items.length; i++){
+		for (var i:int = 0; i<Math.max(items.length, Config.THUMBS_PER_ROW); i++){
 			item = items[i] as ImageModel;
-			if (!item) continue;
+            /*if (!item) continue;*/
 			
-			thumb = thumbFactory(item.thumbUrl);
-			_dataObjects.push(item);
+			if (item)
+			{
+    			thumb = thumbFactory(item.thumbUrl);
+    			_dataObjects.push(item);
+			}
+			else
+			{
+			    thumb = emptyThumbFactory();
+			}
+			
 			_thumbs.push(thumb);
 			
 			_thumbContainer.addChild(thumb.target);
 		}
 		
 		//_lastIndex = _thumbs.length >= 1 ? 0 : -1;
+		
+		TweenLite.to(_shadow, .25, {autoAlpha:1});
+		
+		TweenLite.to(_dirButtonsContainer, .25, {autoAlpha:_thumbContainer.numChildren > Config.THUMBS_PER_ROW ? 1 : 0});
 		
 		arrange();
 		subnavigate(0);
@@ -239,6 +259,13 @@ public class ThumbNav extends EventDispatcher implements IAnimatable, IDisposabl
 		em.addSingle(btn, IOErrorEvent.IO_ERROR, onButtonLoadError);
 		em.addEvent(btn, MouseEvent.CLICK, onButtonClick);
 		return btn;
+	}
+	
+	public function emptyThumbFactory():IButtonComponent
+	{
+	    var btn:IButtonComponent = new ThumbNavButton();
+        /*_white.addChild(new Rect(0, 0, Config.THUMB_WIDTH, Config.THUMB_WIDTH, 0xffffff, .5));*/
+        return btn;
 	}
 	
 	public function getBounds(obj:DisplayObject) : Rectangle {

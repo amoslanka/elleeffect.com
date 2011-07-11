@@ -73,6 +73,7 @@ if (!is_array($thepictures)) die;
 if (is_array ($thepictures)){
 	
 	$galleries = array();
+	// $gallery_group = array();
 	$g = '';
 	
 	foreach ($thepictures as $picture) {
@@ -80,23 +81,44 @@ if (is_array ($thepictures)){
 		
 		if ($g != $picture->gallerySlug)
 		{
+			// echo $picture->galleryTitle;
+			// echo "...";
 			
 			// echo " >> " . $g;
 			
+			
 			if (count($gallery_group) > 0)
 			{
+				// this happens to the previous 
 				array_push($galleries, $gallery_group);
 			}
-
+			// 
 			$gallery_group = array();
+
+			// array_push($galleries, $gallery_group);
+			
 			$g = $picture->gallerySlug;
 		}
 		
 		array_push($gallery_group, $picture);
 		
 	}
+
+	if (count($gallery_group) > 0)
+	{
+		// this happens to the previous 
+		array_push($galleries, $gallery_group);
+	}
 	
 	// new dBug($galleries);
+	// echo "..........................................";
+	
+	// foreach ($galleries as $gallery_group) {
+	// 	echo ".....";
+	// 	echo $gallery_group[0]->galleryTitle;
+	// }
+	// 
+	// return;
 	
 	foreach ($galleries as $gallery_group) {
 		echo "<gallery>\n";
