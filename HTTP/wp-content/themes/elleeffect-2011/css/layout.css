@@ -249,11 +249,51 @@ body.gallery-view-page h2 {
     width:100%;
 }
 
-
 #wpadminbar {display:none;}
 
 
 
+/*
+
+  The blog
+
+*/
+/*body.blog, body.archive, body.single, body.category {
+  text-align: left;
+  
+}
+
+#container {
+  padding: 1em;
+  margin: 0 auto;
+  width: 960px;
+  text-align: left;
+}
+
+#container #content {
+  width: 760px;
+  float:left;
+}
+
+body.blog .post, body.archive .post, body.single .post, body.category .post {
+  
+  
+}
+
+.post {
+  
+}
+
+.post h2 {
+  font-size: 18px;
+}
+
+.xoxo {
+  width: 200px;
+
+  float:left;
+}
+*/
 
 
 
