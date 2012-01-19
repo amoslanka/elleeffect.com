@@ -3,7 +3,7 @@
 /**
  * @title  Add action/filter for the upload tab 
  * @author Alex Rabe
- * @copyright 2008-2009
+ * @copyright 2008-2011
  */
 
 function ngg_wp_upload_tabs ($tabs) {
@@ -70,18 +70,16 @@ function media_upload_nextgen_save_image() {
 		
 		if ( !empty($_POST['image']) ) foreach ( $_POST['image'] as $image_id => $image ) {
 		
-		// Function save desription
-		$alttext   		= esc_attr($image['alttext']);
-		$description    = esc_attr($image['description']);
-		
-		$wpdb->query("UPDATE $wpdb->nggpictures SET alttext= '$alttext', description = '$description' WHERE pid = '$image_id'");
-
+    		// create a unique slug
+            $image_slug = nggdb::get_unique_slug( sanitize_title( $image['alttext'] ), 'image' ); 
+    		$wpdb->query( $wpdb->prepare ("UPDATE $wpdb->nggpictures SET image_slug= '%s', alttext= '%s', description = '%s' WHERE pid = %d", $image_slug, $image['alttext'], $image['description'], $image_id));
+            wp_cache_delete($image_id, 'ngg_image');
 	}
 }
 
 function media_upload_nextgen_form($errors) {
 
-	global $wpdb, $wp_query, $wp_locale, $type, $tab, $post_mime_types, $ngg;
+	global $wpdb, $wp_query, $wp_locale, $type, $tab, $post_mime_types, $ngg, $nggdb;
 	
 	media_upload_header();
 
@@ -168,7 +166,7 @@ function media_upload_nextgen_form($errors) {
 			<option value="0" <?php selected('0', $galleryID); ?> ><?php esc_attr( _e('No gallery',"nggallery") ); ?></option>
 			<?php
 			// Show gallery selection
-			$gallerylist = $wpdb->get_results("SELECT * FROM $wpdb->nggallery ORDER BY gid ASC");
+			$gallerylist = $nggdb->find_all_galleries();
 			if(is_array($gallerylist)) {
 				foreach($gallerylist as $gallery) {
 					$selected = ($gallery->gid == $galleryID )?	' selected="selected"' : "";
@@ -210,14 +208,14 @@ function media_upload_nextgen_form($errors) {
 			  <div class='filename'></div>
 			  <a class='toggle describe-toggle-on' href='#'><?php esc_attr( _e('Show', "nggallery") ); ?></a>
 			  <a class='toggle describe-toggle-off' href='#'><?php esc_attr( _e('Hide', "nggallery") );?></a>
-			  <div class='filename new'><?php echo ( empty($picture->alttext) ) ? wp_html_excerpt($picture->filename,60): stripslashes( wp_html_excerpt($picture->alttext,60) ); ?></div>
+			  <div class='filename new'><?php echo ( empty($picture->alttext) ) ? wp_html_excerpt( esc_html( $picture->filename ),60) : stripslashes( wp_html_excerpt( esc_html( $picture->alttext ),60) ); ?></div>
 			  <table class='slidetoggle describe startclosed'><tbody>
 				  <tr>
 					<td rowspan='4'><img class='thumbnail' alt='<?php echo esc_attr( $picture->alttext ); ?>' src='<?php echo esc_attr( $picture->thumbURL ); ?>'/></td>
-					<td><?php esc_attr( _e('Image ID:', "nggallery") ); ?><?php echo $picid ?></td>
+					<td><?php esc_html( _e('Image ID:', "nggallery") ); ?><?php echo $picid ?></td>
 				  </tr>
-				  <tr><td><?php echo esc_attr( $picture->filename ); ?></td></tr>
-				  <tr><td><?php echo esc_attr( stripslashes($picture->alttext) ); ?></td></tr>
+				  <tr><td><?php echo esc_html( $picture->filename ); ?></td></tr>
+				  <tr><td><?php echo esc_html( stripslashes($picture->alttext) ); ?></td></tr>
 				  <tr><td>&nbsp;</td></tr>
 				  <tr>
 					<td class="label"><label for="image[<?php echo $picid ?>][alttext]"><?php esc_attr_e('Alt/Title text', "nggallery") ;?></label></td>
@@ -254,13 +252,13 @@ function media_upload_nextgen_form($errors) {
 					</tr>
 				   <tr class="submit">
 						<td>
-							<input type="hidden"  name="image[<?php echo $picid ?>][thumb]" value="<?php echo $picture->thumbURL ?>" />
-							<input type="hidden"  name="image[<?php echo $picid ?>][url]" value="<?php echo $picture->imageURL ?>" />
+							<input type="hidden" name="image[<?php echo $picid ?>][thumb]" value="<?php echo esc_attr( $picture->thumbURL ); ?>" />
+							<input type="hidden" name="image[<?php echo $picid ?>][url]" value="<?php echo esc_attr( $picture->imageURL ); ?>" />
 						</td>
 						<td class="savesend">
 							<?php
 							if ( $calling_post_id && current_theme_supports( 'post-thumbnails', get_post_type( $calling_post_id ) ) )
-								echo "<a class='ngg-post-thumbnail' id='ngg-post-thumbnail-" . $picid . "' href='#' onclick='NGGSetAsThumbnail(\"$picid\");return false;'>" . esc_html__( 'Use as thumbnail' ) . "</a>";
+								echo "<a class='ngg-post-thumbnail' id='ngg-post-thumbnail-" . $picid . "' href='#' onclick='NGGSetAsThumbnail(\"$picid\");return false;'>" . esc_html__( 'Use as featured image' ) . "</a>";
 							?>
 							<button type="submit" class="button" value="1" name="send[<?php echo $picid ?>]"><?php esc_html_e( 'Insert into Post' ); ?></button>
 						</td>

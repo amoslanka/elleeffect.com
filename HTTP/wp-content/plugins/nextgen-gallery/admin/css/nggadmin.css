@@ -1,5 +1,5 @@
 /* 
-** NextGEN Gallery Style for Wordpress 2.9
+** NextGEN Gallery Style for Wordpress 3.3
 */
 
 /* SETTINGS FOR Overview Gallery */
@@ -57,6 +57,15 @@
 #donator_message span{
 	padding-top:10px;
 	float:right;
+}
+
+#plugin_check img {
+    float: right;
+}
+
+#plugin_check p.message {
+	font-size: 90%;
+	color: #666;
 }
 /* SETTING FOR FLASH UPLOAD BUTTON */
 .swfupload {
@@ -134,17 +143,8 @@ p#ngg-inlinebutton {
 	top:-25pt;
 }
 
-.ngg-tablenav .button-secondary {
-	padding:2px 8px;
-	vertical-align: top;
-}
-
 .fixed tbody th.column-cb {
 	padding:7px 0 22px;
-}
-.fixed .column-cb {
-	padding:0;
-	width:2.2em;
 }
 
 .fixed .column-thumbnail{
@@ -160,6 +160,14 @@ p#ngg-inlinebutton {
 	width: 5em;
 }
 
+.fixed .column-title {
+	width: 25%;
+}
+
+.fixed .column-description {
+	width: 40%;
+}
+
 .fixed .column-exclude, .fixed .column-action, .fixed .column-delete {
 	width: 10%;
 }
@@ -167,31 +175,36 @@ p#ngg-inlinebutton {
 /* SETTINGS FOR PROGRESS BAR */
 
 div .progressborder {
-	border: 1px inset ; 
+	border:1px solid #DDDDDD;
 	display: block; 
-	height: 20px; 
+	height: 30px; 
 	background-color: #464646; 
 	width: 100%;
 	margin-top: 15px;
 	margin-bottom: 15px;
+    -moz-border-radius: 5px; 
+    -webkit-border-radius: 5px; 
+    border-radius: 5px;
 }
 
 div .progressbar {
 	border: medium none ; 
 	display: block; 
-	height: 20px; 
+	height: 30px; 
 	background-color: #D54E21; 
 	width: 0%;
+    -moz-border-radius: 5px; 
+    -webkit-border-radius: 5px; 
+    border-radius: 5px;
 }
 
 div .progressbar span {
 	display: inline; 
-	position: relative; 
+	position: absolute; 
 	color: white; 
 	font-weight: bold; 
-	padding-left: 5px;
+	padding: 5px 0 0 5px;
 }
-
 
 .show_details
 {
@@ -230,6 +243,7 @@ div .groupItem
 	cursor: move;
 	width: 295px;
 	padding: 5px;
+    line-height: 1.5;
 }
 
 div .innerhandle {
@@ -339,6 +353,7 @@ div.widget-top {
 	font-size: 13px;
 }
 
+.ui-autocomplete-start { background-position: 99% center; }	
 
 /* SETTINGS FOR SORT GALLERY */
 

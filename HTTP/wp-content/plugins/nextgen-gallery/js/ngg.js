@@ -31,7 +31,7 @@ function ngg_ajax_navigation(e, obj) {
 	}
 	
 	// try to find gallery number by checking the parents ID until we find a matching one
-	var currentNode = obj;
+	var currentNode = obj.parentNode;
 	while (null != currentNode.parentNode && !jQuery.nodeName(currentNode.parentNode, "body") && "ngg-gallery-" != jQuery(currentNode.parentNode).attr("id").substring(0, 12)) {
 		currentNode = currentNode.parentNode;
 	}

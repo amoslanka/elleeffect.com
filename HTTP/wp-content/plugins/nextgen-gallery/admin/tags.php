@@ -9,7 +9,9 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { 	die('You
 $action_status = array('message' => '', 'status' => 'ok');
 
 if ( isset($_POST['tag_action']) ) {
-	//TODO:Include nonce field
+    
+	check_admin_referer('nggallery_admin_tags');
+    
 	if ( $_POST['tag_action'] == 'renametag' ) {
 		$oldtag = (isset($_POST['renametag_old'])) ? $_POST['renametag_old'] : '';
 		$newtag = (isset($_POST['renametag_new'])) ? $_POST['renametag_new'] : '';
@@ -25,13 +27,14 @@ if ( isset($_POST['tag_action']) ) {
 }
 
 // Som useful variables
-$admin_base_url = admin_url() . 'admin.php?page=';
+$admin_base_url = admin_url() . 'admin.php?page=nggallery-tags';
 $nb_tags = 50; // Number of tags to show on a single page
 
 // Manage URL
-$sort_order = ( isset($_GET['tag_sortorder']) ) ? esc_attr(stripslashes($_GET['tag_sortorder'])) : 'desc';
-$search_url = ( isset($_GET['search']) ) ? '&amp;search=' . stripslashes($_GET['search']) : '';
-$action_url = $admin_base_url . esc_attr(stripslashes($_GET['page'])) . '&amp;tag_sortorder=' . $sort_order. $search_url;
+
+$sort_order = ( isset($_GET['tag_sortorder']) ) ? esc_attr( stripslashes($_GET['tag_sortorder']) ) : 'desc';
+$search_url = ( isset($_GET['search']) ) ? '&amp;search=' . esc_attr ( stripslashes($_GET['search']) ) : '';
+$action_url = $admin_base_url . '&amp;tag_sortorder=' . $sort_order. $search_url;
 
 // Tags Filters
 $order_array = array(
@@ -62,14 +65,14 @@ if ( !empty($_GET['search']) ) {
 
 // Offset
 if ( !empty($_GET['offset']) ) {
-	$param .= '&offset=' . $_GET['offset'];
+	$param .= '&offset=' . intval( $_GET['offset'] );
 }
 
 // Navigation urls
 if ( empty($_GET['offset']) ) {
 	$offset = 0;
 } else {
-	$offset = $_GET['offset'];
+	$offset = intval( $_GET['offset'] );
 }
 
 $tag_count = (int)wp_count_terms('ngg_tag', 'ignore_empty=true');
@@ -92,6 +95,7 @@ if ($nb_tags < $tag_count && $offset>0) {
 </style>
 
 <div class="wrap ngg_wrap">
+    <?php screen_icon( 'nextgen-gallery' ); ?>
 	<h2><?php _e('Manage image tags', 'nggallery'); ?></h2>
 	
 	<?php if ($action_status['message']!='') : ?>
@@ -109,9 +113,9 @@ if ($nb_tags < $tag_count && $offset>0) {
 					<form method="get">
 						<p>
 							<label for="search"><?php _e('Search tags', 'nggallery'); ?></label><br />
-							<input type="hidden" name="page" value="<?php echo esc_attr(stripslashes($_GET['page'])); ?>" />
+							<input type="hidden" name="page" value="<?php echo esc_attr( stripslashes($_GET['page']) ); ?>" />
 							<input type="hidden" name="tag_sortorder" value="<?php echo $sort_order; ?>" />
-							<input type="text" name="search" id="search" size="10" value="<?php if (isset($_GET['search'])) echo stripslashes($_GET['search']); ?>" />
+							<input type="text" name="search" id="search" size="10" value="<?php if (isset($_GET['search'])) echo esc_attr( stripslashes($_GET['search']) ); ?>" />
 							<input class="button" type="submit" value="<?php _e('Go', 'nggallery'); ?>" />
 						</p>
 					</form>
@@ -121,7 +125,7 @@ if ($nb_tags < $tag_count && $offset>0) {
 						<?php
 						$output = array();
 						foreach( $order_array as $sort => $title ) {
-							$output[] = ($sort == $sort_order) ? '<span style="color: red;">'.$title.'</span>' : '<a href="'.$admin_base_url.esc_attr(stripslashes($_GET['page'])).'&amp;tag_sortorder='.$sort.$search_url.'">'.$title.'</a>';
+							$output[] = ($sort == $sort_order) ? '<span style="color: red;">'.$title.'</span>' : '<a href="'. $admin_base_url . '&amp;tag_sortorder=' . $sort . $search_url .'">'.$title.'</a>';
 						}
 						echo implode('<br />', $output);
 						$output = array();
@@ -136,7 +140,7 @@ if ($nb_tags < $tag_count && $offset>0) {
 							foreach( $tags as $tag ) {
                                 //TODO:Tag link should be call a list of images in manage gallery
                                 //echo '<li><span>' . $tag->name . '</span>&nbsp;<a href="'.(ngg_get_tag_link( $tag->term_id )).'" title="'.sprintf(__('View all images tagged with %s', 'nggallery'), $tag->name).'">('.$tag->count.')</a></li>'."\n";
-                                echo '<li><span>' . $tag->name . '</span>&nbsp;'.'('.$tag->count.')</li>'."\n";
+                                echo '<li><span>' . esc_html( $tag->name ). '</span>&nbsp;'.'('. esc_html( $tag->count ).')</li>'."\n";
 
 							}
 							unset($tags);
@@ -149,7 +153,7 @@ if ($nb_tags < $tag_count && $offset>0) {
 							<?php if ($prev_offset!='') { ?>
 							<form method="get" style="display: inline;">
 								<span>
-									<input type="hidden" name="page" value="<?php echo esc_attr(stripslashes($_GET['page'])); ?>" />
+									<input type="hidden" name="page" value="<?php echo esc_attr( stripslashes($_GET['page']) ); ?>" />
 									<input type="hidden" name="tag_sortorder" value="<?php echo $sort_order; ?>" />
 									<input type="hidden" name="offset" value="<?php echo $prev_offset; ?>" />
 									<input class="button" type="submit" value="&laquo; <?php _e('Previous tags', 'nggallery'); ?>" />
@@ -162,7 +166,7 @@ if ($nb_tags < $tag_count && $offset>0) {
 							<?php if ($next_offset!='') { ?>
 							<form method="get" style="display: inline;">
 								<span>
-									<input type="hidden" name="page" value="<?php echo esc_attr(stripslashes($_GET['page'])); ?>" />
+									<input type="hidden" name="page" value="<?php echo esc_attr( stripslashes($_GET['page']) ); ?>" />
 									<input type="hidden" name="tag_sortorder" value="<?php echo $sort_order; ?>" />
 									<input type="hidden" name="offset" value="<?php echo $next_offset; ?>" />
 									<input class="button" type="submit" value="<?php _e('Next tags', 'nggallery'); ?> &raquo;" />
@@ -180,7 +184,7 @@ if ($nb_tags < $tag_count && $offset>0) {
 				<h3><?php _e('Rename Tag', 'nggallery'); ?></h3>
 				<form action="<?php echo $action_url; ?>" method="post">
 					<input type="hidden" name="tag_action" value="renametag" />
-					<input type="hidden" name="tag_nonce" value="<?php echo wp_create_nonce('nggallery_admin'); ?>" />
+					<?php wp_nonce_field('nggallery_admin_tags'); ?>
 
 					<table class="form-table">
 						<tr valign="top">
@@ -206,7 +210,7 @@ if ($nb_tags < $tag_count && $offset>0) {
 				<h3><?php _e('Delete Tag', 'nggallery'); ?></h3>
 				<form action="<?php echo $action_url; ?>" method="post">
 					<input type="hidden" name="tag_action" value="deletetag" />
-					<input type="hidden" name="tag_nonce" value="<?php echo wp_create_nonce('nggallery_admin'); ?>" />
+					<?php wp_nonce_field('nggallery_admin_tags'); ?>
 
 					<table class="form-table">
 						<tr valign="top">
@@ -228,7 +232,7 @@ if ($nb_tags < $tag_count && $offset>0) {
 				<h3><?php _e('Edit Tag Slug', 'nggallery'); ?></h3>
 				<form action="<?php echo $action_url; ?>" method="post">
 					<input type="hidden" name="tag_action" value="editslug" />
-					<input type="hidden" name="tag_nonce" value="<?php echo wp_create_nonce('nggallery_admin'); ?>" />
+                    <?php wp_nonce_field('nggallery_admin_tags'); ?>
 				
 					<table class="form-table">
 						<tr valign="top">

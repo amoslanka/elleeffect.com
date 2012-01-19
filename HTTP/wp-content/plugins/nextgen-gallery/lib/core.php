@@ -3,7 +3,7 @@
 * Main PHP class for the WordPress plugin NextGEN Gallery
 * 
 * @author 		Alex Rabe 
-* @copyright 	Copyright 2007 - 2009
+* @copyright 	Copyright 2007 - 2011
 * 
 */
 class nggGallery {
@@ -43,7 +43,7 @@ class nggGallery {
 		}
 		
 		// set gallery url
-		$folder_url 	= get_option ('siteurl') . '/' . $picturepath.nggGallery::get_thumbnail_folder($picturepath, FALSE);
+		$folder_url 	= site_url() . '/' . $picturepath.nggGallery::get_thumbnail_folder($picturepath, FALSE);
 		$thumbnailURL	= $folder_url . 'thumbs_' . $fileName;
 		
 		return $thumbnailURL;
@@ -68,7 +68,7 @@ class nggGallery {
 		}
 		
 		// set gallery url
-		$imageURL 	= get_option ('siteurl') . '/' . $picturepath . '/' . $fileName;
+		$imageURL 	= site_url() . '/' . $picturepath . '/' . $fileName;
 		
 		return $imageURL;	
 	}
@@ -142,10 +142,15 @@ class nggGallery {
 	* @return array $options
 	*/
 	function get_option($key) {
+        global $post;
+        
 		// get first the options from the database 
 		$options = get_option($key);
-		
-		// Get all key/value data for the current post. 
+
+        if ( $post == null )
+            return $options;
+            
+		// Get all key/value data for the current post.            
 		$meta_array = get_post_custom();
 		
 		// Ensure that this is a array
@@ -164,7 +169,8 @@ class nggGallery {
 				'ngg_ir_Transition'			=> 'irTransition',
 				'ngg_ir_Backcolor' 			=> 'irBackcolor',
 				'ngg_ir_Frontcolor' 		=> 'irFrontcolor',
-				'ngg_ir_Lightcolor' 		=> 'irLightcolor'
+				'ngg_ir_Lightcolor' 		=> 'irLightcolor',
+                'ngg_slideshowFX'			=> 'slideFx',
 			),
 
 			'int' => array(
@@ -185,7 +191,6 @@ class nggGallery {
 				'ngg_ir_LinkFromDisplay' 	=> 'irLinkfromdisplay',
 				'ngg_ir_ShowNavigation'		=> 'irShownavigation',
 				'ngg_ir_ShowWatermark' 		=> 'irWatermark',
-				'ngg_ir_Overstretch'		=> 'irOverstretch',
 				'ngg_ir_Kenburns' 			=> 'irKenburns'
 			)
 		);
@@ -250,9 +255,10 @@ class nggGallery {
 	* @autor John Godley
 	* @param string $template_name Name of the template file (without extension)
 	* @param string $vars Array of variable name=>value that is available to the display code (optional)
+	* @param bool $callback In case we check we didn't find template we tested it one time more (optional)
 	* @return void
 	**/
-	function render($template_name, $vars = array ()) {
+	function render($template_name, $vars = array (), $callback = false) {
 		foreach ($vars AS $key => $val) {
 			$$key = $val;
 		}
@@ -266,8 +272,12 @@ class nggGallery {
 			include (STYLESHEETPATH . "/nggallery/$template_name.php");
 		} else if (file_exists (NGGALLERY_ABSPATH . "/view/$template_name.php")) {
 			include (NGGALLERY_ABSPATH . "/view/$template_name.php");
+		} else if ( $callback === true ) {
+            echo "<p>Rendering of template $template_name.php failed</p>";		  
 		} else {
-			echo "<p>Rendering of template $template_name.php failed</p>";
+            //test without the "-template" name one time more
+            $template_name = array_shift( explode('-', $template_name , 2) );
+            nggGallery::render ($template_name, $vars , true);
 		}
 	}
 	
@@ -304,20 +314,32 @@ class nggGallery {
 		
 	}
 	
+	/**
+	 * Look for the stylesheet in the theme folder
+	 * 
+	 * @return string path to stylesheet
+	 */
 	function get_theme_css_file() {
-		if ( file_exists (STYLESHEETPATH . '/nggallery.css') )
+	   
+  		// allow other plugins to include a custom stylesheet
+		$stylesheet = apply_filters( 'ngg_load_stylesheet', false );
+        
+		if ( $stylesheet !== false )
+			return ( $stylesheet );
+		elseif ( file_exists (STYLESHEETPATH . '/nggallery.css') )
 			return get_stylesheet_directory_uri() . '/nggallery.css';
 		else
 			return false;		
 	}
 
 	/**
-	 * Support for i18n with polyglot or qtrans
+	 * Support for i18n with wpml, polyglot or qtrans
 	 * 
 	 * @param string $in
+	 * @param string $name (optional) required for wpml to determine the type of translation
 	 * @return string $in localized
 	 */
-	function i18n($in) {
+	function i18n($in, $name = null) {
 		
 		if ( function_exists( 'langswitch_filter_langs_with_message' ) )
 			$in = langswitch_filter_langs_with_message($in);
@@ -327,11 +349,28 @@ class nggGallery {
 		
 		if ( function_exists( 'qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage' ))
 			$in = qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage($in);
+
+        if (is_string($name) && !empty($name) && function_exists('icl_translate'))
+            $in = icl_translate('plugin_ngg', $name, $in, true);
 		
 		$in = apply_filters('localization', $in);
 		
 		return $in;
 	}
+
+    /**
+     * This function register strings for the use with WPML plugin (see http://wpml.org/ )
+     * 
+     * @param object $image
+     * @return void
+     */
+    function RegisterString($image) {
+        if (function_exists('icl_register_string')) {
+            global $wpdb;
+            icl_register_string('plugin_ngg', 'pic_' . $image->pid . '_description', $image->description, TRUE);
+            icl_register_string('plugin_ngg', 'pic_' . $image->pid . '_alttext', $image->alttext, TRUE);
+        }
+    }
 	
 	/**
 	 * Check the memory_limit and calculate a recommended memory size
@@ -459,6 +498,94 @@ class nggGallery {
 		}
 		
 	}
-}
+    
+    /**
+     * Check for mobile user agent
+     * 
+     * @since 1.6.0
+     * @author Part taken from WPtouch plugin (http://www.bravenewcode.com)
+     * @return bool $result of  check
+     */
+    function detect_mobile_phone() {
+        
+        $useragents = array();
+        
+        // Check if WPtouch is running
+        if ( function_exists('bnc_wptouch_get_user_agents') )
+            $useragents = bnc_wptouch_get_user_agents();
+        else {   
+        	$useragents = array(		
+                "iPhone",  			 // Apple iPhone
+        		"iPod", 			 // Apple iPod touch
+        		"Android", 			 // 1.5+ Android
+        		"dream", 		     // Pre 1.5 Android
+        		"CUPCAKE", 			 // 1.5+ Android
+        		"blackberry9500",	 // Storm
+        		"blackberry9530",	 // Storm
+        		"blackberry9520",	 // Storm	v2
+        		"blackberry9550",	 // Storm v2
+        		"blackberry9800",	 // Torch
+        		"webOS",			 // Palm Pre Experimental
+        		"incognito", 		 // Other iPhone browser
+        		"webmate" 			 // Other iPhone browser
+        	);
+        	
+        	asort( $useragents );
+         }
+        
+        // Godfather Steve says no to flash
+        if ( is_array($useragents) )
+            $useragents[] = "iPad";  // Apple iPad;
+         
+        // WPtouch User Agent Filter
+        $useragents = apply_filters( 'wptouch_user_agents', $useragents );
 
+ 		foreach ( $useragents as $useragent ) {
+			if ( preg_match( "#$useragent#i", $_SERVER['HTTP_USER_AGENT'] ) )
+				return true;
+		}
+    
+        return false;    
+    }
+    
+    /**
+     * get_memory_usage
+     * 
+     * @access only for debug purpose
+     * @since 1.8.3
+     * @param string $text
+     * @return void
+     */
+    function get_memory( $text = '' ) {
+        global $memory;
+
+        $memory_peak = memory_get_usage();
+        $diff = 0;
+        
+		if ( isset($memory) )
+            $diff = $memory_peak - $memory;
+            
+        $exp = ($diff < 0) ? '-' : '';
+        $diff = ($exp == '-') ? 0 - $diff : $diff;
+        
+        $memory = $memory_peak;
+           
+        $unit = array('b','kb','mb','gb','tb','pb');
+        $rounded = @round($diff/pow(1024,($i=floor(log($diff,1024)))),2).' '.$unit[$i];
+            
+        echo $text . ': ' . $exp . $rounded .'<br />'; 
+          
+    }
+    
+    /**
+     * Show NextGEN Version in header
+     * @since 1.9.0
+     * 
+     * @return void
+     */
+    function nextgen_version() {
+        global $ngg;
+        echo apply_filters('show_nextgen_version', '<!-- <meta name="NextGEN" version="'. $ngg->version . '" /> -->' . "\n");	   
+    }
+}
 ?>

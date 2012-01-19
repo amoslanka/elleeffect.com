@@ -56,8 +56,8 @@ body { background: url(../images/bl-bg.jpg) no-repeat -9999px; margin:0; padding
 	text-indent: -9999px;
 }
 #header h1, #access .gallery-nav, #access .menu-header { float:left; } /*the blog title*/
-#header > p { display:none; } /*the blog description*/
-#access > a { display:none; } /*the skip nav link*/
+#header p { display:none; } /*the blog description*/
+#access a { display:none; } /*the skip nav link*/
 #access, #access .menu li {
 	height: 50px;
 	float:left;
@@ -258,72 +258,152 @@ body.gallery-view-page h2 {
   The blog
 
 */
-/*body.blog, body.archive, body.single, body.category {
-  text-align: left;
-  
+
+.blog,
+.single,
+.archive,
+.search {
+	background: #f9f9f9;
 }
 
-#container {
-  padding: 1em;
-  margin: 0 auto;
-  width: 960px;
-  text-align: left;
+.blog #container,
+.single #container,
+.archive #container,
+.search #container {
+	margin: 0 auto;
+	position: static;
+	width: 960px;
 }
 
-#container #content {
-  width: 760px;
-  float:left;
+.blog #header,
+.single #header,
+.archive #header,
+.search #header {
+	background: #fff;
+	border-bottom: 1px solid #ddd;
+	box-shadow: 0 0 5px #ccc;
+	-moz-box-shadow: 0 0 5px #ccc;
+	-webkit-box-shadow: 0 0 5px #ccc;
+	height: 60px;
+	left: 0;
+	margin: 0;
+	padding: 10px 0 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
 }
 
-body.blog .post, body.archive .post, body.single .post, body.category .post {
-  
-  
+.blog #header-inner,
+.single #header-inner,
+.archive #header-inner,
+.search #header-inner {
+	margin: 0 auto;
+	width: 960px;
 }
 
-.post {
-  
+.blog #content,
+.single #content,
+.archive #content,
+.search #content {
+	display: inline;
+	float: left;
+	margin: 40px 0 0;
+	width: 710px;
 }
 
-.post h2 {
-  font-size: 18px;
+.blog .post,
+.single .post,
+.archive .post,
+.search .post {
+	border-bottom: 1px solid #ccc;
+	margin: 25px 0 0;
+	overflow: hidden;
+	padding: 0 0 20px;
 }
 
-.xoxo {
-  width: 200px;
-
-  float:left;
+.blog .post-head h2,
+.single .post-head h2,
+.archive .post-head h2,
+.search .post-head h2 {
+	font-size: 1.5em;
+	line-height: 1.1em;
 }
-*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-Blog specific styles
-
-*/
-
-#body {
-    width: 900px;
-    background-color: #fff;
+.blog .post-head,
+.single .post-head,
+.archive .post-head,
+.search .post-head {
+	margin: 0 0 15px;
 }
-#content {
-    float:left;
-    width:600px;
+
+.blog .post-meta,
+.single .post-meta,
+.archive .post-meta,
+.search .post-meta {
+	font-size: .875em;
+	font-style: italic;
 }
-.sidebar {
-    display:block;
-    width:200px;
-    float:left;
+
+.blog .post img,
+.single .post img,
+.archive .post img,
+.search .post img {
+	height: auto;
+	margin: 0;
+	max-width: 710px;
+}
+
+.blog #content form,
+.single #content form,
+.archive #content form,
+.search #content form {
+	margin: 20px 0;
+}
+
+.blog #content label,
+.single #content label,
+.archive #content label,
+.search #content label {
+	display: block;
+}
+
+.blog .sidebar,
+.single .sidebar,
+.archive .sidebar,
+.search .sidebar {
+	display: inline;
+	float: right;
+	overflow: hidden;
+	margin: 40px 0 20px;
+	width: 230px;
+}
+
+.blog .post-naviation,
+.single .post-navigation,
+.archive .post-navigation,
+.search .post-navigation {
+	overflow: hidden;
+	padding: 20px 0;
+}
+
+.blog .widget-container,
+.single .widget-container,
+.archive .widget-container,
+.search .widget-container {
+	margin: 25px 0 0;
+}
+
+.blog .widget-title,
+.single .widget-title,
+.archive .widget-title,
+.search .widget-title {
+	font-size: 1.25em;
+	line-height: 1.1em;
+}
+
+.blog #searchform label,
+.single #searchform label,
+.archive #searchform label,
+.search #searchform label {
+	display: none;
 }

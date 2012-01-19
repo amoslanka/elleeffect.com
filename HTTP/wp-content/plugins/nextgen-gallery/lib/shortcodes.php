@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Alex Rabe, Vincent Prat 
- * @copyright 2008 - 2009
+ * @copyright 2008 - 2011
  * @since 1.0.0
  * @description Use WordPress Shortcode API for more features
  * @Docs http://codex.wordpress.org/Shortcode_API
@@ -180,14 +180,27 @@ class NextGEN_shortcodes {
         return $out;
     }
 
+    /**
+     * Function to show a collection of galleries:
+     * 
+     * [album id="1,2,4,5,..." template="filename" gallery="filename" /]
+     * where 
+     * - id of a album
+     * - template is a name for a album template, which is located in themefolder/nggallery or plugins/nextgen-gallery/view
+     * - template is a name for a gallery template, which is located in themefolder/nggallery or plugins/nextgen-gallery/view
+     * 
+     * @param array $atts
+     * @return the_content
+     */
     function show_album( $atts ) {
     
         extract(shortcode_atts(array(
             'id'        => 0,
-            'template'  => 'extend' 
+            'template'  => 'extend',
+            'gallery'   => ''  
         ), $atts ));
         
-        $out = nggShowAlbum($id, $template);
+        $out = nggShowAlbum($id, $template, $gallery);
             
         return $out;
     }
@@ -215,7 +228,7 @@ class NextGEN_shortcodes {
         
         // backward compat for user which uses the name instead, still deprecated
         if( !is_numeric($id) )
-            $id = $wpdb->get_var( $wpdb->prepare ("SELECT gid FROM $wpdb->nggallery WHERE name = '%s' "), $id );
+            $id = $wpdb->get_var( $wpdb->prepare ("SELECT gid FROM $wpdb->nggallery WHERE name = '%s' ", $id) );
             
         $out = nggShowGallery( $id, $template, $images );
             
@@ -247,7 +260,7 @@ class NextGEN_shortcodes {
         ), $atts ));
         
         if( !is_numeric($id) )
-            $id = $wpdb->get_var( $wpdb->prepare ("SELECT gid FROM $wpdb->nggallery WHERE name = '%s' "), $id );
+            $id = $wpdb->get_var( $wpdb->prepare ("SELECT gid FROM $wpdb->nggallery WHERE name = '%s' ", $id) );
 
         if( !empty( $id ) )
             $out = nggShowSlideshow($id, $w, $h);

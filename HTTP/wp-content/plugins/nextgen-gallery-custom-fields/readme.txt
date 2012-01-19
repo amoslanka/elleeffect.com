@@ -1,20 +1,27 @@
-=== Plugin Name ===
+=== NextGEN Custom Fields ===
 Contributors: shauno
+Donate link: http://shauno.co.za/donate/
 Tags: nextgen-gallery, nextgen, custom, fields, ngg-custom-fields, nextgen-gallery-custom-fields
 Requires at least: 2.7.1
-Tested up to: 2.9.1
-Stable tag: 1.0.2
+Tested up to: 3.3
+Stable tag: 1.2.1
 
 Creates the ability to quickly and easily add custom fields to NextGEN Galleries and Images.
 
 == Description ==
 
+**Please use version 1.0.2 for version of NGG LOWER than 1.7.x.  Please use version 1.1.2 or greater for versions of NGG >= 1.7.x**
+
 This plugin was developed to add custom columns to the excellent and popular NextGEN Gallery plugin.  Simply enter the name of your new field(s), select between "input", "textarea" or "dropdown", and the field(s) will be automatically added to the manage images form in the NGG admin panel.
 And as of version 0.4, you can now add custom fields to NextGEN galleries too!
 
+**QUESTIONS ASKED ON THE FORUM THAT ARE IN THE FAQ WILL NOT BE ANSWERED BY ME**
+
+I was recently in a motorcycle accident, and am not online too much anymore anyway.  Feel free to donate via the link on the right to by me a beer and get me through this tough time :)
+
 == Installation ==
 
-1. Upload `ngg-custom-columns.php` to the `/wp-content/plugins/ngg-custom-columns/` directory
+1. Upload `ngg-custom-fields.php` to the `/wp-content/plugins/ngg-custom-fields/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Run the URL `http://www.example.com/wp-admin/admin.php?page=nextgen-gallery-custom-fields/ngg-custom-fields.php&mode=upgrade` where "example.com" is your site (be sure you are logged in)
 1. Have a look at the FAQ to see how to work this thing
@@ -82,9 +89,7 @@ So, if you setup a field called "Awesome field", the code you would add to the g
 
 = Well, what about custom fields for galleries? =
 
-As of version 0.4, the ability to add custom fields to galleries has been added.  There are a couple catches though.  Because NextGEN didn't anticipate this type of thing, this plugin has to use a few cleaver (read: sneaky) tactics.
-The first requirement, is that you have javascript turned on,  If you're not sure what this means, then you most likely wont have to worry about it, as it is normally on by default.
-Secondly, you need have at least 1 image custom field linked to the gallery.  Without an image custom field, the gallery custom field will simpley not show.  Basically it is because NextGEN natively does not provide any where for this plugin to "hook" into to edit the gallery, so it goes in through the image hook.
+As of version 0.4, the ability to add custom fields to galleries has been added. It was a little janky until 1.1.3, where support for new NGG hooks was used making it more 'native'.
 
 = I've done all that, now what? =
 
@@ -101,14 +106,29 @@ Simply enter put the following tag where you want your field to display: `<?php 
 
 * Is the custom field linked to the correct gallery?
 
-* Remember, You HAVE to have at least 1 image custom field added to have gallery custom fields.
-
 * If you have unusual characters in your fields names, it can break the output.  Stick to upper and lower case letters, and numbers to avoid any issues.  As of version 0.5 there is some basic sanitation done to the names of fields and their values, but it is far from perfect.  It should allow characters such as apostrophes well enough though.
 
-= Can I hack / modify / steal the code? =
-Of Course!  If you didn't already know, WordPress encourages use of the GPL licenses.  This means you can pretty much do what you want with this code.  Have a look at file `COPYING` that should have been provided when you downloaded this plugin.  If you cant find the file, have a look at [Offical GNU site](http://www.gnu.org/licenses/licenses.html#GPL) for more info
-
 == Changelog ==
+
+= 1.2.1 =
+* Changed `field_value` column back to TEXT from VARCHAR(255), to allow more than 255 characters saved (thanks to ksemel for the find and bug report)
+
+= 1.2 =
+* Converted table to UTF8. This is much more compatible with internet safe languages.
+* Fixed quotes in field names and values
+
+= 1.1.3 =
+* Made gallery fields not rely on having an image custom field and JavaScript
+* Refactored some code to just clean it up a little
+
+= 1.1.2 =
+* I screwed up the backwards compatibility, sorry.  Use 1.0.2 for < NGG 1.7
+
+= 1.1.1 =
+* Made it backwards compatible with NGG 1.6.x and lower. Should have been done with the last update, but I was spaced on pain meds
+
+= 1.1 =
+* Made this plugin compatibile with NextGEN Galley 1.7.x and greater, which breaks compatibility with lower versions of NGG
 
 = 1.0.2 =
 * Fixed a bug that would break gallery custom fields (textareas) if you had new lines in them.  (thanks mygraphicfriend again for pointing it out)
@@ -139,3 +159,11 @@ Of Course!  If you didn't already know, WordPress encourages use of the GPL lice
 	
 = 0.1 =
 * Initial release!
+
+== Upgrade Notice ==
+
+= 1.2.1 =
+Fixed field values to allow more than 255 characters.
+
+= 1.2 =
+Fixed quotes in field names and values. Also converted database tables to UTF8. This is much more compatible with internet safe languages. You may see extra backslashes in some values if you had quotes saved before. Just remove them and re-save.

@@ -25,10 +25,6 @@ class nggSlideshowWidget extends WP_Widget {
 
 	function widget( $args, $instance ) {
 		extract( $args );
-
-		// If the Imagerotator didn't exist, skip the output
-		if ( NGGALLERY_IREXIST == false ) 	 
-			return;
 			
 		$title = apply_filters('widget_title', empty( $instance['title'] ) ? __('Slideshow', 'nggallery') : $instance['title'], $instance, $this->id_base);
 
@@ -51,10 +47,12 @@ class nggSlideshowWidget extends WP_Widget {
 	function render_slideshow($galleryID, $irWidth = '', $irHeight = '') {
 		
 		require_once ( dirname (__FILE__) . '/../lib/swfobject.php' );
-		
-		global $wpdb;
 	
 		$ngg_options = get_option('ngg_options');
+
+        //Redirect all calls to the JavaScript slideshow if wanted
+        if ( $ngg_options['enableIR'] !== '1' || nggGallery::detect_mobile_phone() === true || NGGALLERY_IREXIST == false )
+            return nggShow_JS_Slideshow($galleryID, $irWidth, $irHeight, 'ngg-widget-slideshow');
 	
 		if (empty($irWidth) ) $irWidth = (int) $ngg_options['irWidth'];
 		if (empty($irHeight)) $irHeight = (int) $ngg_options['irHeight'];
@@ -69,7 +67,7 @@ class nggSlideshowWidget extends WP_Widget {
 		$swfobject->add_attributes('styleclass', 'slideshow-widget');
 	
 		// adding the flash parameter	
-		$swfobject->add_flashvars( 'file', urlencode( get_option ('siteurl') . '/' . 'index.php?callback=imagerotator&gid=' . $galleryID ) );
+		$swfobject->add_flashvars( 'file', urlencode( trailingslashit( home_url() ) . 'index.php?callback=imagerotator&gid=' . $galleryID ) );
 		$swfobject->add_flashvars( 'shownavigation', 'false', 'true', 'bool');
 		$swfobject->add_flashvars( 'shuffle', $ngg_options['irShuffle'], 'true', 'bool');
 		$swfobject->add_flashvars( 'showicons', $ngg_options['irShowicons'], 'true', 'bool');
@@ -92,7 +90,9 @@ class nggSlideshowWidget extends WP_Widget {
 		$out .= "\n".'//]]>';
 		$out .= "\n".'-->';
 		$out .= "\n".'</script>';
-				
+		
+        $out = apply_filters('ngg_show_slideshow_widget_content', $out, $galleryID, $irWidth, $irHeight);
+        		
 		return $out;
 	}
 
@@ -149,8 +149,8 @@ add_action('widgets_init', create_function('', 'return register_widget("nggSlide
  *
  * @package NextGEN Gallery
  * @author Alex Rabe
- * @copyright 2009
- * @version 2.00
+ * @copyright 2009 - 2010
+ * @version 2.10
  * @since 1.4.4
  * @access public
  */
@@ -191,7 +191,8 @@ class nggWidget extends WP_Widget {
             'list'  =>  '',
             'webslice'  => true ) );
 		$title  = esc_attr( $instance['title'] );
-		$height = esc_attr( $instance['height'] );
+		$items  = intval  ( $instance['items'] );
+        $height = esc_attr( $instance['height'] );
 		$width  = esc_attr( $instance['width'] );
 
 		?>
@@ -204,9 +205,9 @@ class nggWidget extends WP_Widget {
 			
 		<p>
 			<?php _e('Show :','nggallery'); ?><br />
-			<select id="<?php echo $this->get_field_id('items'); ?>" name="<?php echo $this->get_field_name('items'); ?>">
-				<?php for ( $i = 1; $i <= 10; ++$i ) echo "<option value='$i' ".($instance['items']==$i ? "selected='selected'" : '').">$i</option>"; ?>
-			</select>
+			<label for="<?php echo $this->get_field_id('items'); ?>">
+			<input style="width: 50px;" id="<?php echo $this->get_field_id('items'); ?>" name="<?php echo $this->get_field_name('items');?>" type="text" value="<?php echo $items; ?>" />
+			</label>
 			<select id="<?php echo $this->get_field_id('show'); ?>" name="<?php echo $this->get_field_name('show'); ?>" >
 				<option <?php selected("thumbnail" , $instance['show']); ?> value="thumbnail"><?php _e('Thumbnails','nggallery'); ?></option>
 				<option <?php selected("original" , $instance['show']); ?> value="original"><?php _e('Original images','nggallery'); ?></option>
@@ -284,6 +285,10 @@ class nggWidget extends WP_Widget {
 
 			if ($exclude == 'allow')	
 				$exclude_list = "AND t.gid IN ($list)";
+            
+            // Limit the output to the current author, can be used on author template pages
+            if ($exclude == 'user_id' )
+                $exclude_list = "AND t.author IN ($list)";                
 		}
 		
 		if ( $instance['type'] == 'random' ) 
@@ -311,8 +316,8 @@ class nggWidget extends WP_Widget {
 				$thumbcode = $image->get_thumbcode( $widget_id );
 				
 				// enable i18n support for alttext and description
-				$alttext      =  htmlspecialchars( stripslashes( nggGallery::i18n($image->alttext) ));
-				$description  =  htmlspecialchars( stripslashes( nggGallery::i18n($image->description) ));
+				$alttext      =  htmlspecialchars( stripslashes( nggGallery::i18n($image->alttext, 'pic_' . $image->pid . '_alttext') ));
+				$description  =  htmlspecialchars( stripslashes( nggGallery::i18n($image->description, 'pic_' . $image->pid . '_description') ));
 				
 				//TODO:For mixed portrait/landscape it's better to use only the height setting, if widht is 0 or vice versa
 				$out = '<a href="' . $image->imageURL . '" title="' . $description . '" ' . $thumbcode .'>';
@@ -320,7 +325,7 @@ class nggWidget extends WP_Widget {
 				$instance['show'] = ( $instance['show'] == 'orginal' ) ? 'original' : $instance['show'];
 				
 				if ( $instance['show'] == 'original' )
-					$out .= '<img src="' . get_option ('siteurl') . '/' . 'index.php?callback=image&amp;pid='.$image->pid.'&amp;width='.$instance['width'].'&amp;height='.$instance['height']. '" title="'.$alttext.'" alt="'.$alttext.'" />';
+					$out .= '<img src="' . trailingslashit( home_url() ) . 'index.php?callback=image&amp;pid='.$image->pid.'&amp;width='.$instance['width'].'&amp;height='.$instance['height']. '" title="'.$alttext.'" alt="'.$alttext.'" />';
 				else	
 					$out .= '<img src="'.$image->thumbURL.'" width="'.$instance['width'].'" height="'.$instance['height'].'" title="'.$alttext.'" alt="'.$alttext.'" />';			
 				

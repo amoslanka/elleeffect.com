@@ -8,19 +8,19 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
  * @return mixed content
  */
 function nggallery_admin_overview()  {
-    
 	?>
 	<div class="wrap ngg-wrap">
+        <?php screen_icon( 'nextgen-gallery' ); ?>
 		<h2><?php _e('NextGEN Gallery Overview', 'nggallery') ?></h2>
         <?php if (version_compare(PHP_VERSION, '5.0.0', '<')) ngg_check_for_PHP5(); ?>
-		<div id="dashboard-widgets-wrap" class="ngg-overview">
+		<div id="dashboard-widgets-container" class="ngg-overview">
 		    <div id="dashboard-widgets" class="metabox-holder">
 				<div id="post-body">
 					<div id="dashboard-widgets-main-content">
-						<div class="postbox-container" style="width:49%;">
+						<div class="postbox-container" id="main-container" style="width:75%;">
 							<?php do_meta_boxes('ngg_overview', 'left', ''); ?>
 						</div>
-			    		<div class="postbox-container" style="width:49%;">
+			    		<div class="postbox-container" id="side-container" style="width:24%;">
 							<?php do_meta_boxes('ngg_overview', 'right', ''); ?>
 						</div>						
 					</div>
@@ -84,13 +84,244 @@ function nggallery_admin_overview()  {
  *
  */
 add_meta_box('dashboard_right_now', __('Welcome to NextGEN Gallery !', 'nggallery'), 'ngg_overview_right_now', 'ngg_overview', 'left', 'core');
+add_meta_box('ngg_meta_box', __('Do you like this Plugin?', 'nggallery'), 'ngg_likeThisMetaBox', 'ngg_overview', 'right', 'core');
 if ( !(get_locale() == 'en_US') )
-	add_meta_box('ngg_locale', __('Translation', 'nggallery'), 'ngg_widget_locale', 'ngg_overview', 'left', 'core');
-add_meta_box('dashboard_primary', __('Latest News', 'nggallery'), 'ngg_widget_overview_news', 'ngg_overview', 'right', 'core');
-add_meta_box('ngg_lastdonators', __('Recent donators', 'nggallery'), 'ngg_widget_overview_donators', 'ngg_overview', 'left', 'core');
-add_meta_box('ngg_server', __('Server Settings', 'nggallery'), 'ngg_overview_server', 'ngg_overview', 'left', 'core');
-add_meta_box('dashboard_plugins', __('Related plugins', 'nggallery'), 'ngg_widget_related_plugins', 'ngg_overview', 'right', 'core');
-add_meta_box('ngg_gd_lib', __('Graphic Library', 'nggallery'), 'ngg_overview_graphic_lib', 'ngg_overview', 'right', 'core');
+	add_meta_box('ngg_locale', __('Translation', 'nggallery'), 'ngg_widget_locale', 'ngg_overview', 'right', 'core');
+add_meta_box('dashboard_primary', __('Latest News', 'nggallery'), 'ngg_widget_overview_news', 'ngg_overview', 'left', 'core');
+add_meta_box('ngg_lastdonators', __('Recent donators', 'nggallery'), 'ngg_widget_overview_donators', 'ngg_overview', 'right', 'core');
+if ( !is_multisite() || is_super_admin() ) {			
+    add_meta_box('ngg_plugin_check', __('Plugin Check', 'nggallery'), 'ngg_plugin_check', 'ngg_overview', 'right', 'core');
+    add_meta_box('ngg_server', __('Server Settings', 'nggallery'), 'ngg_overview_server', 'ngg_overview', 'right', 'core');
+    add_meta_box('dashboard_plugins', __('Related plugins', 'nggallery'), 'ngg_widget_related_plugins', 'ngg_overview', 'left', 'core');
+}
+
+function ngg_likeThisMetaBox() {
+
+	echo '<p>';
+    echo sprintf(__('This plugin is primarily developed, maintained, supported and documented by <a href="%s">Alex Rabe</a> with a lot of love & effort. Any kind of contribution would be highly appreciated. Thanks!', 'nggallery'), 'http://alexrabe.de/');
+	echo '</p><ul>';
+
+	$url = 'http://wordpress.org/extend/plugins/nextgen-gallery/' ;
+	echo "<li style='padding-left: 38px; background:transparent url(" . NGGALLERY_URLPATH . "admin/images/icon-rating.png ) no-repeat scroll center left; background-position: 16px 50%; text-decoration: none;'><a href='{$url}' target='_blank'>";
+	_e('Give it a good rating on WordPress.org.', 'nggallery');
+	echo "</a></li>";
+
+	$url = 'http://alexrabe.de/donation/';
+	echo "<li style='padding-left: 38px; background:transparent url(" . NGGALLERY_URLPATH . "admin/images/icon-paypal.gif ) no-repeat scroll center left; background-position: 16px 50%; text-decoration: none;'><a href='{$url}' target='_blank'>";
+	_e("Donate the work via paypal.", 'nggallery');
+	echo "</a></li>";
+
+	$url = 'http://alexrabe.de/wordpress-plugins/wordtube/translation-of-plugins/';
+	echo "<li style='padding-left: 38px; background:transparent url(" . NGGALLERY_URLPATH . "admin/images/icon-translate.png ) no-repeat scroll center left; background-position: 16px 50%; text-decoration: none;'><a href='{$url}'>";
+	_e("Help translating it.", 'nggallery');
+	echo "</a></li>";
+
+	echo '</ul>';
+}
+
+/**
+ * Ajax Check for conflict with other plugins/themes
+ * 
+ * @return void
+ */
+function ngg_plugin_check() {
+    
+    global $ngg;
+?>
+<script type="text/javascript"> 
+(function($) {
+	nggPluginCheck = {
+	
+		settings: {
+				img_run:  '<img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="icon" alt="started"/>',
+                img_ok:   '<img src="<?php echo esc_url( admin_url( 'images/yes.png' ) ); ?>" class="icon" alt="ok"/>',
+                img_fail: '<img src="<?php echo esc_url( admin_url( 'images/no.png' ) ); ?>" class="icon" alt="failed" />',
+                domain:   '<?php echo esc_url( home_url('index.php', is_ssl() ? 'https' : 'http') ); ?>'
+		},
+		
+        run: function( index, state ) {
+ 			ul = $('#plugin_check');
+            s = this.settings;
+            var step = 1; 
+            switch ( index ) {
+                case 1:
+                    this.check1();
+                    break;
+                case 2:
+                    this.check2( step );
+                    break;
+                case 3:
+                    this.check3();
+                    break;
+            }                      
+        },
+        
+        // this function check if the json API will work with your theme & plugins
+        check1 : function() {
+            this.start(1);
+			var req = $.ajax({
+                dataType: 'json',
+			   	url: s.domain,
+			   	data:'callback=json&format=json&method=version',
+			   	cache: false,
+			   	timeout: 10000,
+			   	success: function(msg){
+                    if (msg.version == '<?php echo $ngg->version; ?>')
+                        nggPluginCheck.success(1);
+                    else
+                        nggPluginCheck.failed(1);
+			    },
+			    error: function (msg) {
+                    nggPluginCheck.failed(1);                    
+				},
+                complete: function () {
+                    nggPluginCheck.run(2);
+                }
+			});
+            
+        },
+
+        // this function check if GD lib can create images & thumbnails
+        check2 : function( step ) {
+            if (step == 1) this.start(2);
+            var stop = false;
+			var req = $.ajax({
+                type: "POST",
+			   	url: ajaxurl,
+			   	data:"action=ngg_image_check&step=" + step,
+			   	cache: false,
+			   	timeout: 10000,
+			   	success: function(msg){
+                    if (msg.stat == 'ok') {
+                        nggPluginCheck.success(2, msg.message);
+                    } else {
+                        if (step == 1)
+                            nggPluginCheck.failed(2);
+                        stop = true;
+                    }
+                            
+			    },
+			    error: function (msg) {
+                    if (step == 1)
+                        nggPluginCheck.failed(2);
+                    stop = true;
+				},
+                complete: function () {
+                    step++;
+                    if (step <= 11 && stop == false)
+                        nggPluginCheck.check2(step);
+                    else
+                        nggPluginCheck.run(3);
+                }
+			});            
+        },
+
+        // this function check if wp_head / wp_footer is avaiable
+        check3 : function() {
+            this.start(3);
+			var req = $.ajax({
+                type: "POST",
+			   	url: ajaxurl,
+			   	data:"action=ngg_test_head_footer",
+			   	cache: false,
+			   	timeout: 10000,
+			   	success: function(msg){
+                    if (msg == 'success')
+                        nggPluginCheck.success(3);
+                    else
+                        nggPluginCheck.failed(3, msg);    
+			    },
+			    error: function (msg) {
+                    nggPluginCheck.failed(3);
+				}
+			});            
+        },
+        
+		start: function( id ) {
+            
+            s = this.settings;
+            var field = "#check" + id;
+
+            if ( ul.find(field + " img").length == 0)
+                $(field).prepend( s.img_run );
+			else
+			    $(field + " img").replaceWith( s.img_run );
+            
+            $(field + " .success").hide();
+            $(field + " .failed").hide();
+            $(field + " .default").replaceWith('<p class="default message"><?php echo esc_js( __('Running...', 'nggallery') ); ?></p> ');
+		},
+		
+		success: function( id, msg ) {
+            
+            s = this.settings;
+            var field = "#check" + id;
+
+            if ( ul.find(field + " img").length == 0)
+                $(field).prepend( s.img_ok );
+			else
+			    $(field + " img").replaceWith( s.img_ok );
+            
+            $(field + " .default").hide();
+            if (msg)
+                $(field + " .success").replaceWith('<p class="success message">' + msg +' </p> ');
+            else
+                $(field + " .success").show();	
+				
+		},
+
+		failed: function( id, msg ) {
+            
+            s = this.settings;
+            var field = "#check" + id; 
+
+            if ( ul.find(field + " img").length == 0)
+                $(field).prepend( s.img_fail );
+			else 
+			    $(field + " img").replaceWith( s.img_fail );
+                
+            $(field + " .default").hide();
+            if (msg)
+                $(field + " .failed").replaceWith('<p class="failed message">' + msg +' </p> ');
+            else
+                $(field + " .failed").show();	
+				
+		}
+
+	};
+})(jQuery);
+</script>
+<div class="dashboard-widget-holder wp_dashboard_empty">
+	<div class="ngg-dashboard-widget">
+	  	<div class="dashboard-widget-content">
+      		<ul id="plugin_check" class="settings">
+                <li id="check1">
+                    <strong><?php _e('Check plugin/theme conflict', 'nggallery'); ?></strong>
+                    <p class="default message"><?php _e('Not tested', 'nggallery'); ?></p>                   
+                    <p class="success message" style="display: none;"><?php _e('No conflict could be detected', 'nggallery'); ?></p>
+                    <p class="failed message" style="display: none;"><?php _e('Test failed, disable other plugins & switch to default theme', 'nggallery'); ?></p>
+                </li>
+                <li id="check2">
+                    <strong><?php _e('Test image function', 'nggallery'); ?></strong>
+                    <p class="default message"><?php _e('Not tested', 'nggallery'); ?></p>
+                    <p class="success message" style="display: none;"><?php _e('The plugin could create images', 'nggallery'); ?></p>
+                    <p class="failed message" style="display: none;"><?php _e('Couldn\'t create image, check your memory limit', 'nggallery'); ?></p>
+                </li>
+                <li id="check3">
+                    <strong><?php _e('Check theme compatibility', 'nggallery'); ?></strong>
+                    <p class="default message"><?php _e('Not tested', 'nggallery'); ?></p>
+                    <p class="success message" style="display: none;"><?php _e('Your theme should work fine with NextGEN Gallery', 'nggallery'); ?></p>
+                    <p class="failed message" style="display: none;"><?php _e('wp_head()/wp_footer() is missing, contact the theme author', 'nggallery'); ?></p>
+                </li>
+            </ul>
+ 			<p class="textright">
+                <input type="button" name="update" value="<?php _e('Check plugin', 'nggallery'); ?>" onclick="nggPluginCheck.run(1);" class="button-secondary" />
+			</p>
+		</div>
+    </div>
+</div>
+<?php	
+}
 
 /**
  * Show the server settings in a dashboard widget
@@ -101,38 +332,14 @@ function ngg_overview_server() {
 ?>
 <div id="dashboard_server_settings" class="dashboard-widget-holder wp_dashboard_empty">
 	<div class="ngg-dashboard-widget">
-	  <?php if (IS_WPMU) {
-	  	if (wpmu_enable_function('wpmuQuotaCheck'))
-			echo ngg_SpaceManager::details();
-		else {
-			//TODO:WPMU message in WP2.5 style
-			echo ngg_SpaceManager::details();
-		}
-	  } else { ?>
 	  	<div class="dashboard-widget-content">
       		<ul class="settings">
       		<?php ngg_get_serverinfo(); ?>
+            </ul>
+            <p><strong><?php _e('Graphic Library', 'nggallery'); ?></strong></p>
+            <ul class="settings">
+            <?php ngg_gd_info(); ?>
 	   		</ul>
-		</div>
-	  <?php } ?>
-    </div>
-</div>
-<?php	
-}
-
-/**
- * Show the GD lib info in a dashboard widget
- * 
- * @return void
- */
-function ngg_overview_graphic_lib() {
-?>
-<div id="dashboard_graphic_settings" class="dashboard-widget-holder">
-	<div class="ngg-dashboard-widget">
-	  	<div class="dashboard-widget-content">
-	  		<ul class="settings">
-			<?php ngg_gd_info(); ?>
-			</ul>
 		</div>
     </div>
 </div>
@@ -267,26 +474,25 @@ function ngg_overview_right_now() {
 	$galleries = intval( $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->nggallery") );
 	$albums    = intval( $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->nggalbum") );
 ?>
-
 <div class="table table_content">
 	<p class="sub"><?php _e('At a Glance', 'nggallery'); ?></p>
 	<table>
 		<tbody>
 			<tr class="first">
 				<td class="first b"><a href="admin.php?page=nggallery-add-gallery"><?php echo $images; ?></a></td>
-				<td class="t"><?php echo _n( 'Image', 'Images', $images, 'nggallery' ); ?></td>
+				<td class="t"><a href="admin.php?page=nggallery-add-gallery"><?php echo _n( 'Image', 'Images', $images, 'nggallery' ); ?></a></td>
 				<td class="b"></td>
 				<td class="last"></td>
 			</tr>
 			<tr>
 				<td class="first b"><a href="admin.php?page=nggallery-manage-gallery"><?php echo $galleries; ?></a></td>
-				<td class="t"><?php echo _n( 'Gallery', 'Galleries', $galleries, 'nggallery' ); ?></td>
+				<td class="t"><a href="admin.php?page=nggallery-manage-gallery"><?php echo _n( 'Gallery', 'Galleries', $galleries, 'nggallery' ); ?></a></td>
 				<td class="b"></td>
 				<td class="last"></td>
 			</tr>
 			<tr>
 				<td class="first b"><a href="admin.php?page=nggallery-manage-album"><?php echo $albums; ?></a></td>
-				<td class="t"><?php echo _n( 'Album', 'Albums', $albums, 'nggallery' ); ?></td>
+				<td class="t"><a href="admin.php?page=nggallery-manage-album"><?php echo _n( 'Album', 'Albums', $albums, 'nggallery' ); ?></a></td>
 				<td class="b"></td>
 				<td class="last"></td>
 			</tr>
@@ -298,14 +504,53 @@ function ngg_overview_right_now() {
 	<?php if(current_user_can('NextGEN Upload images')): ?><a class="button rbutton" href="admin.php?page=nggallery-add-gallery"><?php _e('Upload pictures', 'nggallery') ?></a><?php endif; ?>
 	<?php _e('Here you can control your images, galleries and albums.', 'nggallery') ?>
 	</p>
-	<span>
-	<?php
-		$userlevel = '<span class="b">' . (current_user_can('manage_options') ? __('Gallery Administrator', 'nggallery') : __('Gallery Editor', 'nggallery')) . '</span>';
-        printf(__('You currently have %s rights.', 'nggallery'), $userlevel);
-    ?>
-    </span>
-</div>
+<br class="clear" />
+</div>    
 <?php
+if ( is_multisite() )
+    ngg_dashboard_quota();
+}
+
+// Display File upload quota on dashboard
+function ngg_dashboard_quota() {
+    
+	if ( get_site_option( 'upload_space_check_disabled' ) )
+		return;
+        
+    if ( !wpmu_enable_function('wpmuQuotaCheck') )
+        return;    
+
+	$quota = get_space_allowed();
+	$used = get_dirsize( BLOGUPLOADDIR ) / 1024 / 1024;
+
+	if ( $used > $quota )
+		$percentused = '100';
+	else
+		$percentused = ( $used / $quota ) * 100;
+	$used_color = ( $percentused < 70 ) ? ( ( $percentused >= 40 ) ? 'waiting' : 'approved' ) : 'spam';
+	$used = round( $used, 2 );
+	$percentused = number_format( $percentused );
+
+	?>
+	<p class="sub musub" style="position:static" ><?php _e( 'Storage Space' ); ?></p>
+	<div class="table table_content musubtable">
+	<table>
+		<tr class="first">
+			<td class="first b b-posts"><?php printf( __( '<a href="%1$s" title="Manage Uploads" class="musublink">%2$sMB</a>' ), esc_url( admin_url( 'admin.php?page=nggallery-manage-gallery' ) ), $quota ); ?></td>
+			<td class="t posts"><?php _e( 'Space Allowed' ); ?></td>
+		</tr>
+	</table>
+	</div>
+	<div class="table table_discussion musubtable">
+	<table>
+		<tr class="first">
+			<td class="b b-comments"><?php printf( __( '<a href="%1$s" title="Manage Uploads" class="musublink">%2$sMB (%3$s%%)</a>' ), esc_url( admin_url( 'admin.php?page=nggallery-manage-gallery' ) ), $used, $percentused ); ?></td>
+			<td class="last t comments <?php echo $used_color;?>"><?php _e( 'Space Used' );?></td>
+		</tr>
+	</table>
+	</div>
+	<br class="clear" />
+	<?php
 }
 
 /**
@@ -428,7 +673,7 @@ function ngg_gd_yesNo( $bool ){
  */
 function ngg_get_serverinfo() {
 
-	global $wpdb;
+	global $wpdb, $ngg;
 	// Get MYSQL Version
 	$sqlversion = $wpdb->get_var("SELECT VERSION() AS version");
 	// GET SQL Mode
@@ -454,7 +699,7 @@ function ngg_get_serverinfo() {
 	if(ini_get('max_execution_time')) $max_execute = ini_get('max_execution_time');
 	else $max_execute = __('N/A', 'nggallery');
 	// Get PHP Memory Limit 
-	if(ini_get('memory_limit')) $memory_limit = ini_get('memory_limit');
+	if(ini_get('memory_limit')) $memory_limit = $ngg->memory_limit;
 	else $memory_limit = __('N/A', 'nggallery');
 	// Get actual memory_get_usage
 	if (function_exists('memory_get_usage')) $memory_usage = round(memory_get_usage() / 1024 / 1024, 2) . __(' MByte', 'nggallery');
@@ -503,128 +748,6 @@ function ngg_check_for_PHP5() {
 }
 
 /**
- * WPMU feature taken from Z-Space Upload Quotas
- * @author Dylan Reeve
- * @url http://dylan.wibble.net/
- *
- */
-class ngg_SpaceManager {
- 
- 	function getQuota() {
-		if (function_exists('get_space_allowed'))
-			$quota = get_space_allowed();
-		else
-			$quota = get_site_option( "blog_upload_space" );
-			
-		return $quota;
-	}
-	 
-	function details() {
-		
-		// take default seetings
-		$settings = array(
-
-			'remain'	=> array(
-			'color_text'	=> 'white',
-			'color_bar'		=> '#0D324F',
-			'color_bg'		=> '#a0a0a0',
-			'decimals'		=> 2,
-			'unit'			=> 'm',
-			'display'		=> true,
-			'graph'			=> false
-			),
-
-			'used'		=> array(
-			'color_text'	=> 'white',
-			'color_bar'		=> '#0D324F',
-			'color_bg'		=> '#a0a0a0',
-			'decimals'		=> 2,
-			'unit'			=> 'm',
-			'display'		=> true,
-			'graph'			=> true
-			)
-		);
-
-		$quota = ngg_SpaceManager::getQuota() * 1024 * 1024;
-		$used = get_dirsize( constant( 'ABSPATH' ) . constant( 'UPLOADS' ) );
-//		$used = get_dirsize( ABSPATH."wp-content/blogs.dir/".$blog_id."/files" );
-		
-		if ($used > $quota) $percentused = '100';
-		else $percentused = ( $used / $quota ) * 100;
-
-		$remaining = $quota - $used;
-		$percentremain = 100 - $percentused;
-
-		$out = '';
-		$out .= '<div id="spaceused"> <h3>'.__('Storage Space','nggallery').'</h3>';
-
-		if ($settings['used']['display']) {
-			$out .= __('Upload Space Used:','nggallery') . "\n";
-			$out .= ngg_SpaceManager::buildGraph($settings['used'], $used,$quota,$percentused);
-			$out .= "<br />";
-		}
-
-		if($settings['remain']['display']) {
-			$out .= __('Upload Space Remaining:','nggallery') . "\n";
-			$out .= ngg_SpaceManager::buildGraph($settings['remain'], $remaining,$quota,$percentremain);
-
-		}
-
-		$out .= "</div>";
-
-		echo $out;
-	}
-
-	function buildGraph($settings, $size, $quota, $percent) {
-		$color_bar = $settings['color_bar'];
-		$color_bg = $settings['color_bg'];
-		$color_text = $settings['color_text'];
-		
-		switch ($settings['unit']) {
-			case "b":
-				$unit = "B";
-				break;
-				
-			case "k":
-				$unit = "KB";
-				$size = $size / 1024;
-				$quota = $quota / 1024;
-				break;
-				
-			case "g":   // Gigabytes, really?
-				$unit = "GB";
-				$size = $size / 1024 / 1024 / 1024;
-				$quota = $quota / 1024 / 1024 / 1024;
-				break;
-				
-			default:
-				$unit = "MB";
-				$size = $size / 1024 / 1024;
-				$quota = $quota / 1024 / 1024;
-				break;
-		}
-
-		$size = round($size, (int)$settings['decimals']);
-
-		$pct = round(($size / $quota)*100);
-
-		if ($settings['graph']) {
-			//TODO:move style to CSS
-			$out = '<div style="display: block; margin: 0; padding: 0; height: 15px; border: 1px inset; width: 100%; background-color: '.$color_bg.';">'."\n";
-			$out .= '<div style="display: block; height: 15px; border: none; background-color: '.$color_bar.'; width: '.$pct.'%;">'."\n";
-			$out .= '<div style="display: inline; position: relative; top: 0; left: 0; font-size: 10px; color: '.$color_text.'; font-weight: bold; padding-bottom: 2px; padding-left: 5px;">'."\n";
-			$out .= $size.$unit;
-			$out .= "</div>\n</div>\n</div>\n";
-		} else {
-			$out = "<strong>".$size.$unit." ( ".number_format($percent)."%)"."</strong><br />";
-		}
-
-		return $out;
-	}
-
-}
-
-/**
  * ngg_get_phpinfo() - Extract all of the data from phpinfo into a nested array
  * 
  * @author jon@sitewizard.ca
@@ -660,11 +783,15 @@ function ngg_widget_related_plugins() {
 function ngg_related_plugins() {
 	include(ABSPATH . 'wp-admin/includes/plugin-install.php');
 
-	// this api sucks , tags will not be used in the correct way : nextgen-gallery cannot be searched
-	$api = plugins_api('query_plugins', array('search' => 'nextgen') );
-	
-	if ( is_wp_error($api) )
-		return;
+    if ( false === ( $api = get_transient( 'ngg_related_plugins' ) ) ) {
+    	// this api sucks , tags will not be used in the correct way : nextgen-gallery cannot be searched
+    	$api = plugins_api('query_plugins', array('search' => 'nextgen') );
+        
+    	if ( is_wp_error($api) )
+            return;  
+                  
+        set_transient( 'ngg_related_plugins', $api, 60*60*24 ); 
+    }
 	
 	// don't show my own plugin :-) and some other plugins, which come up with the search result
 	$blacklist = array(
@@ -680,7 +807,8 @@ function ngg_related_plugins() {
 		'livesig',
 		'wordpress-gallery-slideshow',
 		'nkmimagefield',
-		'nextgen-ajax'
+		'nextgen-ajax',
+        'projectmanager'
 	);
 	
 	$i = 0; 

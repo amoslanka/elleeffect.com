@@ -2,7 +2,7 @@
 
 /**
  * @author Alex Rabe
- * @copyright 2008-2009
+ * @copyright 2008-2011
  */
 
 function nggallery_sortorder($galleryID = 0){
@@ -27,13 +27,16 @@ function nggallery_sortorder($galleryID = 0){
 				$wpdb->query("UPDATE $wpdb->nggpictures SET sortorder = '$sortindex' WHERE pid = $pic_id");
 				$sortindex++;
 			}
+
+			do_action('ngg_gallery_sort', $galleryID);
+
 			nggGallery::show_message(__('Sort order changed','nggallery'));
 		} 
 	}
 	
 	// look for presort args	
-	$presort = $_GET['presort'];
-	$dir = ( $_GET['dir'] == 'DESC' ) ? 'DESC' : 'ASC';
+	$presort = isset($_GET['presort']) ? $_GET['presort'] : false;
+	$dir = ( isset($_GET['dir']) && $_GET['dir'] == 'DESC' ) ? 'DESC' : 'ASC';
 	$sortitems = array('pid', 'filename', 'alttext', 'imagedate');
 	// ensure that nobody added some evil sorting :-)
 	if (in_array( $presort, $sortitems) )
@@ -48,7 +51,7 @@ function nggallery_sortorder($galleryID = 0){
 	
 	// In the case somebody presort, then we take this url
 	if ( isset($_GET['dir']) || isset($_GET['presort']) )
-		$base_url = esc_url( $_SERVER['REQUEST_URI'] );
+		$base_url = $_SERVER['REQUEST_URI'];
 	else		
 		$base_url = $clean_url;
 	
@@ -63,7 +66,7 @@ function nggallery_sortorder($galleryID = 0){
 					<input class="button-primary action" type="submit" name="updateSortorder" onclick="saveImageOrder()" value="<?php _e('Update Sort Order', 'nggallery') ?>" />
 				</div>
 				<div class="alignright actions">
-					<a href="<?php echo $back_url; ?>" class="button"><?php _e('Back to gallery', 'nggallery'); ?></a>
+					<a href="<?php echo esc_url( $back_url ); ?>" class="button"><?php _e('Back to gallery', 'nggallery'); ?></a>
 				</div>
 			</div>	
 			<input name="sortorder" type="hidden" />
@@ -84,8 +87,8 @@ function nggallery_sortorder($galleryID = 0){
 			foreach($picturelist as $picture) {
 				?>
 				<div class="imageBox" id="pid-<?php echo $picture->pid ?>">
-					<div class="imageBox_theImage" style="background-image:url('<?php echo $picture->thumbURL; ?>')"></div>	
-					<div class="imageBox_label"><span><?php echo stripslashes($picture->alttext) ?></span></div>
+					<div class="imageBox_theImage" style="background-image:url('<?php echo esc_url( $picture->thumbURL ); ?>')"></div>	
+					<div class="imageBox_label"><span><?php echo esc_html( stripslashes($picture->alttext) ); ?></span></div>
 				</div>
 				<?php
 			}

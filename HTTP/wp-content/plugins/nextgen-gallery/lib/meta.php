@@ -5,7 +5,7 @@
  * nggmeta.lib.php
  * 
  * @author 		Alex Rabe 
- * @copyright 	Copyright 2007-2009
+ * @copyright 	Copyright 2007-2011
  * 
  */
 	  
@@ -21,6 +21,8 @@ class nggMeta{
 	var $exif_array 	= 	false;	// EXIF data array
 	var $iptc_array 	= 	false;	// IPTC data array
 	var $xmp_array  	= 	false;	// XMP data array
+    
+    var $sanitize       =   false;  // sanitize meta data on request
 
  	/**
  	 * nggMeta::nggMeta()
@@ -45,19 +47,19 @@ class nggMeta{
 
 			// get exif - data
 			if ( is_callable('exif_read_data'))
-			$this->exif_data = @exif_read_data($this->image->imagePath , 0, true );
+                $this->exif_data = @exif_read_data($this->image->imagePath , 0, true );
  			
  			// stop here if we didn't need other meta data
  			if ($onlyEXIF)
  				return true;
- 			
+
  			// get the iptc data - should be in APP13
- 			if ( is_callable('iptcparse'))
-			$this->iptc_data = @iptcparse($metadata["APP13"]);
+ 			if ( is_callable('iptcparse') && isset($metadata['APP13']) )
+                $this->iptc_data = @iptcparse($metadata['APP13']);
 
 			// get the xmp data in a XML format
 			if ( is_callable('xml_parser_create'))
-			$this->xmp_data = $this->extract_XMP($this->image->imagePath );
+                $this->xmp_data = $this->extract_XMP($this->image->imagePath );
 						
 			return true;
 		}
@@ -92,6 +94,10 @@ class nggMeta{
 			if ( empty($value) )
 				unset($meta[$key]);	
 		}
+
+        // on request sanitize the output
+		if ( $this->sanitize == true )	
+            array_walk( $meta , create_function('&$value', '$value = esc_html($value);')); 
 		
 		return $meta;
 	}
@@ -120,6 +126,8 @@ class nggMeta{
     				$meta['camera'] = trim( $exif['Model'] );
     			if (!empty($exif['DateTimeDigitized']))
     				$meta['created_timestamp'] = date_i18n(get_option('date_format') . ' ' . get_option('time_format'), $this->exif_date2ts($exif['DateTimeDigitized']));
+    			else if (!empty($exif['DateTimeOriginal']))
+    				$meta['created_timestamp'] = date_i18n(get_option('date_format') . ' ' . get_option('time_format'), $this->exif_date2ts($exif['DateTimeOriginal']));
     			if (!empty($exif['FocalLength']))
     				$meta['focal_length'] = $this->exif_frac2dec( $exif['FocalLength'] ) . __(' mm','nggallery');
     			if (!empty($exif['ISOSpeedRatings']))
@@ -172,7 +180,11 @@ class nggMeta{
 		  $value = isset($this->exif_array[$object]) ? $this->exif_array[$object] : false;
           return $value;
 		}
-				
+        
+        // on request sanitize the output
+		if ( $this->sanitize == true )	
+            array_walk( $this->exif_array , create_function('&$value', '$value = esc_html($value);')); 
+                
 		return $this->exif_array;
 	
 	}
@@ -234,7 +246,7 @@ class nggMeta{
 			// var_dump($this->iptc_data);
 			$meta = array();
 			foreach ($iptcTags as $key => $value) {
-				if ($this->iptc_data[$key])
+				if (isset ( $this->iptc_data[$key] ) )
 					$meta[$value] = trim(utf8_encode(implode(", ", $this->iptc_data[$key])));
 	
 			}
@@ -243,7 +255,11 @@ class nggMeta{
 		
 		// return one element if requested	
 		if ($object)
-			return $this->iptc_array[$object];			
+			return $this->iptc_array[$object];	
+
+        // on request sanitize the output
+		if ( $this->sanitize == true )	
+            array_walk( $this->iptc_array , create_function('&$value', '$value = esc_html($value);'));             		
 		
 		return $this->iptc_array;
 	}
@@ -323,21 +339,29 @@ class nggMeta{
 						if ($list_element == false)
 							array_pop($stack);
 						$list_element = true;
-						// save it in our temp array
-						$list_array[] = $val['value']; 
+                        // do not parse empty tags
+                        if ( empty($val['value']) ) continue;                             
+					    // save it in our temp array
+   						$list_array[] = $val['value']; 
 						// in the case it's a list element we seralize it
 						$value = implode(",", $list_array);
 						$this->setArrayValue($xmlarray, $stack, $value);
 			      	} else {
 			      		array_push($stack, $val['tag']);
-			      		$this->setArrayValue($xmlarray, $stack, $val['value']);
+                        // do not parse empty tags
+                        if ( !empty($val['value']) )
+                            $this->setArrayValue($xmlarray, $stack, $val['value']);
 			      		array_pop($stack);
 			      	}
 			    }
 			    
 			} // foreach
+            
+            // don't parse a empty array
+            if( empty($xmlarray) || empty($xmlarray['x:xmpmeta']) )
+                return false;
 			
-			// cut off the useless tags
+            // cut off the useless tags
 			$xmlarray = $xmlarray['x:xmpmeta']['rdf:RDF']['rdf:Description'];
 			  
 			// --------- Some values from the XMP format--------- //
@@ -372,17 +396,20 @@ class nggMeta{
 		}
 		
 		// return one element if requested	
-		if ($object)
-			return $this->xmp_array[$object];		 
+		if ($object != false )
+			return isset($this->xmp_array[$object]) ? $this->xmp_array[$object] : false;		 
 		
+        // on request sanitize the output
+		if ( $this->sanitize == true )	
+            array_walk( $this->xmp_array , create_function('&$value', '$value = esc_html($value);')); 
+        
 		return $this->xmp_array;
 	}
 	  
 	function setArrayValue(&$array, $stack, $value) {
 		if ($stack) {
 			$key = array_shift($stack);
-			//TODO:Review this, reports sometimes a error "Fatal error: Only variables can be passed by reference" (PHP 5.2.6)
-	    	$this->setArrayValue($array[$key], $stack, $value);
+            $this->setArrayValue($array[$key], $stack, $value);
 	    	return $array;
 	  	} else {
 	    	$array = $value;
@@ -465,16 +492,30 @@ class nggMeta{
 
 	}	
 
+	/**
+	 * Return the Timestamp from the image , if possible it's read from exif data
+	 * 
+	 * @return
+	 */
 	function get_date_time() {
-
+	   
+        $date_time = false;
+        
 		// get exif - data
-		if ( $this->exif_data ) {
-			$date_time = $this->exif_data['EXIF']['DateTimeDigitized'];
+		if ( isset( $this->exif_data['EXIF']) ) {
+		  
+            // try to read the date / time from the exif
+			if ( empty($this->exif_data['EXIF']['DateTimeDigitized']) ) 
+                $date_time = $this->exif_data['EXIF']['DateTimeOriginal'];
+            else
+                $date_time = $this->exif_data['EXIF']['DateTimeDigitized'];
+                 
 			// if we didn't get the correct exif value we take filetime
 			if ($date_time == null)
 				$date_time = $this->exif_data['FILE']['FileDateTime'];
 			else
 				$date_time = $this->exif_date2ts($date_time);
+                
 		} else {
 			// if no other date available, get the filetime
 			$date_time = @filectime($this->image->imagePath );	
@@ -527,6 +568,15 @@ class nggMeta{
 		
 		return $meta;		
 	}
+    
+    /**
+     * If needed sanitize each value before output 
+     * 
+     * @return void
+     */
+    function sanitize () {
+        $this->sanitize = true;
+    }
 
 }
 

@@ -1,8 +1,9 @@
 === WP-Hashcash ===
-
 Contributors: ecb29, donncha
 Tags: spam, antispam, anti-spam, comments, comment, pingback, trackback, wp-hashcash, plugin, security, wordpress, javascript, js, signup, sign-up, wp-login.php, wp-signup.php, buddypress, bp, WPMU
-Tested up to: 2.9.2
+Tested up to: 3.0.5
+Stable tag: 4.6
+Requires at least: 2.9.2
 
 Client-side javascript blocks all spam bots. XHTML 1.1 compliant.
 
@@ -55,32 +56,35 @@ If you are upgrading from a previous version of WP-Hashcash, please disabled the
 * "Why am I not worried about comment spam anymore? Because of my awesome new blog plugin, Spam Stopgap Extreme. This baby blocks any bot trying to post to my blog. No blacklists, no moderation, no 'spam points', no nothing. You won't even know that it's working."
 * "I haven't had anything to 'deal' with in several weeks. That's a nice thing. I've also had a bunch of folks leave legitimate comments that have gotten through. It's all good."
 
-== Change Log ==
+== Upgrade Notice ==
 
-= WP Hashcash 4.5.1 =
+= 4.6 =
+Removed front facing links to comply with WordPress.org plugin guidelines.
 
+== Changelog ==
+
+= 4.6 =
+* Removed links from the blog linking back to Hashcash homepage to comply with WordPress.org plugin guidelines. Props Ryan Hellyer.
+
+= 4.5.1 =
 * Fix a javascript error
 
-= WP Hashcash 4.5 =
-
+= 4.5 =
 * Support clean interoperation with jQuery and Prototype
 * Protect BuddyPress (BP) signup pages
 
-= WP Hashcash 4.4 =
-
+= 4.4 =
 * Admin users can now comment from Dashboard
 * Tested on WP 2.9.2 in Chrome, IE, and FF
 * Fix a potential JS error
 
-= WP Hashcash 4.1 =
-
+= 4.1 =
 * Added a new options page under Options, Wordpress Hashcash
 * Fixed XHTML standards compliance
 * Added validation options for pingbacks and trackbacks (stolen from here)
 * Added a logging option for moderated comments
 
-= WP Hashcash 4.0.5 =
-
+= 4.0.5 =
 * Added an option for handling comments via moderation, the akismet queue, or deletion
 * Removed database dependencies
 * Removed error message for hash fail
@@ -88,13 +92,11 @@ If you are upgrading from a previous version of WP-Hashcash, please disabled the
 * Corrected the widget formatting
 * Changed zip file format from winrar to 7zip, hopefully it will be more compatible
 
-= WP Hashcash 4.0.4 =
-
+= 4.0.4 =
 * Removed version checking
 * Removed an unnecessary link element in the head section
 
-= WP Hashcash 4.0.3 =
-
+= 4.0.3 =
 * Suppress errors on loading remote version by any method
 * Fix typo-bugs everywhere affecting the widget reporting, date checking, etc
 * Strip tags from remote version
