@@ -8,20 +8,17 @@ function nggallery_manage_gallery_main() {
 	global $ngg, $nggdb, $wp_query;
 	
 	//Build the pagination for more than 25 galleries
-	if ( ! isset( $_GET['paged'] ) || $_GET['paged'] < 1 )
-		$_GET['paged'] = 1;
+    $_GET['paged'] = isset($_GET['paged']) && ($_GET['paged'] > 0) ? absint($_GET['paged']) : 1;
 	
-	$start = ( $_GET['paged'] - 1 ) * 25;
-	$gallerylist = $nggdb->find_all_galleries('gid', 'asc', TRUE, 25, $start, false);
+    $items_per_page = 25;
+    
+	$start = ( $_GET['paged'] - 1 ) * $items_per_page;
+    
+    $order = ( isset ( $_GET['order'] ) && $_GET['order'] == 'desc' ) ? 'DESC' : 'ASC';
+    $orderby = ( isset ( $_GET['orderby'] ) && ( in_array( $_GET['orderby'], array('gid', 'title', 'author') )) ) ? $_GET['orderby'] : 'gid';
 
-	$page_links = paginate_links( array(
-		'base' => add_query_arg( 'paged', '%#%' ),
-		'format' => '',
-		'prev_text' => __('&laquo;'),
-		'next_text' => __('&raquo;'),
-		'total' => $nggdb->paged['max_objects_per_page'],
-		'current' => $_GET['paged']
-	));
+	$gallerylist = $nggdb->find_all_galleries( $orderby, $order , TRUE, $items_per_page, $start, false);
+	$wp_list_table = new _NGG_Galleries_List_Table('nggallery-manage-gallery');
 
 	?>
 	<script type="text/javascript"> 
@@ -55,6 +52,15 @@ function nggallery_manage_gallery_main() {
 
 	// this function check for a the number of selected images, sumbmit false when no one selected
 	function checkSelected() {
+
+        if (typeof document.activeElement == "undefined" && document.addEventListener) {
+        	document.addEventListener("focus", function (e) {
+        		document.activeElement = e.target;
+        	}, true);
+        }
+    	
+        if ( document.activeElement.name == 'post_paged' )
+            return true;
 	
 		var numchecked = getNumChecked(document.getElementById('editgalleries'));
 		 
@@ -67,11 +73,11 @@ function nggallery_manage_gallery_main() {
 		
 		switch (actionId) {
 			case "resize_images":
-				showDialog('resize_images', 120);
+                showDialog('resize_images', '<?php echo esc_js(__('Resize images','nggallery')); ?>');
 				return false;
 				break;
 			case "new_thumbnail":
-				showDialog('new_thumbnail', 160);
+				showDialog('new_thumbnail', '<?php echo esc_js(__('Create new thumbnails','nggallery')); ?>');
 				return false;
 				break;
 		}
@@ -79,7 +85,7 @@ function nggallery_manage_gallery_main() {
 		return confirm('<?php echo sprintf(esc_js(__("You are about to start the bulk edit for %s galleries \n \n 'Cancel' to stop, 'OK' to proceed.",'nggallery')), "' + numchecked + '") ; ?>');
 	}
 
-	function showDialog( windowId, height ) {
+	function showDialog( windowId, title ) {
 		var form = document.getElementById('editgalleries');
 		var elementlist = "";
 		for (i = 0, n = form.elements.length; i < n; i++) {
@@ -94,17 +100,30 @@ function nggallery_manage_gallery_main() {
 		}
 		jQuery("#" + windowId + "_bulkaction").val(jQuery("#bulkaction").val());
 		jQuery("#" + windowId + "_imagelist").val(elementlist);
-		// console.log (jQuery("#TB_imagelist").val());
-		tb_show("", "#TB_inline?width=640&height=" + height + "&inlineId=" + windowId + "&modal=true", false);
+        // now show the dialog
+    	jQuery( "#" + windowId ).dialog({
+    		width: 640,
+            resizable : false,
+    		modal: true,
+            title: title      
+    	});
+        jQuery("#" + windowId + ' .dialog-cancel').click(function() { jQuery( "#" + windowId ).dialog("close"); });
 	}
 	
 	function showAddGallery() {
-		tb_show("", "#TB_inline?width=640&height=140&inlineId=addGallery&modal=true", false);
+    	jQuery( "#addGallery").dialog({
+    		width: 640,
+            resizable : false,
+    		modal: true,
+            title: '<?php echo esc_js(__('Add new gallery','nggallery')); ?>'          
+    	});	   
+        jQuery("#addGallery .dialog-cancel").click(function() { jQuery( "#addGallery" ).dialog("close"); });
 	}
 	//-->
 	</script>
 	<div class="wrap">
-		<h2><?php _e('Gallery Overview', 'nggallery'); ?></h2>
+        <?php screen_icon( 'nextgen-gallery' ); ?>
+		<h2><?php echo _n( 'Gallery', 'Galleries', 2, 'nggallery'); ?></h2>
 		<form class="search-form" action="" method="get">
 		<p class="search-box">
 			<label class="hidden" for="media-search-input"><?php _e( 'Search Images', 'nggallery' ); ?>:</label>
@@ -117,13 +136,14 @@ function nggallery_manage_gallery_main() {
 		<?php wp_nonce_field('ngg_bulkgallery') ?>
 		<input type="hidden" name="page" value="manage-galleries" />
 		
-		<div class="tablenav">
+		<div class="tablenav top">
 			
 			<div class="alignleft actions">
 				<?php if ( function_exists('json_encode') ) : ?>
 				<select name="bulkaction" id="bulkaction">
-					<option value="no_action" ><?php _e("No action",'nggallery'); ?></option>
-					<option value="set_watermark" ><?php _e("Set watermark",'nggallery'); ?></option>
+					<option value="no_action" ><?php _e("Bulk actions",'nggallery'); ?></option>
+					<option value="delete_gallery" ><?php _e("Delete",'nggallery'); ?></option>
+                    <option value="set_watermark" ><?php _e("Set watermark",'nggallery'); ?></option>
 					<option value="new_thumbnail" ><?php _e("Create new thumbnails",'nggallery'); ?></option>
 					<option value="resize_images" ><?php _e("Resize images",'nggallery'); ?></option>
 					<option value="import_meta" ><?php _e("Import metadata",'nggallery'); ?></option>
@@ -136,66 +156,103 @@ function nggallery_manage_gallery_main() {
 				<?php endif; ?>
 			</div>
 			
-		<?php if ( $page_links ) : ?>
-			<div class="tablenav-pages"><?php $page_links_text = sprintf( '<span class="displaying-num">' . __( 'Displaying %s&#8211;%s of %s' ) . '</span>%s',
-				number_format_i18n( ( $_GET['paged'] - 1 ) * $nggdb->paged['objects_per_page'] + 1 ),
-				number_format_i18n( min( $_GET['paged'] * $nggdb->paged['objects_per_page'], $nggdb->paged['total_objects'] ) ),
-				number_format_i18n( $nggdb->paged['total_objects'] ),
-				$page_links
-			); echo $page_links_text; ?></div>
-		<?php endif; ?>
+		
+        <?php $ngg->manage_page->pagination( 'top', $_GET['paged'], $nggdb->paged['total_objects'], $nggdb->paged['objects_per_page']  ); ?>
 		
 		</div>
-		<table class="widefat" cellspacing="0">
+		<table class="wp-list-table widefat fixed" cellspacing="0">
 			<thead>
 			<tr>
-				<th scope="col" class="column-cb" >
-					<input type="checkbox" onclick="checkAll(document.getElementById('editgalleries'));" name="checkall"/>
-				</th>
-				<th scope="col" ><?php _e('ID'); ?></th>
-				<th scope="col" ><?php _e('Title', 'nggallery'); ?></th>
-				<th scope="col" ><?php _e('Description', 'nggallery'); ?></th>
-				<th scope="col" ><?php _e('Author', 'nggallery'); ?></th>
-				<th scope="col" ><?php _e('Page ID', 'nggallery'); ?></th>
-				<th scope="col" ><?php _e('Quantity', 'nggallery'); ?></th>
-				<th scope="col" ><?php _e('Action'); ?></th>
+<?php $wp_list_table->print_column_headers(true); ?>
 			</tr>
 			</thead>
-			<tbody>
+			<tfoot>
+			<tr>
+<?php $wp_list_table->print_column_headers(false); ?>
+			</tr>
+			</tfoot>            
+			<tbody id="the-list">
 <?php
 
 if($gallerylist) {
+    //get the columns
+	$gallery_columns = $wp_list_table->get_columns();
+	$hidden_columns  = get_hidden_columns('nggallery-manage-gallery');
+	$num_columns     = count($gallery_columns) - count($hidden_columns);
+    
 	foreach($gallerylist as $gallery) {
-		$class = ( !isset($class) || $class == 'class="alternate"' ) ? '' : 'class="alternate"';
+		$alternate = ( !isset($alternate) || $alternate == 'class="alternate"' ) ? '' : 'class="alternate"';
 		$gid = $gallery->gid;
 		$name = (empty($gallery->title) ) ? $gallery->name : $gallery->title;
 		$author_user = get_userdata( (int) $gallery->author );
 		?>
-		<tr id="gallery-<?php echo $gid ?>" <?php echo $class; ?> >
-			<th scope="row" class="cb column-cb">
-				<?php if (nggAdmin::can_manage_this_gallery($gallery->author)) { ?>
-					<input name="doaction[]" type="checkbox" value="<?php echo $gid ?>" />
-				<?php } ?>
-			</th>
-			<td scope="row"><?php echo $gid; ?></td>
-			<td>
-				<?php if (nggAdmin::can_manage_this_gallery($gallery->author)) { ?>
-					<a href="<?php echo wp_nonce_url( $ngg->manage_page->base_page . '&amp;mode=edit&amp;gid=' . $gid, 'ngg_editgallery')?>" class='edit' title="<?php _e('Edit'); ?>" >
-						<?php echo nggGallery::i18n($name); ?>
-					</a>
-				<?php } else { ?>
-					<?php echo nggGallery::i18n($gallery->title); ?>
-				<?php } ?>
-			</td>
-			<td><?php echo nggGallery::i18n($gallery->galdesc); ?>&nbsp;</td>
-			<td><?php echo $author_user->display_name; ?></td>
-			<td><?php echo $gallery->pageid; ?></td>
-			<td><?php echo $gallery->counter; ?></td>
-			<td>
-				<?php if (nggAdmin::can_manage_this_gallery($gallery->author)) : ?>
-					<a href="<?php echo wp_nonce_url( $ngg->manage_page->base_page . '&amp;mode=delete&amp;gid=' . $gid, 'ngg_editgallery')?>" class="delete" onclick="javascript:check=confirm( '<?php _e('Delete this gallery ?', 'nggallery'); ?>');if(check==false) return false;"><?php _e('Delete'); ?></a>
-				<?php endif; ?>
-			</td>
+		<tr id="gallery-<?php echo $gid ?>" <?php echo $alternate; ?> >
+		<?php 
+		foreach($gallery_columns as $gallery_column_key => $column_display_name) {
+			$class = "class=\"$gallery_column_key column-$gallery_column_key\"";
+	
+			$style = '';
+			if ( in_array($gallery_column_key, $hidden_columns) )
+				$style = ' style="display:none;"';
+	
+			$attributes = "$class$style";
+			
+			switch ($gallery_column_key) {
+				case 'cb' :
+					?>
+        			<th scope="row" class="column-cb check-column">
+        				<?php if (nggAdmin::can_manage_this_gallery($gallery->author)) { ?>
+        					<input name="doaction[]" type="checkbox" value="<?php echo $gid ?>" />
+        				<?php } ?>
+        			</th>
+        			<?php 
+    			break;
+    			case 'id' :
+    			    ?>
+					<td <?php echo $attributes ?>><?php echo $gid; ?></td>
+					<?php 
+    			break;
+    			case 'title' :
+    			    ?>
+        			<td class="title column-title">
+        				<?php if (nggAdmin::can_manage_this_gallery($gallery->author)) { ?>
+        					<a href="<?php echo wp_nonce_url( $ngg->manage_page->base_page . '&amp;mode=edit&amp;gid=' . $gid, 'ngg_editgallery')?>" class='edit' title="<?php _e('Edit'); ?>" >
+        						<?php echo esc_html( nggGallery::i18n($name) ); ?>
+        					</a>
+        				<?php } else { ?>
+        					<?php echo esc_html( nggGallery::i18n($gallery->title) ); ?>
+        				<?php } ?>
+                        <div class="row-actions"></div>
+        			</td>
+        			<?php 
+    			break;
+    			case 'description' :
+    			    ?>
+					<td <?php echo $attributes ?>><?php echo esc_html( nggGallery::i18n($gallery->galdesc) ); ?>&nbsp;</td>
+					<?php 
+    			break;
+    			case 'author' :
+    			    ?>
+					<td <?php echo $attributes ?>><?php echo esc_html( $author_user->display_name ); ?></td>
+					<?php 
+    			break;
+    			case 'page_id' :
+    			    ?>
+        			<td <?php echo $attributes ?>><?php echo $gallery->pageid; ?></td>
+        			<?php 
+    			break;
+    			case 'quantity' :
+    			    ?>
+        			<td <?php echo $attributes ?>><?php echo $gallery->counter; ?></td>
+        			<?php 
+    			break;
+    			default : 
+					?>
+					<td <?php echo $attributes ?>><?php do_action('ngg_manage_gallery_custom_column', $gallery_column_key, $gid); ?></td>
+					<?php
+				break;
+				}
+	        } ?>
 		</tr>
 		<?php
 	}
@@ -205,6 +262,9 @@ if($gallerylist) {
 ?>			
 			</tbody>
 		</table>
+        <div class="tablenav bottom">
+		<?php $ngg->manage_page->pagination( 'bottom', $_GET['paged'], $nggdb->paged['total_objects'], $nggdb->paged['objects_per_page']  ); ?>
+        </div>
 		</form>
 	</div>
 	<!-- #addGallery -->
@@ -216,17 +276,18 @@ if($gallerylist) {
 		  	<tr>
 		    	<td>
 					<strong><?php _e('New Gallery', 'nggallery') ;?>:</strong> <input type="text" size="35" name="galleryname" value="" /><br />
-					<?php if(!IS_WPMU) { ?>
+					<?php if(!is_multisite()) { ?>
 					<?php _e('Create a new , empty gallery below the folder', 'nggallery') ;?>  <strong><?php echo $ngg->options['gallerypath']; ?></strong><br />
 					<?php } ?>
 					<i>( <?php _e('Allowed characters for file and folder names are', 'nggallery') ;?>: a-z, A-Z, 0-9, -, _ )</i>
 				</td>
 		  	</tr>
+            <?php do_action('ngg_add_new_gallery_form'); ?>
 		  	<tr align="right">
 		    	<td class="submit">
 		    		<input class="button-primary" type="submit" name="addgallery" value="<?php _e('OK','nggallery'); ?>" />
 		    		&nbsp;
-		    		<input class="button-secondary" type="reset" value="&nbsp;<?php _e('Cancel', 'nggallery'); ?>&nbsp;" onclick="tb_remove()"/>
+		    		<input class="button-secondary dialog-cancel" type="reset" value="&nbsp;<?php _e('Cancel', 'nggallery'); ?>&nbsp;" />
 		    	</td>
 			</tr>
 		</table>
@@ -255,7 +316,7 @@ if($gallerylist) {
 		    	<td colspan="2" class="submit">
 		    		<input class="button-primary" type="submit" name="TB_ResizeImages" value="<?php _e('OK', 'nggallery'); ?>" />
 		    		&nbsp;
-		    		<input class="button-secondary" type="reset" value="&nbsp;<?php _e('Cancel', 'nggallery'); ?>&nbsp;" onclick="tb_remove()"/>
+		    		<input class="button-secondary dialog-cancel" type="reset" value="&nbsp;<?php _e('Cancel', 'nggallery'); ?>&nbsp;" />
 		    	</td>
 			</tr>
 		</table>
@@ -285,7 +346,7 @@ if($gallerylist) {
 		    	<td colspan="2" class="submit">
 		    		<input class="button-primary" type="submit" name="TB_NewThumbnail" value="<?php _e('OK', 'nggallery');?>" />
 		    		&nbsp;
-		    		<input class="button-secondary" type="reset" value="&nbsp;<?php _e('Cancel', 'nggallery'); ?>&nbsp;" onclick="tb_remove()"/>
+		    		<input class="button-secondary dialog-cancel" type="reset" value="&nbsp;<?php _e('Cancel', 'nggallery'); ?>&nbsp;" />
 		    	</td>
 			</tr>
 		</table>
@@ -295,4 +356,71 @@ if($gallerylist) {
 
 <?php
 } 
+
+/**
+ * Construtor class to create the table layout
+ *
+ * @package WordPress
+ * @subpackage List_Table
+ * @since 1.8.0
+ * @access private
+ */
+class _NGG_Galleries_List_Table extends WP_List_Table {
+	var $_screen;
+	var $_columns;
+
+	function _NGG_Galleries_List_Table( $screen ) {
+		if ( is_string( $screen ) )
+			$screen = convert_to_screen( $screen );
+
+		$this->_screen = $screen;
+		$this->_columns = array() ;
+
+		add_filter( 'manage_' . $screen->id . '_columns', array( &$this, 'get_columns' ), 0 );
+	}
+
+	function get_column_info() {
+		$columns = get_column_headers( $this->_screen );
+		$hidden = get_hidden_columns( $this->_screen );
+		$_sortable = $this->get_sortable_columns();
+
+		foreach ( $_sortable as $id => $data ) {
+			if ( empty( $data ) )
+				continue;
+
+			$data = (array) $data;
+			if ( !isset( $data[1] ) )
+				$data[1] = false;
+
+			$sortable[$id] = $data;
+		}
+        
+		return array( $columns, $hidden, $sortable );
+	}
+    
+    // define the columns to display, the syntax is 'internal name' => 'display name'
+	function get_columns() {
+    	$columns = array();
+    	
+    	$columns['cb'] = '<input name="checkall" type="checkbox" onclick="checkAll(document.getElementById(\'editgalleries\'));" />';
+    	$columns['id'] = __('ID');
+    	$columns['title'] = _n( 'Gallery', 'Galleries', 1, 'nggallery');
+    	$columns['description'] = __('Description', 'nggallery');
+    	$columns['author'] = __('Author', 'nggallery');
+    	$columns['page_id'] = __('Page ID', 'nggallery');
+    	$columns['quantity'] = _n( 'Image', 'Images', 2, 'nggallery' );
+    
+    	$columns = apply_filters('ngg_manage_gallery_columns', $columns);
+    
+    	return $columns;
+	}
+
+	function get_sortable_columns() {
+		return array(
+			'id'    => array( 'gid', true ),
+			'title'   => 'title',
+			'author'   => 'author'
+		);
+	}    
+}
 ?>

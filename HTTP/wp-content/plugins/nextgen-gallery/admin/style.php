@@ -85,6 +85,7 @@ if (!$error && filesize($real_file) > 0) {
 <div class="wrap">
 
 	<div class="bordertitle">
+        <?php screen_icon( 'nextgen-gallery' ); ?>
 		<h2><?php _e('Style Editor','nggallery') ?></h2>
 		<?php if (!$theme_css_exists) : ?>
 		<form id="themeselector" name="cssfiles" method="post">
@@ -115,7 +116,7 @@ if (!$error && filesize($real_file) > 0) {
 	</div>
 	<br style="clear: both;"/>
 	
-<?php if (!IS_WPMU || wpmu_site_admin() ) { ?>
+<?php if (!is_multisite() || wpmu_site_admin() ) { ?>
 	<div class="tablenav"> 
 	  <?php
 		if ( is_writeable($real_file) ) {

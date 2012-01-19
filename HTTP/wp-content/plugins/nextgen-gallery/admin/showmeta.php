@@ -40,8 +40,8 @@ $class = '';
 				if ( is_array($value) ) continue;
 				$class = ( $class == 'class="alternate"' ) ? '' : 'class="alternate"';
 				echo '<tr '.$class.'>	
-						<td style="width:230px">'.$meta->i8n_name($key).'</td>
-						<td>'.$value.'</td>
+						<td style="width:230px">'. esc_html( $meta->i8n_name($key) ).'</td>
+						<td>' . esc_html( $value ) . '</td>
 					</tr>';
 			}
 	?>
@@ -65,8 +65,8 @@ $class = '';
 			foreach ($exifdata as $key => $value){
 				$class = ( $class == 'class="alternate"' ) ? '' : 'class="alternate"';
 				echo '<tr '.$class.'>	
-						<td style="width:230px">'.$meta->i8n_name($key).'</td>
-						<td>'.$value.'</td>
+						<td style="width:230px">' . esc_html ( $meta->i8n_name($key) ) . '</td>
+						<td>' . esc_html( $value ) .'</td>
 					</tr>';
 			}
 	?>
@@ -90,8 +90,8 @@ $class = '';
 			foreach ($iptcdata as $key => $value){
 				$class = ( $class == 'class="alternate"' ) ? '' : 'class="alternate"';
 				echo '<tr '.$class.'>	
-						<td style="width:230px">'.$meta->i8n_name($key).'</td>
-						<td>'.$value.'</td>
+						<td style="width:230px">' . esc_html( $meta->i8n_name($key) ) . '</td>
+						<td>' . esc_html( $value ) . '</td>
 					</tr>';
 			}
 	?>
@@ -114,8 +114,8 @@ $class = '';
 			foreach ($xmpdata as $key => $value){
 				$class = ( $class == 'class="alternate"' ) ? '' : 'class="alternate"';
 				echo '<tr '.$class.'>	
-						<td style="width:230px">'.$meta->i8n_name($key).'</td>
-						<td>'.$value.'</td>
+						<td style="width:230px">' . esc_html( $meta->i8n_name($key) ) . '</td>
+						<td>' . esc_html( $value ) . '</td>
 					</tr>';
 			}
 	?>

@@ -31,21 +31,17 @@ if ( !empty($_GET['width']) || !empty($_GET['height']) ) {
  	$w = ( !empty($_GET['width'])) ? intval($_GET['width']) : 0;
  	$h = ( !empty($_GET['height'])) ? intval($_GET['height']) : 0;
 	// limit the maxium size, prevent server memory overload
-	if ($w > 1280) $w = 1280;
+	if ($w > 1920) $w = 1920;
 	if ($h > 1280) $h = 1280;
     // Crop mode for post thumbnail
     if ($mode == 'crop') {
-		// check for portrait format
-		if ($thumb->currentDimensions['height'] < $thumb->currentDimensions['width']) {
-            list ( $w, $ratio_h ) = wp_constrain_dimensions($thumb->currentDimensions['width'], $thumb->currentDimensions['height'], $w);
-            $thumb->resize($w, $ratio_h);
-			$ypos = ($thumb->currentDimensions['height'] - $h) / 2;
-			$thumb->crop(0, $ypos, $w, $h);
-		} else {
-		    $thumb->resize($w, 0);
-            $ypos = ($thumb->currentDimensions['height'] - $h) / 2;
-			$thumb->crop(0, $ypos, $w, $h);	
-		}               
+		// calculates the new dimentions for a downsampled image
+        list ( $ratio_w, $ratio_h ) = wp_constrain_dimensions($thumb->currentDimensions['width'], $thumb->currentDimensions['height'], $w, $h);
+        // check ratio to decide which side should be resized
+        ( $ratio_h <  $h || $ratio_w ==  $w ) ? $thumb->resize(0, $h) : $thumb->resize($w, 0);
+        // get the best start postion to crop from the middle    
+        $ypos = ($thumb->currentDimensions['height'] - $h) / 2;
+		$thumb->crop(0, $ypos, $w, $h);	
     } else
         $thumb->resize( $w, $h );   
 }

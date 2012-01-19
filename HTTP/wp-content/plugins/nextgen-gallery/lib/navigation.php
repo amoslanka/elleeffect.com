@@ -4,8 +4,8 @@
  * 
  * @package NextGEN Gallery
  * @author Alex Rabe 
- * @copyright 2009
- * @version 1.0.0
+ * @copyright 2009-2011
+ * @version 1.0.1
  * @access public
  */
 class nggNavigation {
@@ -61,7 +61,10 @@ class nggNavigation {
 	 */
 	function create_navigation($page, $totalElement, $maxElement = 0) {
 		global $nggRewrite;
-		
+        
+        $prev_symbol = apply_filters('ngg_prev_symbol', '&#9668;');
+		$next_symbol = apply_filters('ngg_prev_symbol', '&#9658;');
+        
 		if ($maxElement > 0) {
 			$total = $totalElement;
 			
@@ -76,7 +79,7 @@ class nggNavigation {
 						$previous = 1; 
 					}
 					$this->prev = $nggRewrite->get_permalink ( $args );
-					$r .=  '<a class="prev" id="ngg-prev-' . $previous . '" href="' . $this->prev . '">&#9668;</a>';
+					$r .=  '<a class="prev" id="ngg-prev-' . $previous . '" href="' . $this->prev . '">' . $prev_symbol . '</a>';
 				}
 				
 				$total_pages = ceil( $total / $maxElement );
@@ -84,7 +87,7 @@ class nggNavigation {
 				if ( $total_pages > 1 ) {
 					for ( $page_num = 1; $page_num <= $total_pages; $page_num++ ) {
 						if ( $page == $page_num ) {
-							$r .=  '<span>' . $page_num . '</span>';
+							$r .=  '<span class="current">' . $page_num . '</span>';
 						} else {
 							$p = false;
 							if ( $page_num < 3 || ( $page_num >= $page - 3 && $page_num <= $page + 3 ) || $page_num > $total_pages - 3 ) {
@@ -92,7 +95,7 @@ class nggNavigation {
 								$r .= '<a class="page-numbers" href="' . $nggRewrite->get_permalink( $args ) . '">' . ( $page_num ) . '</a>';
 								$in = true;
 							} elseif ( $in == true ) {
-								$r .= '<span>...</span>';
+								$r .= '<span class="more">...</span>';
 								$in = false;
 							}
 						}
@@ -102,7 +105,7 @@ class nggNavigation {
 				if ( ( $page ) * $maxElement < $total || -1 == $total ) {
 					$args['nggpage'] = $page + 1;
 					$this->next = $nggRewrite->get_permalink ( $args );
-					$r .=  '<a class="next" id="ngg-next-' . $args['nggpage'] . '" href="' . $this->next . '">&#9658;</a>';
+					$r .=  '<a class="next" id="ngg-next-' . $args['nggpage'] . '" href="' . $this->next . '">' . $next_symbol . '</a>';
 				}
 				
 				$this->output = "<div class='ngg-navigation'>$r</div>";

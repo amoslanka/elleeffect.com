@@ -1,9 +1,6 @@
 <?php  
 if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You are not allowed to call this page directly.'); }
 	
-	// sometimes a error feedback is better than a white screen
-	@ini_set('error_reporting', E_ALL ^ E_NOTICE);
-
 class nggAddGallery {
 
     /**
@@ -15,7 +12,7 @@ class nggAddGallery {
     }
     
     /**
-     * nggOptions::__construct()
+     * nggAddGallery::__construct()
      * 
      * @return void
      */
@@ -35,11 +32,11 @@ class nggAddGallery {
 	 * @return void
 	 */
 	function processor() {
-        global $wpdb, $ngg;
+        global $wpdb, $ngg, $nggdb;
 
     	$defaultpath = $ngg->options['gallerypath'];	
     	
-    	if ($_POST['addgallery']){
+    	if ( isset($_POST['addgallery']) ){
     		check_admin_referer('ngg_addgallery');
     		
     		if ( !nggGallery::current_user_can( 'NextGEN Add new gallery' ))
@@ -50,7 +47,7 @@ class nggAddGallery {
     			nggAdmin::create_gallery($newgallery, $defaultpath);
     	}
     	
-    	if ($_POST['zipupload']){
+    	if ( isset($_POST['zipupload']) ){
     		check_admin_referer('ngg_addgallery');
     
     		if ( !nggGallery::current_user_can( 'NextGEN Upload a zip' ))
@@ -62,7 +59,7 @@ class nggAddGallery {
     			nggGallery::show_error( __('Upload failed!','nggallery') );
     	}
     	
-    	if ($_POST['importfolder']){
+    	if ( isset($_POST['importfolder']) ){
     		check_admin_referer('ngg_addgallery');
     
     		if ( !nggGallery::current_user_can( 'NextGEN Import image folder' ))
@@ -73,7 +70,7 @@ class nggAddGallery {
     			nggAdmin::import_gallery($galleryfolder);
     	}
     	
-    	if ($_POST['uploadimage']){
+    	if ( isset($_POST['uploadimage']) ){
     		check_admin_referer('ngg_addgallery');
     		
     		if ( !nggGallery::current_user_can( 'NextGEN Upload in all galleries' ))
@@ -85,15 +82,17 @@ class nggAddGallery {
     			nggGallery::show_error( __('Upload failed! ' . nggAdmin::decode_upload_error( $_FILES['imagefiles']['error'][0]),'nggallery') );	
     	}
     	
-    	if (isset($_POST['swf_callback'])){
+    	if ( isset($_POST['swf_callback']) ){
     		if ($_POST['galleryselect'] == '0' )
     			nggGallery::show_error(__('No gallery selected !','nggallery'));
     		else {
-    			// get the path to the gallery
-    			$galleryID = (int) $_POST['galleryselect'];
-    			$gallerypath = $wpdb->get_var("SELECT path FROM $wpdb->nggallery WHERE gid = '$galleryID' ");
-    			nggAdmin::import_gallery($gallerypath);
-    		}	
+                if ($_POST['swf_callback'] == '-1' )
+                    nggGallery::show_error( __('Upload failed! ','nggallery') );
+                else {
+                    $gallery = $nggdb->find_gallery( (int) $_POST['galleryselect'] );
+                    nggAdmin::import_gallery( $gallery->path );
+                }
+            }
     	}
     
     	if ( isset($_POST['disable_flash']) ){
@@ -119,9 +118,6 @@ class nggAddGallery {
      */
     function controller() {
         global $ngg, $nggdb;
-
-        // get list of tabs
-        $tabs = $this->tabs_order();
         
     	// check for the max image size
     	$this->maxsize    = nggGallery::check_memory_limit();
@@ -133,12 +129,114 @@ class nggAddGallery {
     	
         // link for the flash file
     	$swf_upload_link = NGGALLERY_URLPATH . 'admin/upload.php';
-    	$swf_upload_link = wp_nonce_url($swf_upload_link, 'ngg_swfupload');
-    	//flash doesn't seem to like encoded ampersands, so convert them back here
-    	$swf_upload_link = str_replace('&#038;', '&', $swf_upload_link);
+
+        // get list of tabs
+        $tabs = $this->tabs_order();
+        
+        // with this filter you can add custom file types
+        $file_types = apply_filters( 'ngg_swf_file_types', '*.jpg;*.jpeg;*.gif;*.png;*.JPG;*.JPEG;*.GIF;*.PNG' );
+        
+        // Set the post params, which plupload will post back with the file, and pass them through a filter.
+        $post_params = array(
+        		"auth_cookie" => (is_ssl() ? $_COOKIE[SECURE_AUTH_COOKIE] : $_COOKIE[AUTH_COOKIE]),
+        		"logged_in_cookie" => $_COOKIE[LOGGED_IN_COOKIE],
+        		"_wpnonce" => wp_create_nonce('ngg_swfupload'),
+        		"galleryselect" => "0",
+        );
+        $p = array();
+
+        foreach ( $post_params as $param => $val ) {
+        	$val = esc_js( $val );
+        	$p[] = "'$param' : '$val'";
+        }
+        
+        $post_params_str = implode( ',', $p ). "\n";
+       
 	?>
 	
-	<?php if($ngg->options['swfUpload']) { ?>
+	<?php if($ngg->options['swfUpload'] && !empty ($this->gallerylist) ) { ?>
+    <?php if ( defined('IS_WP_3_3') ) { ?>
+    <!-- plupload script -->
+    <script type="text/javascript">
+    //<![CDATA[
+    var resize_height = <?php echo (int) $ngg->options['imgHeight']; ?>, 
+    	resize_width = <?php echo (int) $ngg->options['imgWidth']; ?>;
+    
+    jQuery(document).ready(function($) {
+    	window.uploader = new plupload.Uploader({
+    		runtimes: '<?php echo apply_filters('plupload_runtimes', 'html5,flash,silverlight,html4,'); ?>',
+    		browse_button: 'plupload-browse-button',
+    		container: 'plupload-upload-ui',
+    		drop_element: 'uploadimage',
+    		file_data_name: 'Filedata',
+    		max_file_size: '<?php echo round( (int) wp_max_upload_size() / 1024 ); ?>kb',
+    		url: '<?php echo esc_js( $swf_upload_link ); ?>',
+    		flash_swf_url: '<?php echo esc_js( includes_url('js/plupload/plupload.flash.swf') ); ?>',
+    		silverlight_xap_url: '<?php echo esc_js( includes_url('js/plupload/plupload.silverlight.xap') ); ?>',
+    		filters: [
+    			{title: '<?php echo esc_js( __('Image Files', 'nggallery') ); ?>', extensions: '<?php echo esc_js( str_replace( array('*.', ';'), array('', ','), $file_types)  ); ?>'}
+    		],
+    		multipart: true,
+    		urlstream_upload: true,
+    		multipart_params : {
+    			<?php echo $post_params_str; ?>
+    		},
+            debug: false,
+            preinit : {
+    			Init: function(up, info) {
+    				debug('[Init]', 'Info :', info,  'Features :', up.features);
+                    initUploader();
+    			}
+            },
+			i18n : {
+				'remove' : '<?php _e('remove', 'nggallery') ;?>',
+				'browse' : '<?php _e('Browse...', 'nggallery') ;?>',
+				'upload' : '<?php _e('Upload images', 'nggallery') ;?>'
+			}                                   
+    	});
+    
+    	uploader.bind('FilesAdded', function(up, files) {
+    		$.each(files, function(i, file) {
+    			fileQueued(file);
+    		});
+    
+    		up.refresh();
+    	});
+    
+    	uploader.bind('BeforeUpload', function(up, file) {
+            uploadStart(file);
+    	});
+    	
+    	uploader.bind('UploadProgress', function(up, file) {
+    		uploadProgress(file, file.loaded, file.size);
+    	});
+    	
+    	uploader.bind('Error', function(up, err) {
+    		uploadError(err.file, err.code, err.message);
+    	
+    		up.refresh();
+    	});
+
+    	uploader.bind('FileUploaded', function(up, file, response) {
+    		uploadSuccess(file, response);
+    	});
+            
+    	uploader.bind('UploadComplete', function(up, file) {
+    		uploadComplete(file);
+    	});
+
+		// on load change the upload to plupload
+		uploader.init();
+
+		nggAjaxOptions = {
+		  	header: "<?php _e('Upload images', 'nggallery') ;?>",
+		  	maxStep: 100
+		};
+
+    });
+    //]]>
+    </script>
+    <?php } else { ?>
 	<!-- SWFUpload script -->
 	<script type="text/javascript">
 		var ngg_swf_upload;
@@ -146,7 +244,7 @@ class nggAddGallery {
 		window.onload = function () {
 			ngg_swf_upload = new SWFUpload({
 				// Backend settings
-				upload_url : "<?php echo $swf_upload_link; ?>",
+				upload_url : "<?php echo esc_js( $swf_upload_link ); ?>",
 				flash_url : "<?php echo NGGALLERY_URLPATH; ?>admin/js/swfupload.swf",
 				
 				// Button Settings
@@ -158,7 +256,7 @@ class nggAddGallery {
 								
 				// File Upload Settings
 				file_size_limit : "<?php echo wp_max_upload_size(); ?>b",
-				file_types : "*.jpg;*.jpeg;*.gif;*.png",
+				file_types : "<?php echo $file_types; ?>",
 				file_types_description : "<?php _e('Image Files', 'nggallery') ;?>",
 				
 				// Queue handler
@@ -172,7 +270,9 @@ class nggAddGallery {
 				upload_complete_handler : uploadComplete,
 				
 				post_params : {
-					"auth_cookie" : "<?php echo $_COOKIE[AUTH_COOKIE]; ?>",
+					"auth_cookie" : "<?php echo (is_ssl() ? $_COOKIE[SECURE_AUTH_COOKIE] : $_COOKIE[AUTH_COOKIE]); ?>",
+                    "logged_in_cookie": "<?php echo $_COOKIE[LOGGED_IN_COOKIE]; ?>",
+                    "_wpnonce" : "<?php echo wp_create_nonce('ngg_swfupload'); ?>",                    
 					"galleryselect" : "0"
 				},
 				
@@ -190,18 +290,15 @@ class nggAddGallery {
 			
 			// on load change the upload to swfupload
 			initSWFUpload();
+
+			nggAjaxOptions = {
+			  	header: "<?php _e('Upload images', 'nggallery') ;?>",
+			  	maxStep: 100
+			};
 			
 		};
 	</script>
-	
-	<div class="wrap" id="progressbar-wrap">
-		<div class="progressborder">
-			<div class="progressbar" id="progressbar">
-				<span>0%</span>
-			</div>
-		</div>
-	</div>
-	
+    <?php } ?>	
 	<?php } else { ?>
 	<!-- MultiFile script -->
 	<script type="text/javascript">	
@@ -220,12 +317,26 @@ class nggAddGallery {
 	<script type="text/javascript">
 	/* <![CDATA[ */
 		jQuery(document).ready(function(){
-			jQuery('#slider').tabs({ fxFade: true, fxSpeed: 'fast' });	
+            jQuery('html,body').scrollTop(0);
+			jQuery('#slider').tabs({ fxFade: true, fxSpeed: 'fast' });
+            jQuery('#slider').css('display', 'block');  	
+		});
+		
+		// File Tree implementation
+		jQuery(function() {								 
+		    jQuery("span.browsefiles").show().click(function(){
+    		    jQuery("#file_browser").fileTree({
+    		      script: "admin-ajax.php?action=ngg_file_browser&nonce=<?php echo wp_create_nonce( 'ngg-ajax' ) ;?>",
+                  root: jQuery("#galleryfolder").val()
+    		    }, function(folder) {
+    		        jQuery("#galleryfolder").val( folder );
+    		    });
+		    	jQuery("#file_browser").show('slide');
+		    });	
 		});
 	/* ]]> */
 	</script>
-
-	<div id="slider" class="wrap">
+	<div id="slider" class="wrap" style="display: none;">
         <ul id="tabs">
             <?php    
         	foreach($tabs as $tab_key => $tab_name) {
@@ -257,18 +368,19 @@ class nggAddGallery {
     function tabs_order() {
      
     	$tabs = array();
-    	
+        
+    	if ( !empty ($this->gallerylist) )
+    	   $tabs['uploadimage'] = __( 'Upload Images', 'nggallery' );
+        
         if ( nggGallery::current_user_can( 'NextGEN Add new gallery' ))
     	   $tabs['addgallery'] = __('Add new gallery', 'nggallery');
         
         if ( wpmu_enable_function('wpmuZipUpload') && nggGallery::current_user_can( 'NextGEN Upload a zip' ) ) 
             $tabs['zipupload'] = __('Upload a Zip-File', 'nggallery');
     	
-        if (!IS_WPMU && nggGallery::current_user_can( 'NextGEN Import image folder' ) ) 
+        if ( wpmu_enable_function('wpmuImportFolder') && nggGallery::current_user_can( 'NextGEN Import image folder' ) ) 
             $tabs['importfolder'] = __('Import image folder', 'nggallery');
             
-    	$tabs['uploadimage'] = __( 'Upload Images', 'nggallery' );
-    	
     	$tabs = apply_filters('ngg_addgallery_tabs', $tabs);
     
     	return $tabs;
@@ -285,7 +397,7 @@ class nggAddGallery {
 			<tr valign="top"> 
 				<th scope="row"><?php _e('New Gallery', 'nggallery') ;?>:</th> 
 				<td><input type="text" size="35" name="galleryname" value="" /><br />
-				<?php if(!IS_WPMU) { ?>
+				<?php if(!is_multisite()) { ?>
 				<?php _e('Create a new , empty gallery below the folder', 'nggallery') ;?>  <strong><?php echo $this->defaultpath ?></strong><br />
 				<?php } ?>
 				<i>( <?php _e('Allowed characters for file and folder names are', 'nggallery') ;?>: a-z, A-Z, 0-9, -, _ )</i></td>
@@ -325,13 +437,13 @@ class nggAddGallery {
 						if ( !nggAdmin::can_manage_this_gallery($gallery->author) )
 							continue;
 						$name = ( empty($gallery->title) ) ? $gallery->name : $gallery->title;
-						echo '<option value="' . $gallery->gid . '" >' . $gallery->gid . ' - ' . $name . '</option>' . "\n";
+						echo '<option value="' . $gallery->gid . '" >' . $gallery->gid . ' - ' . esc_attr( $name ). '</option>' . "\n";
 					}
 				?>
 				</select>
 				<br /><?php echo $this->maxsize; ?>
 				<br /><?php echo _e('Note : The upload limit on your server is ','nggallery') . "<strong>" . ini_get('upload_max_filesize') . "Byte</strong>\n"; ?>
-				<br /><?php if ( (IS_WPMU) && wpmu_enable_function('wpmuQuotaCheck') ) display_space_usage(); ?></td> 
+				<br /><?php if ( (is_multisite()) && wpmu_enable_function('wpmuQuotaCheck') ) display_space_usage(); ?></td> 
 			</tr> 
 			</table>
 			<div class="submit"><input class="button-primary" type="submit" name= "zipupload" value="<?php _e('Start upload', 'nggallery') ;?>"/></div>
@@ -348,7 +460,9 @@ class nggAddGallery {
 			<table class="form-table"> 
 			<tr valign="top"> 
 				<th scope="row"><?php _e('Import from Server path:', 'nggallery') ;?></th> 
-				<td><input type="text" size="35" name="galleryfolder" value="<?php echo $this->defaultpath; ?>" /><br />
+				<td><input type="text" size="35" id="galleryfolder" name="galleryfolder" value="<?php echo $this->defaultpath; ?>" /><span class="browsefiles button" style="display:none"><?php _e('Browse...', 'nggallery'); ?></span><br />
+				<div id="file_browser"></div>
+				<br /><i>( <?php _e('Note : Change the default path in the gallery settings', 'nggallery') ;?> )</i>
 				<br /><?php echo $this->maxsize; ?>
 				<?php if (SAFE_MODE) {?><br /><?php _e(' Please note : For safe-mode = ON you need to add the subfolder thumbs manually', 'nggallery') ;?><?php }; ?></td> 
 			</tr>
@@ -360,16 +474,38 @@ class nggAddGallery {
 
     function tab_uploadimage() {
         global $ngg;
+        // check the cookie for the current setting
+        $checked = get_user_setting('ngg_upload_resize') ? ' checked="true"' : '';
     ?>
     	<!-- upload images -->
     	<h2><?php _e('Upload Images', 'nggallery') ;?></h2>
 		<form name="uploadimage" id="uploadimage_form" method="POST" enctype="multipart/form-data" action="<?php echo $this->filepath.'#uploadimage'; ?>" accept-charset="utf-8" >
 		<?php wp_nonce_field('ngg_addgallery') ?>
-			<table class="form-table"> 
-			<tr valign="top"> 
+			<table class="form-table">
+            
+			<tr valign="top">
 				<th scope="row"><?php _e('Upload image', 'nggallery') ;?></th>
+                <?php if ($ngg->options['swfUpload'] && defined('IS_WP_3_3') ) { ?>
+				<td>
+                <div id="plupload-upload-ui">
+                	<div>
+                    	<?php _e( 'Choose files to upload' ); ?>
+                    	<input id="plupload-browse-button" type="button" value="<?php esc_attr_e('Select Files'); ?>" class="button" />
+                	</div>
+                	<p class="ngg-dragdrop-info howto" style="display:none;" ><?php _e('Or you can drop the files into this window.'); ?></p>
+                    <div id='uploadQueue'></div>
+                    <p><label><input name="image_resize" type="checkbox" id="image_resize" value="true"<?php echo $checked; ?> />
+                        <?php printf( __( 'Scale images to max width %1$dpx or max height %2$dpx', 'nggallery' ), (int) $ngg->options['imgWidth' ], (int) $ngg->options[ 'imgHeight' ] ); ?>
+                        <div id='image_resize_pointer'>&nbsp;</div>
+                        </label>
+                    </p>
+                    
+                 </div>
+                </td>
+                <?php } else { ?>
 				<td><span id='spanButtonPlaceholder'></span><input type="file" name="imagefiles[]" id="imagefiles" size="35" class="imagefiles"/></td>
-			</tr> 
+                <?php } ?>
+            </tr> 
 			<tr valign="top"> 
 				<th scope="row"><?php _e('in to', 'nggallery') ;?></th> 
 				<td><select name="galleryselect" id="galleryselect">
@@ -383,11 +519,11 @@ class nggAddGallery {
 								continue;
 						
 						$name = ( empty($gallery->title) ) ? $gallery->name : $gallery->title;
-						echo '<option value="' . $gallery->gid . '" >' . $gallery->gid . ' - ' . $name . '</option>' . "\n";
+						echo '<option value="' . $gallery->gid . '" >' . $gallery->gid . ' - ' . esc_attr( $name ) . '</option>' . "\n";
 					}					?>
 				</select>
 				<br /><?php echo $this->maxsize; ?>
-				<br /><?php if ((IS_WPMU) && wpmu_enable_function('wpmuQuotaCheck')) display_space_usage(); ?></td> 
+				<br /><?php if ((is_multisite()) && wpmu_enable_function('wpmuQuotaCheck')) display_space_usage(); ?></td> 
 			</tr> 
 			</table>
 			<div class="submit">

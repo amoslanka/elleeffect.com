@@ -236,6 +236,29 @@ it's only a template design
 	
 }
 
+/* ----------- JS Slideshow -------------*/
+.ngg-slideshow {
+    overflow:hidden;
+    position: relative;
+}
+
+.ngg-slideshow * {
+    vertical-align:middle;
+}
+
+/* See also : http://www.brunildo.org/test/img_center.html */
+.ngg-slideshow-loader{
+    display: table-cell;
+    text-align: center;
+    vertical-align:middle;
+}
+
+.ngg-slideshow-loader img{
+    background: none !important; 
+    border: 0 none !important;
+    margin:auto !important; 
+}
+
 /* ----------- Single picture -------------*/
 .ngg-singlepic {
 	background-color:#FFFFFF;

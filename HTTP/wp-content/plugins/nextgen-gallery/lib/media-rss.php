@@ -3,7 +3,7 @@
 * Class to produce Media RSS nodes
 * 
 * @author 		Vincent Prat
-* @copyright 	Copyright 2008
+* @copyright 	Copyright 2008-2011
 */
 class nggMediaRss {
 	
@@ -18,9 +18,10 @@ class nggMediaRss {
 	 * Add the javascript required to enable PicLens/CoolIris support 
 	 */
 	function add_piclens_javascript() {
-		echo "\n" . '<!-- NextGeEN Gallery CoolIris/PicLens support -->';
-		echo "\n" . '<script type="text/javascript" src="http://lite.piclens.com/current/piclens_optimized.js"></script>';
-		echo "\n" . '<!-- /NextGEN Gallery CoolIris/PicLens support -->';
+        if (is_ssl())
+            wp_enqueue_script( 'piclens', 'https://lite.piclens.com/current/piclens_optimized.js', array(), false, true);
+		else
+            wp_enqueue_script( 'piclens', 'http://lite.piclens.com/current/piclens_optimized.js', array(), false, true);
 	}
 	
 	/**
@@ -62,7 +63,7 @@ class nggMediaRss {
 		
 		$title = stripslashes(get_option('blogname'));
 		$description = stripslashes(get_option('blogdescription'));
-		$link = get_option('siteurl');
+		$link = site_url();
 		$prev_link = ($page > 0) ? nggMediaRss::get_last_pictures_mrss_url($page-1, $show) : '';
 		$next_link = count($images)!=0 ? nggMediaRss::get_last_pictures_mrss_url($page+1, $show) : '';
 		
@@ -116,9 +117,9 @@ class nggMediaRss {
 	function get_mrss_root_node($title, $description, $link, $prev_link, $next_link, $images) {	
 		
 		if ($prev_link != '' || $next_link != '')
-			$out = "<rss version='2.0' xmlns:media='http://search.yahoo.com/mrss' xmlns:atom='http://www.w3.org/2005/Atom'>\n" ;
+			$out = "<rss version='2.0' xmlns:media='http://search.yahoo.com/mrss/' xmlns:atom='http://www.w3.org/2005/Atom'>\n" ;
 		else
-			$out = "<rss version='2.0' xmlns:media='http://search.yahoo.com/mrss'>\n";
+			$out = "<rss version='2.0' xmlns:media='http://search.yahoo.com/mrss/'>\n";
 		
 		$out .= "\t<channel>\n";
 		
@@ -126,7 +127,9 @@ class nggMediaRss {
 		$out .= nggMediaRss::get_title_mrss_node($title);
 		$out .= nggMediaRss::get_description_mrss_node($description);
 		$out .= nggMediaRss::get_link_mrss_node($link);
-				
+		
+        if ($prev_link != '' || $next_link != '')
+        	$out .= nggMediaRss::get_self_node(nggMediaRss::get_mrss_url());	
 		if ($prev_link!='') {
 			$out .= nggMediaRss::get_previous_link_mrss_node($prev_link);
 		}
@@ -148,7 +151,7 @@ class nggMediaRss {
 	 * Get the XML <generator> node
 	 */
 	function get_generator_mrss_node($indent = "\t\t") {	
-		return $indent . "<generator><![CDATA[NextGEN Gallery [http://alexrabe.boelinger.com]]]></generator>\n";
+		return $indent . "<generator><![CDATA[NextGEN Gallery [http://nextgen-gallery.com]]]></generator>\n";
 	}	
 	
 	/**
@@ -171,6 +174,13 @@ class nggMediaRss {
 	function get_link_mrss_node($link, $indent = "\t\t") {	
 		return $indent . "<link><![CDATA[" . htmlspecialchars($link) . "]]></link>\n";
 	}	
+
+	/**
+	 * Get the XML <atom:link self> node
+	 */
+	function get_self_node($link, $indent = "\t\t") {
+		return $indent . "<atom:link rel='self' href='" . htmlspecialchars($link) . "' type='application/rss+xml' />\n";
+	}
 	
 	/**
 	 * Get the XML <atom:link previous> node
@@ -207,15 +217,16 @@ class nggMediaRss {
 		$thumbheight = ($ngg_options['thumbfix'] ? $ngg_options['thumbheight'] : $thumbwidth); 	
 		
 		$out  = $indent . "<item>\n";
-		$out .= $indent . "\t<title><![CDATA[" . nggGallery::i18n($title) . "]]></title>\n";
-		$out .= $indent . "\t<description><![CDATA[" . nggGallery::i18n($desc) . "]]></description>\n";
-		$out .= $indent . "\t<link><![CDATA[" . $image->get_permalink() . "]]></link>\n";		
-		$out .= $indent . "\t<media:content url='" . $image->imageURL . "' medium='image' />\n";
-		$out .= $indent . "\t<media:title><![CDATA[" . nggGallery::i18n($title) . "]]></media:title>\n";
-		$out .= $indent . "\t<media:description><![CDATA[" . nggGallery::i18n($desc) . "]]></media:description>\n";
-		$out .= $indent . "\t<media:thumbnail url='" . $image->thumbURL . "' width='" . $thumbwidth . "' height='" . $thumbheight . "' />\n";
+		$out .= $indent . "\t<title><![CDATA[" . nggGallery::i18n($title, 'pic_' . $image->pid . '_alttext') . "]]></title>\n";
+		$out .= $indent . "\t<description><![CDATA[" . nggGallery::i18n($desc, 'pic_' . $image->pid . '_description') . "]]></description>\n";
+		$out .= $indent . "\t<link><![CDATA[" . $image->get_permalink() . "]]></link>\n";
+        $out .= $indent . "\t<guid>image-id:" . $image->pid . "</guid>\n";
+		$out .= $indent . "\t<media:content url='" . esc_url($image->imageURL) . "' medium='image' />\n";
+		$out .= $indent . "\t<media:title><![CDATA[" . nggGallery::i18n($title, 'pic_' . $image->pid . '_alttext') . "]]></media:title>\n";
+		$out .= $indent . "\t<media:description><![CDATA[" . nggGallery::i18n($desc, 'pic_' . $image->pid . '_description') . "]]></media:description>\n";
+		$out .= $indent . "\t<media:thumbnail url='" . esc_url($image->thumbURL) . "' width='" . $thumbwidth . "' height='" . $thumbheight . "' />\n";
 		$out .= $indent . "\t<media:keywords><![CDATA[" . nggGallery::i18n($tag_names) . "]]></media:keywords>\n";
-		$out .= $indent . "\t<media:copyright><![CDATA[Copyright (c) " . get_option("blogname") . " (" . get_option("siteurl") . ")]]></media:copyright>\n";
+		$out .= $indent . "\t<media:copyright><![CDATA[Copyright (c) " . get_option("blogname") . " (" . site_url() . ")]]></media:copyright>\n";
 		$out .= $indent . "</item>\n";
 
 		return $out;
@@ -223,7 +234,7 @@ class nggMediaRss {
 	
 	function get_permalink($page_id) {		 
 		if ($page_id == 0)	
-			$permalink = get_option('siteurl');		 
+			$permalink = site_url();		 
 		else 
 			$permalink = get_permalink($page_id);
 				 

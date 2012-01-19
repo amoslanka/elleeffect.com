@@ -5,7 +5,8 @@ if ( !class_exists('swfobject') ) :
  * 
  * @author Alex Rabe
  * @package NextGEN Gallery
- * @copyrigh V0.2
+ * @version 0.6
+ * @copyright GNU General Public License Version 2
  * @access public
  * @example http://code.google.com/p/swfobject/
  */
@@ -132,10 +133,9 @@ class swfobject {
 	function add_flashvars ( $key, $value, $default = '', $type = '', $prefix = '' ) {
 
 		if ( is_bool( $value ) )
-			$value = ( $value ) ? "true" : "false";
-		
-		if ( $type == "bool" )
-			$value = ( $value == "1" ) ? "true" : "false";
+			$value = ( $value ) ? 'true' : 'false';
+		elseif ( $type == 'bool' )
+			$value = ( $value == '1' ) ? 'true' : 'false';
 		
 		// do not add the variable if we hit the default setting 	
 		if ( $value == $default )	
@@ -148,10 +148,9 @@ class swfobject {
 	function add_params ( $key, $value, $default = '', $type = '', $prefix = '' ) {
 
 		if ( is_bool( $value ) )
-			$value = ( $value ) ? "true" : "false";
-		
-		if ( $type == "bool" )
-			$value = ( $value == "1" ) ? "true" : "false";
+			$value = ( $value ) ? 'true' : 'false';
+		elseif ( $type == 'bool' )
+			$value = ( $value == '1' ) ? 'true' : 'false';
 		
 		// do not add the variable if we hit the default setting 	
 		if ( $value == $default )	
@@ -164,15 +163,14 @@ class swfobject {
 	function add_attributes ( $key, $value, $default = '', $type = '', $prefix = '' ) {
 
 		if ( is_bool( $value ) )
-			$value = ( $value ) ? "true" : "false";
-		
-		if ( $type == "bool" )
-			$value = ( $value == "1" ) ? "true" : "false";
+			$value = ( $value ) ? 'true' : 'false';
+		elseif ( $type == 'bool' )
+			$value = ( $value == '1' ) ? 'true' : 'false';
 		
 		// do not add the variable if we hit the default setting 	
 		if ( $value == $default )	
 			return;
-			
+		
 		$this->attributes[$key] = $prefix . $value;
 		return;
 	}
@@ -182,8 +180,11 @@ class swfobject {
 		if ( is_array($params) ) {
 			foreach ($params as $key => $value) {
 				if  ( !empty($list) )
-					$list .= ",";	
-				$list .= "\n\t\t" . $key . ' : ' . '"' . $value .'"';
+					$list .= ",";
+				if (false === strrpos($key, '.') )		
+					$list .= "\n\t\t" . $key . ' : ' . '"' . $value .'"';
+				else
+					$list .= "\n\t\t'" . $key . '\' : ' . '"' . $value .'"';	
 			}
 		}
 		$js = "\t" . $name . ' : {' . $list . '}';		
@@ -192,4 +193,5 @@ class swfobject {
 	
 }
 endif;
+
 ?>

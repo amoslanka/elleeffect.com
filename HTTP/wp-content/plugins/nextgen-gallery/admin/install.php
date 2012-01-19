@@ -50,11 +50,13 @@ function nggallery_install () {
    	$nggpictures					= $wpdb->prefix . 'ngg_pictures';
 	$nggallery						= $wpdb->prefix . 'ngg_gallery';
 	$nggalbum						= $wpdb->prefix . 'ngg_album';
-   
-	if($wpdb->get_var("show tables like '$nggpictures'") != $nggpictures) {
+
+    // could be case senstive : http://dev.mysql.com/doc/refman/5.1/en/identifier-case-sensitivity.html
+	if( !$wpdb->get_var( "SHOW TABLES LIKE '$nggpictures'" ) ) {
       
 		$sql = "CREATE TABLE " . $nggpictures . " (
 		pid BIGINT(20) NOT NULL AUTO_INCREMENT ,
+        image_slug VARCHAR(255) NOT NULL ,
 		post_id BIGINT(20) DEFAULT '0' NOT NULL ,
 		galleryid BIGINT(20) DEFAULT '0' NOT NULL ,
 		filename VARCHAR(255) NOT NULL ,
@@ -71,11 +73,12 @@ function nggallery_install () {
       dbDelta($sql);
     }
 
-	if($wpdb->get_var("show tables like '$nggallery'") != $nggallery) {
+	if( !$wpdb->get_var( "SHOW TABLES LIKE '$nggallery'" )) {
       
 		$sql = "CREATE TABLE " . $nggallery . " (
 		gid BIGINT(20) NOT NULL AUTO_INCREMENT ,
 		name VARCHAR(255) NOT NULL ,
+        slug VARCHAR(255) NOT NULL ,
 		path MEDIUMTEXT NULL ,
 		title MEDIUMTEXT NULL ,
 		galdesc MEDIUMTEXT NULL ,
@@ -87,12 +90,13 @@ function nggallery_install () {
 	
       dbDelta($sql);
    }
-
-	if($wpdb->get_var("show tables like '$nggalbum'") != $nggalbum) {
+    
+	if( !$wpdb->get_var( "SHOW TABLES LIKE '$nggalbum'" )) {
       
 		$sql = "CREATE TABLE " . $nggalbum . " (
 		id BIGINT(20) NOT NULL AUTO_INCREMENT ,
 		name VARCHAR(255) NOT NULL ,
+        slug VARCHAR(255) NOT NULL ,
 		previewpic BIGINT(20) DEFAULT '0' NOT NULL ,
 		albumdesc MEDIUMTEXT NULL ,
 		sortorder LONGTEXT NOT NULL,
@@ -104,7 +108,7 @@ function nggallery_install () {
     }
 
 	// check one table again, to be sure
-	if($wpdb->get_var("show tables like '$nggpictures'")!= $nggpictures) {
+	if( !$wpdb->get_var( "SHOW TABLES LIKE '$nggpictures'" ) ) {
 		update_option( "ngg_init_check", __('NextGEN Gallery : Tables could not created, please check your database settings',"nggallery") );
 		return;
 	}
@@ -134,10 +138,11 @@ function ngg_default_options() {
 	$ngg_options['deleteImg']			= true;							// delete Images
 	$ngg_options['swfUpload']			= true;							// activate the batch upload
 	$ngg_options['usePermalinks']		= false;						// use permalinks for parameters
-	$ngg_options['graphicLibrary']		= 'gd';							// default graphic library
+    $ngg_options['permalinkSlug']		= 'nggallery';                  // the default slug for permalinks
+    $ngg_options['graphicLibrary']		= 'gd';							// default graphic library
 	$ngg_options['imageMagickDir']		= '/usr/local/bin/';			// default path to ImageMagick
-	$ngg_options['useMediaRSS']			= true;							// activate the global Media RSS file
-	$ngg_options['usePicLens']			= true;							// activate the PicLens Link for galleries
+	$ngg_options['useMediaRSS']			= false;						// activate the global Media RSS file
+	$ngg_options['usePicLens']			= false;						// activate the PicLens Link for galleries
 	
 	// Tags / categories
 	$ngg_options['activateTags']		= false;						// append related images
@@ -154,7 +159,6 @@ function ngg_default_options() {
 	$ngg_options['imgWidth']			= 800;  						// Image Width
 	$ngg_options['imgHeight']			= 600;  						// Image height
 	$ngg_options['imgQuality']			= 85;							// Image Quality
-	$ngg_options['imgCacheSinglePic']	= true;							// Cached the singlepic	
 	$ngg_options['imgBackup']			= true;							// Create a backup
 	$ngg_options['imgAutoResize']		= false;						// Resize after upload
 	
@@ -189,8 +193,10 @@ function ngg_default_options() {
 	$ngg_options['wmColor']				= '000000';  					// Font Color
 	$ngg_options['wmOpaque']			= '100';  						// Font Opaque
 
-	// Image Rotator settings
-	$ngg_options['irURL']				= '';
+	// Image Rotator settings 
+	$ngg_options['enableIR']		    = false;
+    $ngg_options['slideFx']		        = 'fade';
+    $ngg_options['irURL']				= '';
 	$ngg_options['irXHTMLvalid']		= false;
 	$ngg_options['irAudio']				= '';
 	$ngg_options['irWidth']				= 320; 
@@ -214,11 +220,11 @@ function ngg_default_options() {
 	$ngg_options['CSSfile']				= 'nggallery.css';  			// set default css filename
 	
 	// special overrides for WPMU	
-	if (IS_WPMU) {
+	if (is_multisite()) {
 		// get the site options
 		$ngg_wpmu_options = get_site_option('ngg_options');
 		
-		// get the default value during installation
+		// get the default value during first installation
 		if (!is_array($ngg_wpmu_options)) {
 			$ngg_wpmu_options['gallerypath'] = 'wp-content/blogs.dir/%BLOG_ID%/files/';
 			$ngg_wpmu_options['wpmuCSSfile'] = 'nggallery.css';
@@ -227,7 +233,6 @@ function ngg_default_options() {
 		
 		$ngg_options['gallerypath']  		= str_replace("%BLOG_ID%", $blog_id , $ngg_wpmu_options['gallerypath']);
 		$ngg_options['CSSfile']				= $ngg_wpmu_options['wpmuCSSfile'];
-		$ngg_options['imgCacheSinglePic']	= true; 					// under WPMU this should be enabled
 	} 
 	
 	update_option('ngg_options', $ngg_options);

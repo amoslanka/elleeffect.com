@@ -5,7 +5,7 @@
  Description: Client-side javascript blocks all spam bots.  XHTML 1.1 compliant.
  Author: Elliott Back
  Author URI: http://elliottback.com
- Version: 4.5.1
+ Version: 4.6
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -135,27 +135,6 @@ function widget_ratio($options){
 
 	return $msg;
 }
-
-function wphc_widget_init () {
-	if(!function_exists('register_sidebar_widget'))
-		return;
-
-	function widget_wphc($args) {
-		extract($args);
-		$options = wphc_option();
-
-		echo $before_widget . $before_title . '<a href="http://wordpress-plugins.feifei.us/hashcash/">WP Hashcash</a>' . $after_title;
-		echo '<ul>';
-		echo '<li><a href="http://elliottback.com/wp/">By Elliott Back</a></li>';
-		echo widget_ratio($options);
-		echo '</ul>';
-		echo $after_widget;
-	}
-	
-	register_sidebar_widget(array('WP Hashcash', 'widgets'), 'widget_wphc');
-}
-
-add_action('widgets_init', 'wphc_widget_init');
 
 /**
  * Admin Options
@@ -530,7 +509,6 @@ function wphc_add_commentform(){
 	}
 	
 	echo '<div><input type="hidden" id="wphc_value" name="wphc_value" value=""/></div>';
-	echo '<p>' . __('Powered by', 'wp-hashcash') . ' <a href="http://wordpress-plugins.feifei.us/hashcash/">WP Hashcash</a></p>';
 	echo '<noscript><div><small>Wordpress Hashcash needs javascript to work, but your browser has javascript disabled. Your comment will be '.$verb.'!</small></div></noscript>';
 }
 

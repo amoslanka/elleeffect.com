@@ -2,9 +2,9 @@
 /*
 Plugin Name: Lock Pages
 Plugin URI: http://wordpress.org/extend/plugins/lock-pages/
-Description: Allows admins to lock page slugs and parent page setting in order to prevent breakage of important URLs.
+Description: Allows admins to lock pages in order to prevent breakage of important URLs.
 Author: Steve Taylor
-Version: 0.1.6
+Version: 0.2.2
 Author URI: http://sltaylor.co.uk
 Based on: http://pressography.com/plugins/wordpress-plugin-template/
 */
@@ -26,21 +26,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/**
-* Guess the wp-content and plugin urls/paths
-*/
-// Pre-2.6 compatibility
-if ( ! defined( 'WP_CONTENT_URL' ) )
-	define( 'WP_CONTENT_URL', get_option( 'siteurl' ) . '/wp-content' );
-if ( ! defined( 'WP_CONTENT_DIR' ) )
-	define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-if ( ! defined( 'WP_PLUGIN_URL' ) )
-	define( 'WP_PLUGIN_URL', WP_CONTENT_URL. '/plugins' );
-if ( ! defined( 'WP_PLUGIN_DIR' ) )
-	define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
-
-
-if ( !class_exists('SLT_LockPages') ) {
+if ( ! class_exists('SLT_LockPages') ) {
 
 	class SLT_LockPages {
 
@@ -50,21 +36,13 @@ if ( !class_exists('SLT_LockPages') ) {
 		*/
 		var $prefix = 'slt_lockpages_';
 		/**
-		* @var	string	$optionsName	The options string name for this plugin
+		* @var	string	$options_name	The options string name for this plugin
 		*/
-		var $optionsName = 'SLT_LockPages_options';
+		var $options_name = 'SLT_LockPages_options';
 		/**
-		* @var	string	$localizationDomain	Domain used for localization
+		* @var	string	$localization_domain	Domain used for localization
 		*/
-		var $localizationDomain = "SLT_LockPages";
-		/**
-		* @var	string	$pluginurl	The path to this plugin
-		*/
-		var $thispluginurl = '';
-		/**
-		* @var	string	$pluginurlpath	The path to this plugin
-		*/
-		var $thispluginpath = '';
+		var $localization_domain = "SLT_LockPages";
 		/**
 		* @var	array		$options	Stores the options for this plugin
 		*/
@@ -82,64 +60,127 @@ if ( !class_exists('SLT_LockPages') ) {
 
 			// Language Setup
 			$locale = get_locale();
-			$mo = dirname(__FILE__) . "/languages/" . $this->localizationDomain . "-".$locale.".mo";
-			load_textdomain($this->localizationDomain, $mo);
-
-			// "Constants" setup
-			$this->thispluginurl = PLUGIN_URL . '/' . dirname(plugin_basename(__FILE__)).'/';
-			$this->thispluginpath = PLUGIN_PATH . '/' . dirname(plugin_basename(__FILE__)).'/';
+			$mo = dirname( __FILE__ ) . "/languages/" . $this->localization_domain . "-" . $locale . ".mo";
+			load_textdomain( $this->localization_domain, $mo );
 
 			// Initialize the options
 			// This is REQUIRED to initialize the options when the plugin is loaded!
-			$this->getOptions();
-
-			// Actions
+			$this->get_options();
+			
+			// Initialize hooks
+			add_action( 'admin_init', array( &$this, 'add_hooks' ) );
 			add_action( 'admin_menu', array( &$this, 'admin_menu_link' ) );
-			add_action( 'edit_page_form', array( &$this, 'oldValueFields' ) );
-			add_action( 'admin_notices', array( &$this, 'outputPageLockedNotice' ) );
 
-			// We only need the meta box on the edit screen if scope isn't set to lock all pages
+		}
+		
+		/**
+		* Add hooks
+		*
+		* @since	0.2
+		*/
+		function add_hooks() {
+			
+			// Changes to the page screens
+			add_action( 'edit_page_form', array( &$this, 'old_value_fields' ) );
+			add_action( 'admin_notices', array( &$this, 'output_page_locked_notice' ) );
+			add_action( 'add_meta_boxes', array( &$this, 'remove_slug_meta_box' ) );
+			add_action( 'load-post.php', array( &$this, 'load_js_css' ) );
+			add_action( 'load-edit.php', array( &$this, 'load_js_css' ) );
+			add_filter( 'page_row_actions', array( &$this, 'remove_page_row_actions' ), 10, 2 );
+			add_filter( 'get_sample_permalink_html', array( &$this, 'remove_edit_permalink' ), 10, 2 );
+			add_filter( 'wp_dropdown_pages', array( &$this, 'remove_parent_selection' ) );
+			add_filter( 'admin_body_class', array( &$this, 'admin_body_class' ) );
+
+			// These we only need if the scope is set to only lock specified pages
 			if ( $this->options[$this->prefix.'scope'] != "all" ) {
-				add_action( 'admin_menu', array( &$this, 'createMetaBox' ) );
-				//add_action( 'quick_edit_custom_box', array( &$this, 'outputQuickEdit' ), 1, 2 );
-				add_action( 'save_post', array( &$this, 'saveMeta' ), 1, 2 );
+				add_action( 'add_meta_boxes', array( &$this, 'create_meta_box' ) );
+				add_action( 'save_post', array( &$this, 'save_meta' ), 1, 2 );
+				add_filter( 'manage_pages_columns', array( &$this, 'pages_list_col' ) );
+				add_action( 'manage_pages_custom_column', array( &$this, 'pages_list_col_value' ), 10, 2 );
 			}
 
-			// Filters
-			add_filter( 'name_save_pre', array( &$this, 'lockSlug' ), 0 );
-			add_filter( 'parent_save_pre', array( &$this, 'lockParent' ), 0 );
-			add_filter( 'user_has_cap', array( &$this, 'lockDeletion' ), 0, 3 );
-			add_filter( 'page_row_actions', array( &$this, 'removeQuickEdit' ), 10, 2 );
-
-			// Page list management
-			add_filter( 'manage_pages_columns', array( &$this, 'pagesListCol' ) );
-			add_action( 'manage_pages_custom_column', array( &$this, 'pagesListColValue' ), 10, 2 );
-			add_filter( 'admin_head', array( &$this, 'adminHeader' ) );
-			//add_filter( 'admin_footer', array( &$this, 'adminFooter' ) );
-
+			// Filters to block saving
+			add_filter( 'name_save_pre', array( &$this, 'lock_slug' ), 0 );
+			add_filter( 'parent_save_pre', array( &$this, 'lock_parent' ), 0 );
+			add_filter( 'page_template_pre', array( &$this, 'lock_template' ), 0 );
+			add_filter( 'status_save_pre', array( &$this, 'lock_status' ), 0 );
+			add_filter( 'password_save_pre', array( &$this, 'lock_password' ), 0 );
+			add_filter( 'user_has_cap', array( &$this, 'lock_deletion' ), 0, 3 );
+			
 		}
 
 		/**
-		* Remove Quick Edit link from locked pages.
+		* Remove parent selection.
 		*
-		* @since		0.1.5
-		* @param		array		$cols		The columns
+		* @since	0.2
+		* @param	string	$output	The wp_dropdown_pages output
+		* @global	$post
+		* @return	string
+		*/
+		function remove_parent_selection( $output ) {
+			global $post;
+			if ( ! $this->user_can_edit( $post->ID ) )
+				$output = '';
+			return $output;
+		}
+
+		/**
+		* Remove slug meta box.
+		*
+		* @since	0.2
+		* @global	$post
+		* @uses		remove_meta_box()
+		*/
+		function remove_slug_meta_box() {
+			global $post;
+			if ( ! $this->user_can_edit( $post->ID ) )
+				remove_meta_box( 'slugdiv', 'page', 'normal' );
+		}
+		
+		/**
+		* Remove edit permalink functionality from permalink HTML.
+		*
+		* @since	0.2
+		* @param	string	$return		The edit permalink HTML to return
+		* @param	int		$id			The ID of the post being edited
+		* @return	string
+		*/
+		function remove_edit_permalink( $return, $id ) {
+			if ( ! $this->user_can_edit( $id ) ) {
+				$element_start = strpos( $return, '<span id="edit-slug-buttons"' );
+				$element_end = strpos( $return, '</span>', $element_start ) + 8;
+				$return = substr_replace( $return, '', $element_start, $element_end - $element_start );
+				$return = preg_replace( '#<span id="editable-post-name"[^>]*>([^<]+)</span>#', '$1', $return );
+			}
+			return $return;	
+		}
+
+		/**
+		* Remove certain page actions from locked pages.
+		*
+		* @since	0.1.5
+		* @param	array		$actions		The page row actions
+		* @param	object		$page			The page being listed
 		* @return	array
 		*/
-		function removeQuickEdit( $actions, $page ) {
-			if ( array_key_exists( "inline", $actions ) && !$this->userCanEdit( $page->ID ) )
-				unset ( $actions["inline"] );
+		function remove_page_row_actions( $actions, $page ) {
+			if ( ! $this->user_can_edit( $page->ID ) ) {
+				foreach ( array( 'inline', 'inline hide-if-no-js', 'trash' ) as $action_key ) {
+					if ( array_key_exists( $action_key, $actions ) )
+						unset ( $actions[ $action_key ] );
+				}
+			}
 			return $actions;	
 		}
 
 		/**
 		* Add lock column to admin pages list.
 		*
-		* @since		0.1.2
-		* @param		array		$cols		The columns
+		* @since	0.1.2
+		* @param	array		$cols		The columns
 		* @return	array
 		*/
-		function pagesListCol( $cols ) {
+		function pages_list_col( $cols ) {
 			$cols["page-locked"] = "Lock";
 			return $cols;
 		}
@@ -151,43 +192,68 @@ if ( !class_exists('SLT_LockPages') ) {
 		* @param		string		$column_name		The column name
 		* @param		int			$id					Page ID
 		*/
-		function pagesListColValue( $column_name, $id ) {
-			if ( $column_name == "page-locked" ) {
-				if ( $this->isPageLocked( $id ) ) {
-					echo '<img src="' . WP_PLUGIN_URL . '/lock-pages/lock.png" width="16" height="16" alt="Locked" />';
-				} else {
-					echo '&nbsp;';
-				}
+		function pages_list_col_value( $column_name, $id ) {
+			if ( $column_name == "page-locked" )
+				echo $this->is_page_locked( $id ) ? '<img src="' . plugins_url( 'lock.png', __FILE__ ) . '" width="16" height="16" alt="Locked" />' : '&nbsp;';
+		}
+
+		/**
+		* Prevents unauthorized users changing a page's password protection.
+		*
+		* @since	0.2
+		* @return	string
+		*/
+		function lock_password( $password ) {
+			// Can user edit this page?
+			if ( ! array_key_exists( 'post_ID', $_POST ) || $this->user_can_edit( $_POST['post_ID'] ) ) {
+				return $password;
+			} else {
+				// Keep old password, user can't change it
+				return $_POST[$this->prefix.'old_password'];
 			}
 		}
 
 		/**
-		* Extra stuff for admin header
+		* Prevents unauthorized users changing a page's status.
 		*
-		* @since		0.1.5
+		* @since	0.2
+		* @return	string
 		*/
-		function adminHeader() {
-			echo '<link rel="stylesheet" type="text/css" href="' . WP_PLUGIN_URL . '/lock-pages/lock-pages.css" />';
+		function lock_template( $template ) {
+			// Can user edit this page?
+			if ( ! array_key_exists( 'post_ID', $_POST ) || $this->user_can_edit( $_POST['post_ID'] ) ) {
+				return $template;
+			} else {
+				// Keep old status, user can't change it
+				return $_POST[$this->prefix.'old_page_template'];
+			}
 		}
 
 		/**
-		* Extra stuff for admin footer
+		* Prevents unauthorized users changing a page's status.
 		*
-		* @since		0.1.5
+		* @since	0.2
+		* @return	string
 		*/
-		function adminFooter() {
-			/*echo '<script type="text/javascript" src="' . WP_PLUGIN_URL . '/lock-pages/lock-pages.js"></script>';*/
+		function lock_status( $status ) {
+			// Can user edit this page?
+			if ( ! array_key_exists( 'post_ID', $_POST ) || $this->user_can_edit( $_POST['post_ID'] ) ) {
+				return $status;
+			} else {
+				// Keep old status, user can't change it
+				return $_POST[$this->prefix.'old_status'];
+			}
 		}
 
 		/**
 		* Prevents unauthorized users saving a new slug.
 		*
-		* @since		0.1
+		* @since	0.1
 		* @return	string
 		*/
-		function lockSlug( $slug ) {
+		function lock_slug( $slug ) {
 			// Can user edit this page?
-			if ( $this->userCanEdit( $_POST['post_ID'] ) ) {
+			if ( ! array_key_exists( 'post_ID', $_POST ) || $this->user_can_edit( $_POST['post_ID'] ) ) {
 				return $slug;
 			} else {
 				// Keep old slug, user can't change it
@@ -198,14 +264,14 @@ if ( !class_exists('SLT_LockPages') ) {
 		/**
 		* Prevents unauthorized users saving a new parent.
 		*
-		* @since		0.1
+		* @since	0.1
 		* @return	string
 		*/
-		function lockParent( $parent ) {
+		function lock_parent( $parent ) {
 			// Make sure this isn't an uploaded attachment
-			if ( !isset( $_POST["attachments"] ) && !isset( $_POST["html-upload"] ) ) {
+			if ( ! isset( $_POST["attachments"] ) && ! isset( $_POST["html-upload"] ) ) {
 				// Can user edit this page?
-				if ( $this->userCanEdit( $_POST['post_ID'] ) ) {
+				if ( ! array_key_exists( 'post_ID', $_POST ) || $this->user_can_edit( $_POST['post_ID'] ) ) {
 					return $parent;
 				} else {
 					// Keep old parent, user can't change it
@@ -219,29 +285,30 @@ if ( !class_exists('SLT_LockPages') ) {
 		/**
 		* Prevents unauthorized users deleting a locked page.
 		*
-		* @since		0.1.1
-		* @param		array		$allcaps		Capabilities granted to user
-		* @param		array		$caps			Capabilities being checked
-		* @param		array		$args			Optional arguments being passed
+		* @since	0.1.1
+		* @param	array		$allcaps		Capabilities granted to user
+		* @param	array		$caps			Capabilities being checked
+		* @param	array		$args			Optional arguments being passed
+		* @global	$post
 		* @return	array
 		*/
-		function lockDeletion( $allcaps, $caps, $args ) {
-			$capCheck = $args[0];
-			$userID = $args[1];
-			$postID = $args[2];
+		function lock_deletion( $allcaps, $caps, $args ) {
+			global $post;
+			$cap_check = count( $args ) ? $args[0] : '';
+			$user_id = count( $args ) > 1 ? $args[1] : 0;
+			$post_id = count( $args ) > 2 ? $args[2] : 0;
 			// Is the check for deleting a page?
-			if ( $capCheck == "delete_page" && $postID ) {
+			if ( ( $cap_check == "delete_page" || $cap_check == "delete_post" ) && $post_id && is_object( $post ) && property_exists( $post, 'post_type' ) && $post->post_type == "page" ) {
 				// Basic check for "edit locked page" capability
-				$userCan = $allcaps[ $this->options[$this->prefix.'capability'] ];
+				$user_can = array_key_exists( $this->options[$this->prefix.'capability'], $allcaps ) && $allcaps[ $this->options[$this->prefix.'capability'] ];
 				// Override it if page isn't locked and scope isn't all pages
-				if ( $this->options[$this->prefix.'scope'] != "all" && !$this->isPageLocked( $postID ) )
-					$userCan = true;
+				if ( $this->options[$this->prefix.'scope'] != "all" && ! $this->is_page_locked( $post_id ) )
+					$user_can = true;
 				// If user isn't able to touch this page, remove delete capabilities
-				if ( !$userCan ) {
+				if ( ! $user_can ) {
 					foreach( $allcaps as $cap => $value ) {
-						if ( strpos( $cap, "delete" )!==false && strpos( $cap, "pages" )!==false ) {
+						if ( strpos( $cap, "delete_" ) !== false && ( strpos( $cap, "pages" ) !== false || strpos( $cap, "posts" ) !== false ) )
 							unset( $allcaps[$cap] );
-						}
 					}
 				}
 			}
@@ -251,25 +318,32 @@ if ( !class_exists('SLT_LockPages') ) {
 		/**
 		* Stores old values for locked fields in hidden fields on the page edit form.
 		*
-		* @since		0.1
-		* @global	WP_Query		$post
+		* @since	0.1
+		* @global	$post
 		*/
-		function oldValueFields() {
+		function old_value_fields() {
 			global $post;
-			echo '<input type="hidden" name="' . $this->prefix . 'old_slug" value="' . $post->post_name . '" />';
-			echo '<input type="hidden" name="' . $this->prefix . 'old_parent" value="' . $post->post_parent . '" />';
+			echo '<input type="hidden" name="' . esc_attr( $this->prefix ) . 'old_password" value="' . esc_attr( $post->post_password ) . '" />';
+			echo '<input type="hidden" name="' . esc_attr( $this->prefix ) . 'old_status" value="' . esc_attr( $post->post_status ) . '" />';
+			echo '<input type="hidden" name="' . esc_attr( $this->prefix ) . 'old_slug" value="' . esc_attr( $post->post_name ) . '" />';
+			echo '<input type="hidden" name="' . esc_attr( $this->prefix ) . 'old_parent" value="' . esc_attr( $post->post_parent ) . '" />';
+			echo '<input type="hidden" name="' . esc_attr( $this->prefix ) . 'old_page_template" value="' . esc_attr( $post->page_template ) . '" />';
 		}
 
 		/**
 		* Outputs warning to users who won't be able to change page elements when editing.
 		*
-		* @since		0.1
+		* @since	0.1
+		* @global	$post $pagenow
 		*/
-		function outputPageLockedNotice() {
-			if ( basename( $_SERVER["SCRIPT_NAME"] ) == "page.php" &&
+		function output_page_locked_notice() {
+			global $post, $pagenow;
+			if (
+				$pagenow == 'post.php' &&
 				$_GET["action"] == "edit" &&
-				!$this->userCanEdit( $_GET["post"] ) )
-				echo '<div class="updated"><p>' . __( 'Please note that this page is currently locked, and you won\'t be able to change the slug or parent.', $this->localizationDomain ) . '</p></div>';
+				! $this->user_can_edit( $post->ID )
+			)
+				echo '<div class="updated page-locked-notice"><p>' . __( 'Please note that this page is currently locked.', $this->localization_domain ) . '</p></div>';
 		}
 
 
@@ -277,59 +351,30 @@ if ( !class_exists('SLT_LockPages') ) {
  		* Adds the meta box to the page edit screen if the current scope isn't to lock all pages.
  		* Only outputs box for users who have the capability to edit locked pages.
  		*
- 		* @since		0.1
+ 		* @since	0.1
  		* @uses		add_meta_box() Creates an additional meta box.
  		*/
-		function createMetaBox() {
-			if ( current_user_can( $this->options[$this->prefix.'capability'] ) ) {
-				add_meta_box( $this->prefix.'_meta-box', 'Page locking', array( &$this, 'outputMetaBox' ), 'page', 'side', 'high' );
-			}
+		function create_meta_box() {
+			if ( current_user_can( $this->options[$this->prefix.'capability'] ) )
+				add_meta_box( $this->prefix.'_meta-box', 'Page locking', array( &$this, 'output_meta_box' ), 'page', 'side', 'high' );
 		}
 
 		/**
  		* Controls the display of the page locking meta box.
  		*
- 		* @since		0.1
+ 		* @since	0.1
  		* @global	$post
  		*/
-		function outputMetaBox() {
+		function output_meta_box() {
 			if ( current_user_can( $this->options[$this->prefix.'capability'] ) ) {
 				global $post; ?>
 
-				<input type="hidden" name="<?php echo $this->prefix; ?>meta_nonce" value="<?php echo wp_create_nonce(plugin_basename(__FILE__)); ?>" />
-				<label for="<?php echo $this->prefix; ?>locked">
-					<input type="checkbox" name="<?php echo $this->prefix; ?>locked" id="<?php echo $this->prefix; ?>locked"<?php if ( $this->isPageLocked( $post->ID ) ) echo ' checked="checked"'; ?> value="true" />
-					<?php _e( 'Lock the slug, parent and deletion of this page', $this->localizationDomain ); ?>
+				<input type="hidden" name="<?php echo esc_attr( $this->prefix ); ?>meta_nonce" value="<?php echo wp_create_nonce(plugin_basename(__FILE__)); ?>" />
+				<label for="<?php echo esc_attr( $this->prefix ); ?>locked">
+					<input type="checkbox" name="<?php echo esc_attr( $this->prefix ); ?>locked" id="<?php echo $this->prefix; ?>locked"<?php if ( $this->is_page_locked( $post->ID ) ) echo ' checked="checked"'; ?> value="true" />
+					<?php _e( 'Lock this page', $this->localization_domain ); ?>
 				</label>
 
-				<?php
-			}
-		}
-        
-		/**
- 		* Outputs stuff for quick edit.
- 		* Having trouble finding how to populate value with JS
- 		* Still needed for now to include old slug / parent
- 		*
- 		* @since		0.1.5
- 		* @global	$post
- 		*/
-		function outputQuickEdit( $column_name, $type ) {
-			if ( $type == "page" ) {
-				/*if ( current_user_can( $this->options[$this->prefix.'capability'] ) ) { ?>
-				
-				<fieldset class="inline-edit-col-left"><div class="inline-edit-col">
-					<label>
-						<span class="title"><?php _e( 'Lock', $this->localizationDomain ); ?></span>
-						<input type="checkbox" name="<?php echo $this->prefix; ?>locked" id="<?php echo $this->prefix; ?>locked" value="true" />
-					</label>
-				</div></fieldset>
-			
-				<?php }*/ ?>
-				
-				<input type="hidden" name="<?php echo $this->prefix; ?>old_slug" value="" />
-				<input type="hidden" name="<?php echo $this->prefix; ?>old_parent" value="" />
-				
 				<?php
 			}
 		}
@@ -338,48 +383,50 @@ if ( !class_exists('SLT_LockPages') ) {
  		* Saves the page locking metabox data to a custom field.
  		*
  		* @since	0.1
- 		* @uses	current_user_can()
+ 		* @uses		current_user_can()
  		*/
-		function saveMeta( $postID, $post ) {
+		function save_meta( $post_id, $post ) {
 
 			/* Block:
 			- Users who can't change locked pages
 			- Users who can't edit pages
 			- Revisions, autoupdates, quick edits, posts etc.
+			- Simple Page Ordering plugin
 			*/
 			if (
-					( !current_user_can( $this->options[$this->prefix.'capability'] ) ) ||
-					( !current_user_can( 'edit_pages', $postID ) ) ||
-					( $post->post_type != 'page' ) ||
-					isset( $_POST["_inline_edit"] )
+				( ! current_user_can( $this->options[$this->prefix.'capability'] ) ) ||
+				( ! current_user_can( 'edit_pages', $post_id ) ) ||
+				( $post->post_type != 'page' ) ||
+				isset( $_POST["_inline_edit"] ) ||
+				( isset( $_REQUEST["action"] ) && $_REQUEST["action"] == 'simple_page_ordering'  )
 			)
 				return;
 
 			// Get list of locked pages
-			$lockedPages = $this->options[$this->prefix.'locked_pages'];
-			$lockedPages = explode( ',', $lockedPages );
+			$locked_pages = $this->options[$this->prefix.'locked_pages'];
+			$locked_pages = explode( ',', $locked_pages );
 			$update = false;
 
 			if ( $_POST[$this->prefix.'locked'] ) {
 				// Box was checked, make sure page is added to list of locked pages
-				if ( !in_array( $postID, $lockedPages ) ) {
-					$lockedPages[] = $postID;
+				if ( ! in_array( $post_id, $locked_pages ) ) {
+					$locked_pages[] = $post_id;
 					$update = true;
 				}
 			} else {
 				// Box not checked, make sure page isn't in list of locked pages
-				$IDPosition = array_search( $postID, $lockedPages );
-				if ( $IDPosition !== false ) {
-					unset( $lockedPages[$IDPosition] );
+				$id_pos = array_search( $post_id, $locked_pages );
+				if ( $id_pos !== false ) {
+					unset( $locked_pages[$id_pos] );
 					$update = true;
 				}
 			}
 
 			// Need to update?
 			if ( $update ) {
-				$lockedPages = implode( ',', $lockedPages );
-				$this->options[$this->prefix.'locked_pages'] = $lockedPages;
-				$this->saveAdminOptions();
+				$locked_pages = implode( ',', $locked_pages );
+				$this->options[$this->prefix.'locked_pages'] = $locked_pages;
+				$this->save_admin_options();
 			}
 
 		}
@@ -388,77 +435,110 @@ if ( !class_exists('SLT_LockPages') ) {
 		* Checks whether current user can edit page elements according to plugin settings
 		* (and maybe page being edited).
 		*
-		* @since		0.1
-		* @param		int	$postID		Optional ID of post being edited
+		* @since	0.1
+		* @param	int	$post_id		Optional ID of post being edited
 		* @uses		current_user_can()
 		* @return	bool
 		*/
-		function userCanEdit( $postID = 0 ) {
+		function user_can_edit( $post_id = 0 ) {
 			// Basic check for "edit locked page" capability
-			$userCan = current_user_can( $this->options[$this->prefix.'capability'] );
+			$user_can = current_user_can( $this->options[$this->prefix.'capability'] );
 			// Override it if page isn't locked, a specific page is being edited, and scope isn't all pages
-			if ( $this->options[$this->prefix.'scope'] != "all" && $postID && !$this->isPageLocked( $postID ) )
-				$userCan = true;
-			return $userCan;
+			if ( $this->options[$this->prefix.'scope'] != "all" && $post_id && ! $this->is_page_locked( $post_id ) )
+				$user_can = true;
+			return $user_can;
 		}
 
 		/**
 		* Checks if a specified page is currently locked (irrespective of the scope setting).
 		* @return	bool
+		* @since	0.1
 		*/
-		function isPageLocked( $postID ) {
-			if ( $postID ) {
-				$lockedPages = $this->options[$this->prefix.'locked_pages'];
-				$lockedPages = explode( ',', $lockedPages );
-				return in_array( $postID, $lockedPages );
+		function is_page_locked( $post_id ) {
+			if ( $post_id ) {
+				$locked_pages = $this->options[$this->prefix.'locked_pages'];
+				$locked_pages = explode( ',', $locked_pages );
+				return in_array( $post_id, $locked_pages );
 			} else {
 				return false;
 			}
 		}
 
 		/**
+		* Load JavaScript and CSS
+		* 
+		* @since	0.2
+		* @uses	wp_enqueue_script() wp_enqueue_style()
+		*/
+		function load_js_css() {
+			wp_enqueue_script( $this->prefix . '_js', plugins_url( 'lock-pages.js', __FILE__ ), array( 'jquery' ) );
+			wp_enqueue_style( $this->prefix . '_css', plugins_url( 'lock-pages.css', __FILE__ ) );
+		}
+
+		/**
+		* Signal a locked page with a body class
+		* 
+		* @since	0.2
+		* @global	$post $pagenow
+		*/
+		function admin_body_class( $class ) {
+			global $post, $pagenow;
+			if (
+				$pagenow == 'post.php' &&
+				$_GET["action"] == "edit" &&
+				! $this->user_can_edit( $post->ID )
+			)
+				$class .= ' page-locked';
+   			return $class;
+		}
+
+
+		/**
 		* Retrieves the plugin options from the database.
 		* @return	array
+		* @since	0.1
+		* @uses		update_option()
 		*/
-		function getOptions() {
+		function get_options() {
 			// Don't forget to set up the default options
-			if ( !$theOptions = get_option( $this->optionsName ) ) {
-				$theOptions = array(
+			if ( ! $the_options = get_option( $this->options_name ) ) {
+				$the_options = array(
 					$this->prefix.'capability' => 'manage_options',
 					$this->prefix.'scope' => 'locked',
 					$this->prefix.'locked_pages' => ''
 				);
-				update_option($this->optionsName, $theOptions);
+				update_option($this->options_name, $the_options);
 			}
-			$this->options = $theOptions;
-
-			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			// There is no return here, because you should use the $this->options variable!!!
-			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			$this->options = $the_options;
 		}
 
 		/**
 		* Saves the admin options to the database.
+		* @since	0.1
+		* @uses		update_option()
 		*/
-		function saveAdminOptions(){
-			return update_option( $this->optionsName, $this->options );
+		function save_admin_options(){
+			return update_option( $this->options_name, $this->options );
 		}
 
 		/**
 		* @desc Adds the options subpanel
+		* @since	0.1
+		* @uses		add_options_page() add_filter()
 		*/
 		function admin_menu_link() {
 			// If you change this from add_options_page, MAKE SURE you change the filter_plugin_actions function (below) to
 			// reflect the page filename (ie - options-general.php) of the page your plugin is under!
-			add_options_page('Lock Pages', 'Lock Pages', $this->options[$this->prefix.'capability'], basename(__FILE__), array(&$this,'admin_options_page'));
+			add_options_page( 'Lock Pages', 'Lock Pages', 'update_core', basename( __FILE__ ), array( &$this, 'admin_options_page' ) );
 			add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array(&$this, 'filter_plugin_actions'), 10, 2 );
 		}
 
 		/**
 		* @desc Adds the Settings link to the plugin activate/deactivate page
+		* @since	0.1
 		*/
 		function filter_plugin_actions($links, $file) {
-			// If your plugin is under a different top-level menu than Settiongs (IE - you changed the function above to something other than add_options_page)
+			// If your plugin is under a different top-level menu than Settings (IE - you changed the function above to something other than add_options_page)
 			// Then you're going to want to change options-general.php below to the name of your top-level page
 			$settings_link = '<a href="options-general.php?page=' . basename(__FILE__) . '">' . __('Settings') . '</a>';
 			array_unshift( $links, $settings_link ); // before other links
@@ -468,19 +548,19 @@ if ( !class_exists('SLT_LockPages') ) {
 
 		/**
 		* Adds settings/options page
+		* @since	0.1
 		*/
 		function admin_options_page() {
 
-			if ($_POST['SLT_LockPages_save']) {
-				if (! wp_verify_nonce($_POST['_wpnonce'], 'SLT_LockPages-update-options') ) {
-					die( __( 'Whoops! There was a problem with the data you posted. Please go back and try again.', $this->localizationDomain ) );
-				}
+			if ( array_key_exists( 'SLT_LockPages_save', $_POST ) && $_POST['SLT_LockPages_save'] ) {
+				if (! wp_verify_nonce($_POST['_wpnonce'], 'SLT_LockPages-update-options') )
+					die( __( 'Whoops! There was a problem with the data you posted. Please go back and try again.', $this->localization_domain ) );
 
 				$this->options[$this->prefix.'capability'] = $_POST[$this->prefix.'capability'];
 				$this->options[$this->prefix.'scope'] = $_POST[$this->prefix.'scope'];
-				$this->saveAdminOptions();
+				$this->save_admin_options();
 
-				echo '<div class="updated"><p>'.__( 'Your changes were sucessfully saved.', $this->localizationDomain ).'</p></div>';
+				echo '<div class="updated"><p>'.__( 'Your changes were sucessfully saved.', $this->localization_domain ).'</p></div>';
 			}
 
 			/**
@@ -489,54 +569,52 @@ if ( !class_exists('SLT_LockPages') ) {
 			// Need to check if the capability entered actually exists
 			if ( function_exists( 'members_get_capabilities' ) ) {
 				// Use Members plugin function
-				$currentCaps = members_get_capabilities();
+				$current_caps = members_get_capabilities();
 			} else {
 				// Just get capabilities from all current roles
 				// Code based on Members plugin function members_get_role_capabilities()
 				global $wp_roles;
-				$currentCaps = array();
+				$current_caps = array();
 				/* Loop through each role object because we need to get the caps. */
 				foreach ( $wp_roles->role_objects as $key => $role ) {
 					/* Roles without capabilities will cause an error,
 					so we need to check if $role->capabilities is an array. */
 					if ( is_array( $role->capabilities ) ) {
-						/* Loop through the role's capabilities and add them to the $currentCaps array. */
+						/* Loop through the role's capabilities and add them to the $current_caps array. */
 						foreach ( $role->capabilities as $cap => $grant )
-							$currentCaps[$cap] = $cap;
+							$current_caps[$cap] = $cap;
 					}
 				}
 			}
 
 			// Set alert if necessary
-			$capAlert = "";
-			if ( !in_array( $this->options[$this->prefix.'capability'], $currentCaps ) ) {
-				$capAlert = __( "Warning! The capability you have entered isn't currently granted to any roles in this installation.", $this->localizationDomain );
-			}
+			$cap_alert = "";
+			if ( ! in_array( $this->options[$this->prefix.'capability'], $current_caps ) )
+				$cap_alert = __( "Warning! The capability you have entered isn't currently granted to any roles in this installation.", $this->localization_domain );
 
 			?>
 			<div class="wrap">
-				<h2>Lock Pages</h2>
+				<h2><?php _e( 'Lock Pages', $this->localization_domain ); ?></h2>
 				<form method="post" id="SLT_LockPages_options">
 					<?php wp_nonce_field('SLT_LockPages-update-options'); ?>
 					<table width="100%" cellspacing="2" cellpadding="5" class="form-table">
 						<?php
-						if ( $capAlert ) {
-							echo '<div class="error"><p>' . $capAlert . '</p></div>';
-						}
+						if ( $cap_alert )
+							echo '<div class="error"><p>' . $cap_alert . '</p></div>';
 						?>
 						<tr valign="top">
-							<th width="33%" scope="row"><label for="<?php echo $this->prefix; ?>capability"><?php _e( 'WP capability needed to edit locked page elements', $this->localizationDomain ); ?></label></th>
-							<td><input name="<?php echo $this->prefix; ?>capability" type="text" id="<?php echo $this->prefix; ?>capability" size="45" value="<?php echo $this->options[$this->prefix.'capability']; ?>"/></td>
+							<th width="33%" scope="row"><label for="<?php echo esc_attr( $this->prefix ); ?>capability"><?php _e( 'WP capability needed to edit locked page elements', $this->localization_domain ); ?></label></th>
+							<td><input name="<?php echo esc_attr( $this->prefix ); ?>capability" type="text" id="<?php echo esc_attr( $this->prefix ); ?>capability" size="45" value="<?php echo esc_attr( $this->options[$this->prefix.'capability'] ); ?>"/></td>
 						</tr>
 						<tr valign="top">
-							<th width="33%" scope="row"><?php _e( 'Scope for locking', $this->localizationDomain ); ?></th>
+							<th width="33%" scope="row"><?php _e( 'Scope for locking', $this->localization_domain ); ?></th>
 							<td>
-								<input name="<?php echo $this->prefix; ?>scope" type="radio" id="<?php echo $this->prefix; ?>scope_locked" value="locked"<?php if ( $this->options[$this->prefix.'scope']=="locked" ) echo ' checked="checked"'; ?> /> <label for="<?php echo $this->prefix; ?>scope_locked"><?php _e( 'Lock only specified pages', $this->localizationDomain ); ?></label><br />
-								<input name="<?php echo $this->prefix; ?>scope" type="radio" id="<?php echo $this->prefix; ?>scope_locked" value="all"<?php if ( $this->options[$this->prefix.'scope']=="all" ) echo ' checked="checked"'; ?> /> <label for="<?php echo $this->prefix; ?>scope_all"><?php _e( 'Lock all pages', $this->localizationDomain ); ?></label>
+								<input name="<?php echo esc_attr( $this->prefix ); ?>scope" type="radio" id="<?php echo esc_attr( $this->prefix ); ?>scope_locked" value="locked"<?php if ( $this->options[$this->prefix.'scope']=="locked" ) echo ' checked="checked"'; ?> /> <label for="<?php echo esc_attr( $this->prefix ); ?>scope_locked"><?php _e( 'Lock only specified pages', $this->localization_domain ); ?></label><br />
+								<input name="<?php echo esc_attr( $this->prefix ); ?>scope" type="radio" id="<?php echo esc_attr( $this->prefix ); ?>scope_locked" value="all"<?php if ( $this->options[$this->prefix.'scope']=="all" ) echo ' checked="checked"'; ?> /> <label for="<?php echo esc_attr( $this->prefix ); ?>scope_all"><?php _e( 'Lock all pages', $this->localization_domain ); ?></label>
 							</td>
 						</tr>
 					</table>
-					<p class="submit"><input type="submit" value="Save Changes" class="button-primary" name="SLT_LockPages_save" /></p>
+					<p class="submit"><input type="submit" value="<?php _e( 'Save Changes', $this->localization_domain ); ?>" class="button-primary" name="SLT_LockPages_save" /></p>
 				</form>
 			<?php
 		}

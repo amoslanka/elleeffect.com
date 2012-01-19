@@ -18,7 +18,8 @@
 
 			ed.addCommand('mceNextGEN', function() {
 				ed.windowManager.open({
-					file : url + '/window.php',
+				    // call content via admin-ajax, no need to know the full plugin path
+					file : ajaxurl + '?action=ngg_tinymce',
 					width : 360 + ed.getLang('NextGEN.delta_width', 0),
 					height : 210 + ed.getLang('NextGEN.delta_height', 0),
 					inline : 1
@@ -64,8 +65,8 @@
 			return {
 					longname  : 'NextGEN',
 					author 	  : 'Alex Rabe',
-					authorurl : 'http://alexrabe.boelinger.com',
-					infourl   : 'http://alexrabe.boelinger.com',
+					authorurl : 'http://alexrabe.de',
+					infourl   : 'http://alexrabe.de',
 					version   : "2.0"
 			};
 		}
@@ -74,5 +75,3 @@
 	// Register plugin
 	tinymce.PluginManager.add('NextGEN', tinymce.plugins.NextGEN);
 })();
-
-

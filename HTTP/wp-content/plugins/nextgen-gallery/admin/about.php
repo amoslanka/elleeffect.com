@@ -6,6 +6,7 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 	?>
 
 	<div class="wrap">
+    <?php screen_icon( 'nextgen-gallery' ); ?>
 	<h2><?php _e('Copyright notes / Credits', 'nggallery') ;?></h2>
 	<div id="poststuff">
 		<div class="postbox">
@@ -27,7 +28,7 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 				<li><a href="http://www.lesterchan.net/" target="_blank">GaMerZ</a> <?php _e('for a lot of very useful plugins and ideas', 'nggallery') ;?></li>
 				<li><a href="http://www.laptoptips.ca/" target="_blank">Andrew Ozz</a> <?php _e('for Shutter Reloaded, a real lightweight image effect', 'nggallery') ;?></li>
 				<li><a href="http://www.jeroenwijering.com/" target="_blank">Jeroen Wijering</a> <?php _e('for the best Media Flash Scripts on earth', 'nggallery') ;?></li>
-				<li><a href="http://www.pinvoke.com/" target="_blank">Yusuke Kamiyamane</a> <?php _e('for the Fugue Iconset', 'nggallery') ;?></li>
+				<li><a href="http://field2.com" target="_blank">Ben Dunkle</a> <?php _e('for the Gallery Icon', 'nggallery') ;?></li>
 				<li><a href="http://watermark.malcherek.com/" target="_blank">Marek Malcherek</a> <?php _e('for the Watermark plugin', 'nggallery') ;?></li>
 				</ul>
 				<p><?php _e('If you didn\'t find your name on this list and there is some code which I integrate in my plugin, don\'t hesitate to send me a mail.', 'nggallery') ;?></p>		

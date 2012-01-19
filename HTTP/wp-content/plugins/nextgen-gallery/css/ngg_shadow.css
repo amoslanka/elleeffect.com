@@ -2,7 +2,7 @@
 CSS Name: Shadow Effect
 Description: NextGEN Default Style with a Shadow effect
 Author: Alex Rabe
-Version: 1.50
+Version: 1.60
    
 This is a template stylesheet that can be used with NextGEN Gallery. I tested the
 styles with a default theme Kubrick. Modify it when your theme struggle with it,
@@ -234,6 +234,29 @@ it's only a template design
 
 .slideshowlink {
 	
+}
+
+/* ----------- JS Slideshow -------------*/
+.ngg-slideshow {
+    overflow:hidden;
+    position: relative;
+}
+
+.ngg-slideshow * {
+    vertical-align:middle;
+}
+
+/* See also : http://www.brunildo.org/test/img_center.html */
+.ngg-slideshow-loader{
+    display: table-cell;
+    text-align: center;
+    vertical-align:middle;
+}
+
+.ngg-slideshow-loader img{
+    background: none !important; 
+    border: 0 none !important;
+    margin:auto !important; 
 }
 
 /* ----------- Single picture -------------*/

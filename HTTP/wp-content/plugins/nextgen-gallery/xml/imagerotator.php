@@ -15,7 +15,7 @@ if ( !defined('ABSPATH') )
 global $wpdb;
 
 $ngg_options = get_option ('ngg_options');
-$siteurl	 = get_option ('siteurl');
+$siteurl	 = site_url();
 
 // get the gallery id
 $galleryID = (int) $_GET['gid'];
@@ -38,9 +38,9 @@ if (is_array ($thepictures)){
 	foreach ($thepictures as $picture) {
 		echo "		<track>\n";
 		if (!empty($picture->description))	
-		echo "			<title>".strip_tags(stripslashes(html_entity_decode(nggGallery::i18n($picture->description))))."</title>\n";
+		echo "			<title>".strip_tags(stripslashes(html_entity_decode(nggGallery::i18n($picture->description, 'pic_' . $picture->pid . '_description'))))."</title>\n";
 		else if (!empty($picture->alttext))	
-		echo "			<title>".stripslashes(nggGallery::i18n($picture->alttext))."</title>\n";
+		echo "			<title>".stripslashes(nggGallery::i18n($picture->alttext, 'pic_' . $picture->pid . '_alttext'))."</title>\n";
 		else 
 		echo "			<title>".$picture->filename."</title>\n";
 		echo "			<location>".$siteurl."/".$picture->path."/".$picture->filename."</location>\n";
