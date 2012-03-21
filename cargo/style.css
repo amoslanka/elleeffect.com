@@ -219,15 +219,15 @@ body {
     }
 
     .project_link a { color: #666666}
-    .project_link a:hover { color: #2d86ff; text-decoration: underline; }
+    .project_link a:hover { color: #00484f; text-decoration: underline; }
     .project_link a:active { color: #333333; }
 
     .page_link a { color: #666666}
-    .page_link a:hover { color: #2d86ff; text-decoration: underline; }
+    .page_link a:hover { color: #00484f; text-decoration: underline; }
     .page_link a:active { color: #333333; }
 
     .link_link a { color: #666666; }
-    .link_link a:hover { color: #2d86ff; text-decoration: underline; }
+    .link_link a:hover { color: #00484f; text-decoration: underline; }
     .link_link a:active { color: #333333; }
 
     .nav_active a { color: #000000; font-weight: bold; }
@@ -236,12 +236,12 @@ body {
     .bottompad .pagination { margin-left: 25px; }
 
     .pagination a { color: #666666; text-decoration: none; }
-    .pagination a:hover { color: #2d86ff; text-decoration: underline; }
+    .pagination a:hover { color: #00484f; text-decoration: underline; }
     .pagination a:active { color: #333333; }
 
     .nav_follow { color: #999; font-size: 13px; z-index: 11; }
     .nav_follow a { color: #666666}
-    .nav_follow a:hover { color: #2d86ff; text-decoration:underline; }
+    .nav_follow a:hover { color: #00484f; text-decoration:underline; }
     .nav_follow a:active { color: #333333; }
         
     .view_tag_info {
@@ -251,7 +251,7 @@ body {
     }
     
     .view_tag_info a { color: #333333; text-decoration: underline; }
-    .view_tag_info a:hover { color: #2d86ff; text-decoration: underline; }
+    .view_tag_info a:hover { color: #00484f; text-decoration: underline; }
     .view_tag_info a:active { color: #333333; }
     
     
@@ -285,7 +285,7 @@ body {
     }
     
     .bodycopy a { color: #000000; text-decoration: underline; }
-    .bodycopy a:hover { color: #2d86ff; }
+    .bodycopy a:hover { color: #00484f; }
     .bodycopy a:active { color: #666666; }
 
     .project_title {
@@ -324,7 +324,7 @@ body {
             }
 
             .project_header a:hover {
-                color: #2d86ff;
+                color: #00484f;
                 text-decoration: underline;
             }
 
@@ -553,7 +553,7 @@ body {
     }
 
     .project_thumb.active .cardimgcrop {
-        border: 2px solid #2d86ff;
+        border: 2px solid #00484f;
         -moz-box-shadow: 0px 0px 0px #888888;
         -webkit-box-shadow: 0px 0px 0px #888888;
         box-shadow: 0px 0px 0px #888888;
@@ -724,7 +724,7 @@ body {
     }
     
     .search_title a:hover {
-        color: #2d86ff;
+        color: #00484f;
     }
     
     .search_title a:active {
@@ -926,12 +926,11 @@ body {
 /* In-browser code editing made "almost bearable" by CodeMirror: http://marijn.haverbeke.nl/codemirror
 ***********************************************************************************************************/
 
-* { 
-  -webkit-transition: all 0.3s ease-out; 
-     -moz-transition: all 0.3s ease-out; 
-      -ms-transition: all 0.3s ease-out; 
-       -o-transition: all 0.3s ease-out; 
-          transition: all 0.3s ease-out;
+html, body {
+  height: 100%;
+  min-width: 935px;
+  min-height: 600px;
+  
 }
 
 body { font-family: JosefinSlabRegular, serif; }
@@ -945,18 +944,33 @@ body { font-family: JosefinSlabRegular, serif; }
 .cardimgcrop, .project_thumb .hover .cardimgcrop { border: none; }
 .cardimgcrop { min-width: 200px; min-height: 200px; margin:0px; }
 
-#content_container { width: 935px; }
+#content_container { width: 935px; padding: 40px 20px 20px 20px; }
 #header { width: 915px; }
 
+//.entry { padding-top: 40px; }
+#maincontainer { margin: 0; }
 
+* {
+  -webkit-transition: opacity 0.3s ease-out; 
+     -moz-transition: opacity 0.3s ease-out; 
+      -ms-transition: opacity 0.3s ease-out; 
+       -o-transition: opacity 0.3s ease-out; 
+          transition: opacity 0.3s ease-out;
+}
 
 /* HEADER */ 
 #header{ 
 //  position: static; 
-  margin: 0; 
+//  margin: 0 40px; 
+  margin: 0 auto;
+  margin-top: 20px;
   padding: 0;
-  width: 100%;
+  width: 935px;
   text-align: center;
+  z-index: 10;
+
+  opacity: 0;
+  display:none;
 } 
 .header_img {
   display: inline;
@@ -969,15 +983,32 @@ body { font-family: JosefinSlabRegular, serif; }
 }
 
 .project_link a, .page_link a, .link_link a, .nav_active a {
-    font-size: 18px;
+    font-size: 16px;
+    letter-spacing: .5px;
+    text-transform: lowercase;
 }
 
 #header .page_link#menu_3039903 { display:none; }
 
-.slideshow_nav {
+.slideshow_nav, .slideshow_caption {
   text-transform: lowercase;
   font-family: JosefinSlabRegular, serif; 
   font-size: 14px;
+  clear:none;
+  padding-top: 0;
+}
+
+.slideshow_nav { 
+  width: 30%;
+  float:left;
+  text-align: left;
+}
+.slideshow_caption { 
+  width: 60%;
+  float:right;
+  font-family: JosefinSlabRegular, serif; 
+  font-style: italic;
+  text-align: right;
 }
 .bodycopy .slideshow_nav a {
   text-decoration: none;
@@ -992,6 +1023,13 @@ body { font-family: JosefinSlabRegular, serif; }
 }
 .project_thumb {
   margin-bottom: 20px;
+}
+.project_thumb * { 
+  -webkit-transition: all 0.3s ease-out; 
+     -moz-transition: all 0.3s ease-out; 
+      -ms-transition: all 0.3s ease-out; 
+       -o-transition: all 0.3s ease-out; 
+          transition: all 0.3s ease-out;
 }
 
 .thumb_tag { display: none; }
@@ -1043,14 +1081,99 @@ body { font-family: JosefinSlabRegular, serif; }
   z-index: 0;
 } 
 
-.landing_title {
-  
-    text-indent: -9999px;
-    background-image: url(http://elleeffect.com/cargo/images/landing_title.png);
-    display:block;
-    width: 843px;
-    height: 160px;
-    margin: auto;
-    
+/* Landing page */
+[data-purl=landing] .landing_title {
+  text-indent: -9999px;
+  background-image: url(http://elleeffect.com/cargo/images/landing_title.png);
+  display:block;
+  width: 843px;
+  height: 160px;
+  margin: auto;
 }
-​
+
+[data-purl=landing] #content_container, [data-purl=landing] #maincontainer, [data-purl=landing] .entry, [data-purl=landing] .project_content {
+  position: absolute; 
+  margin: auto;
+  padding: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  min-width: 935px;
+  min-height: 600px;
+}
+
+[data-purl=about] #content_container, [data-purl=about] #maincontainer, [data-purl=about] .entry {
+  position: absolute; 
+  margin: auto;
+  padding: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  min-width: 935px;
+  min-height: 600px;
+}
+
+[data-purl=contact] #content_container, [data-purl=contact] #maincontainer, [data-purl=contact] .entry {
+  position: absolute; 
+  margin: auto;
+  padding: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  min-width: 935px;
+  min-height: 600px;
+}
+
+[data-purl=landing] #header, [data-purl=about] #header, [data-purl=contact] #header {
+  position: absolute;
+  bottom: 40px;
+  margin-left: -467px;
+  left: 50%;
+}
+
+[data-purl=about] .project_content, [data-purl=contact] .project_content {
+  padding-top: 80px;
+  padding-left: 40px;
+  width: 360px;
+  height: 360px;
+}
+
+[data-purl=contact] .project_content {
+  width: 220px;
+}
+ 
+
+.lauren_stonestreet {
+  text-indent: -9999px;
+  background-image: url(http://elleeffect.com/cargo/images/lauren_stonestreet_small.png);
+  display:block;
+  width: 171px;
+  height: 45px;
+  margin-left: -4px;
+//  margin: auto;
+  
+}
+.lauren_stonestreet + br { display:none; }
+
+[data-purl=about] .cargo_link, [data-purl=contact] .cargo_link {
+  background-image: url(http://www.elleeffect.com/cargo/images/blur_bg2.jpg); 
+}
+
+#foot_container { display:none; }
+
+#copyright {
+  position: relative;
+  bottom: 0;
+  padding: 6px 10px;
+  color: #999;
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+[data-purl=about] #copyright, [data-purl=contact] #copyright, [data-purl=landing] #copyright {
+  display:none;
+}
+
